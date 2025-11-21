@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+      - ./seed:/var/data/postgres/seed
+    restart: always
+    command: -c config_file=/etc/postgresql/postgresql.conf
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: dvdrental
+    ports:
+      - "5432:5432"
+    
