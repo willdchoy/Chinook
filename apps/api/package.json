@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"@types/node": "^24.10.1",
 		"nodemon": "^3.1.11",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"@chinook/types": "workspace:1.0.0"
 	}
 }
