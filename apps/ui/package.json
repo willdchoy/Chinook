@@ -1,5 +1,5 @@
 {
-	"name": "chinook-ui",
+	"name": "@chinook/ui",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -34,10 +34,5 @@
 		"vite": "npm:rolldown-vite@7.2.5",
 		"vitest": "^4.0.10",
 		"@chinook/types": "workspace:1.0.0"
-	},
-	"pnpm": {
-		"overrides": {
-			"vite": "npm:rolldown-vite@7.2.5"
-		}
 	}
 }
