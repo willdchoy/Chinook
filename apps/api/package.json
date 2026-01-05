@@ -14,5 +14,9 @@
 	"devDependencies": {
 		"@chinook/types": "workspace:1.0.0",
 		"@types/node": "^24.10.1"
+	},
+	"dependencies": {
+		"@types/pg": "^8.16.0",
+		"pg": "^8.16.3"
 	}
 }

@@ -20,7 +20,7 @@
 				"useConst": "off"
 			},
 			"complexity": {
-				"useLiteralKeys": "info"
+				"useLiteralKeys": "error"
 			}
 		}
 	},

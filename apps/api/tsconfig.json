@@ -22,7 +22,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedIndexedAccess": true,
-		"noPropertyAccessFromIndexSignature": false,
+		"noPropertyAccessFromIndexSignature": true,
 		"noUncheckedSideEffectImports": true,
 		"noEmit": true,
 		"useDefineForClassFields": true,
