@@ -10,8 +10,8 @@ const options = {
 };
 
 const requestListener = (req: IncomingMessage, res: ServerResponse) => {
-	switch (req.url?.slice(1)) {
-		case "albums":
+	switch (req.url) {
+		case "/albums":
 			handleAlbumsRoute(req, res);
 			break;
 

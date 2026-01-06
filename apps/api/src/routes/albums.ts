@@ -1,27 +1,15 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { Client } from "pg";
+import { getAlbums } from "../services/getAlbums.ts";
 
 export async function handleAlbumsRoute(
-	_req: IncomingMessage,
+	req: IncomingMessage,
 	res: ServerResponse,
 ) {
-	const client = new Client({
-		user: "williamchoy",
-		password: "",
-		host: "localhost",
-		port: 5432,
-		database: "chinook",
-	});
-
-	await client.connect();
-
 	try {
-		const response = await client.query('SELECT * from "Artist"');
-		res.end(JSON.stringify(response.rows));
+		res.end(JSON.stringify(await getAlbums()));
 	} catch (e) {
-		console.error("error", e);
-		res.end();
+		console.error(`handleAlbumsRoute: Unable to server route ${req.url}`, e);
+		res.end([]);
 	} finally {
-		await client.end();
 	}
 }

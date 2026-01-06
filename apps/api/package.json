@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "node --watch --env-file=.env ./src/server.ts",
+		"db:psql": "psql -p 5432 -h localhost -U williamchoy -d chinook",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
