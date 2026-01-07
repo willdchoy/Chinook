@@ -6,7 +6,8 @@ export async function getAlbums(): Promise<string | undefined> {
 
 	try {
 		const response = await client.query('SELECT * from "Artist" limit 10');
-		return JSON.stringify(response.rows);
+		const rows = response.rows || [];
+		return JSON.stringify(rows);
 	} catch (e) {
 		console.error("getAlbums failed", e);
 		return "{}";
