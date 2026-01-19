@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
-import { env } from "node:process";
 import { handleAlbumsRoute } from "./routes/albums.ts";
 
 const options = {
@@ -22,8 +21,10 @@ const requestListener = (req: IncomingMessage, res: ServerResponse) => {
 
 try {
 	const server = https.createServer(options, requestListener);
-	server.listen(env.PORT, env.HOST, () => {
-		console.log(`Server is running on ${env.HOST}:${env.PORT}`);
+	server.listen(process.env.API_PORT, process.env.API_HOST, () => {
+		console.log(
+			`Server is running on ${process.env.API_HOST}:${process.env.API_PORT}`,
+		);
 	});
 } catch (e) {
 	console.error("Unable to start web server", e);

@@ -1,0 +1,10 @@
+{
+	"name": "db",
+	"version": "1.0.0",
+	"description": "Repo for Postgres container",
+	"scripts": {
+		"db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
+		"db:start": "docker compose up"
+	},
+	"packageManager": "pnpm@10.6.2"
+}
