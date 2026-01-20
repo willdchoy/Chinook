@@ -7,7 +7,8 @@
 		"dev": "node --watch --env-file=.env ./src/server.ts",
 		"db:migrate": "tsx --env-file=.env ./scripts/migrations/migrate.ts",
 		"db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "node --test ./test/**/*.spec.ts",
+		"test:watch": "node --test --watch ./test/**/*.spec.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,6 +17,10 @@
 	"devDependencies": {
 		"@chinook/types": "workspace:1.0.0",
 		"@types/node": "^24.10.1"
+	},
+	"imports": {
+		"#services/*.ts": "./src/services/*.ts",
+		"#routes/*.ts": "./src/routes/*.ts"
 	},
 	"dependencies": {
 		"@types/pg": "^8.16.0",

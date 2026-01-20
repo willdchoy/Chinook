@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"rootDir": ".",
 		"outDir": "${configDir}/distribution",
 		"module": "node20",
 		"moduleResolution": "node16",

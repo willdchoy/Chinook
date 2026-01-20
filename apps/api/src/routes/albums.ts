@@ -6,9 +6,11 @@ export async function handleAlbumsRoute(
 	res: ServerResponse,
 ) {
 	try {
+		res.writeHead(200);
 		res.end(await getAlbums());
 	} catch (e) {
-		console.error(`handleAlbumsRoute: Unable to serve route ${req.url}`, e);
-		res.end([]);
+		const errorMessage = `handleAlbumsRoute(): Unable to serve route ${req.url}`;
+		console.error(errorMessage, e);
+		res.end(errorMessage);
 	}
 }

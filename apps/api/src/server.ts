@@ -2,20 +2,38 @@ import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
 import { handleAlbumsRoute } from "./routes/albums.ts";
+import { handleDefaultRoute } from "./routes/default.ts";
+import { handleRateLimit } from "./routes/rateLimit.ts";
+import RateLimiter from "./services/rateLimit/rateLImit.ts";
 
 const options = {
 	key: fs.readFileSync("./certs/localhost+2-key.pem"),
 	cert: fs.readFileSync("./certs/localhost+2.pem"),
 };
 
+const rateLimiter = new RateLimiter(3, 1);
+
 const requestListener = (req: IncomingMessage, res: ServerResponse) => {
+	// rate limiter
+	const availableRateLimitTokens = rateLimiter.getTokenCount();
+	if (!rateLimiter.allowRequest()) {
+		handleRateLimit(req, res, availableRateLimitTokens);
+		return;
+	}
+
+	// headers
+	res.setHeader(
+		"X-RateLimit-Limit",
+		`${rateLimiter.getTokenCount()} ${rateLimiter.getTokenCount() === 1 ? "token" : "tokens"} remaining`,
+	);
+
+	// routes
 	switch (req.url) {
 		case "/albums":
 			handleAlbumsRoute(req, res);
 			break;
-
 		default:
-			res.end("ok\n");
+			handleDefaultRoute(req, res);
 	}
 };
 
