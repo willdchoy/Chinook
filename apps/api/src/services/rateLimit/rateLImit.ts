@@ -1,16 +1,15 @@
-import type LeakyBucket from "./LeakyBucket.ts";
-import type TokenBucket from "./TokenBucket.ts";
+import type { AbstractRateLimit, RateLimitStore } from "./types.ts";
 
-type RateLimitStore = TokenBucket | LeakyBucket;
-
-export default class RateLimit {
+/**
+ *
+ */
+export default class RateLimit implements AbstractRateLimit {
 	store: RateLimitStore;
 
 	constructor(store: RateLimitStore) {
 		if (!store) {
 			throw new Error("RateLimitStore must be defined");
 		}
-
 		this.store = store;
 	}
 

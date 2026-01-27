@@ -1,4 +1,9 @@
-export default class LeakyBucket {
+import type { AbstractRateLimit } from "./types.ts";
+
+/**
+ *
+ */
+export default class LeakyBucket implements AbstractRateLimit {
 	capacity;
 	leakRate;
 	bucketSize;
@@ -12,11 +17,11 @@ export default class LeakyBucket {
 	}
 
 	leak(): void {
-		const currentTime = Date.now();
-		const elapsedTime = (currentTime - this.lastUpdated) / 1000;
+		const now = Date.now();
+		const elapsedTime = (now - this.lastUpdated) / 1000;
 		const leakedAmount = Math.floor(elapsedTime * this.leakRate);
 		this.bucketSize = Math.max(0, this.bucketSize - leakedAmount);
-		this.lastUpdated = currentTime;
+		this.lastUpdated = now;
 	}
 
 	allowRequest(): boolean {

@@ -1,23 +1,35 @@
 import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
-import LeakyBucket from "#services/rateLimit/LeakyBucket.ts";
+import FixedWindowCounter from "#services/rateLimit/FixedWindowCounter.ts";
 import { handleAlbumsRoute } from "./routes/albums.ts";
 import { handleDefaultRoute } from "./routes/default.ts";
 import { handleRateLimit } from "./routes/rateLimit.ts";
 import RateLimit from "./services/rateLimit/RateLimit.ts";
+
+const RATE_LIMIT_FIXED_WINDOW_IN_SECONDS = 3600;
+const POSTGRESS_MAX_CONNECTIONS = 100;
+const RATE_LIMIT_DEFAULT_TOKEN_COUNT = 3;
 
 const options = {
 	key: fs.readFileSync("./certs/localhost+2-key.pem"),
 	cert: fs.readFileSync("./certs/localhost+2.pem"),
 };
 
-const rateLimit = new RateLimit(new LeakyBucket(1000, 10));
+const rateLimit = new RateLimit(
+	new FixedWindowCounter(
+		RATE_LIMIT_FIXED_WINDOW_IN_SECONDS,
+		POSTGRESS_MAX_CONNECTIONS,
+	),
+);
 
 const requestListener = (req: IncomingMessage, res: ServerResponse) => {
 	// rate limiter
-	const availableRateLimitTokens = Math.min(rateLimit.getTokenCount(), 3);
-	if (!rateLimit.allowRequest(1)) {
+	const availableRateLimitTokens = Math.min(
+		rateLimit.getTokenCount(),
+		RATE_LIMIT_DEFAULT_TOKEN_COUNT,
+	);
+	if (!rateLimit.allowRequest()) {
 		handleRateLimit(req, res, availableRateLimitTokens);
 		return;
 	}

@@ -1,8 +1,10 @@
+import type { AbstractRateLimit } from "./types.ts";
+
 /**
  * capacity {number} total number of available tokens
  * refillRate {number} number of tokens added per second
  */
-export default class TokenBucket {
+export default class TokenBucket implements AbstractRateLimit {
 	capacity;
 	refillRate;
 	private tokens;
@@ -16,14 +18,11 @@ export default class TokenBucket {
 	}
 
 	refill(): void {
-		const currentTime = Date.now();
-		const elapsedTime = Math.trunc((currentTime - this.lastRefillTime) / 1000);
-
-		if (elapsedTime === 0) return;
-
+		const now = Date.now();
+		const elapsedTime = Math.trunc((now - this.lastRefillTime) / 1000);
 		const newTokens = elapsedTime * this.refillRate;
 		this.tokens = Math.min(this.capacity, this.tokens + newTokens);
-		this.lastRefillTime = Date.now();
+		this.lastRefillTime = now;
 	}
 
 	allowRequest(): boolean {
