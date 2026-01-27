@@ -8,7 +8,8 @@
 		"db:migrate": "tsx --env-file=.env ./scripts/migrations/migrate.ts",
 		"db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
 		"test": "node --test ./test/**/*.spec.ts",
-		"test:watch": "node --test --watch ./test/**/*.spec.ts"
+		"test:watch": "node --test --watch ./test/**/*.spec.ts",
+		"benchmark": "npx autocannon  -c 90 -d 10 -p 1 https://localhost:8000/albums"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,7 +17,8 @@
 	"packageManager": "pnpm@10.6.2",
 	"devDependencies": {
 		"@chinook/types": "workspace:1.0.0",
-		"@types/node": "^24.10.1"
+		"@types/node": "^24.10.1",
+		"autocannon": "^8.0.0"
 	},
 	"imports": {
 		"#services/*.ts": "./src/services/*.ts",

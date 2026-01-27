@@ -1,4 +1,4 @@
-import { createDbClient } from "../db.ts";
+import { createDbClient } from "../lib/db.ts";
 
 export async function getAlbums(): Promise<string | undefined> {
 	const client = createDbClient();
@@ -9,7 +9,9 @@ export async function getAlbums(): Promise<string | undefined> {
 		const rows = response.rows ?? [];
 		return JSON.stringify(rows);
 	} catch (e) {
-		console.error("getAlbums failed", e);
+		console.error("getAlbums(): failed", e);
 		return "{}";
+	} finally {
+		client.end();
 	}
 }

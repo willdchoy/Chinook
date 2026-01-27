@@ -1,22 +1,23 @@
 import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
+import LeakyBucket from "#services/rateLimit/LeakyBucket.ts";
 import { handleAlbumsRoute } from "./routes/albums.ts";
 import { handleDefaultRoute } from "./routes/default.ts";
 import { handleRateLimit } from "./routes/rateLimit.ts";
-import RateLimiter from "./services/rateLimit/rateLImit.ts";
+import RateLimit from "./services/rateLimit/RateLimit.ts";
 
 const options = {
 	key: fs.readFileSync("./certs/localhost+2-key.pem"),
 	cert: fs.readFileSync("./certs/localhost+2.pem"),
 };
 
-const rateLimiter = new RateLimiter(3, 1);
+const rateLimit = new RateLimit(new LeakyBucket(1000, 10));
 
 const requestListener = (req: IncomingMessage, res: ServerResponse) => {
 	// rate limiter
-	const availableRateLimitTokens = rateLimiter.getTokenCount();
-	if (!rateLimiter.allowRequest()) {
+	const availableRateLimitTokens = Math.min(rateLimit.getTokenCount(), 3);
+	if (!rateLimit.allowRequest(1)) {
 		handleRateLimit(req, res, availableRateLimitTokens);
 		return;
 	}
@@ -24,7 +25,7 @@ const requestListener = (req: IncomingMessage, res: ServerResponse) => {
 	// headers
 	res.setHeader(
 		"X-RateLimit-Limit",
-		`${rateLimiter.getTokenCount()} ${rateLimiter.getTokenCount() === 1 ? "token" : "tokens"} remaining`,
+		`${availableRateLimitTokens} ${availableRateLimitTokens === 1 ? "token" : "tokens"} remaining`,
 	);
 
 	// routes

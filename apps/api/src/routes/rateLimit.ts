@@ -14,9 +14,9 @@ export function handleRateLimit(
 		res.writeHead(419, "Too Many Requests", {
 			"content-type": "text/plain",
 		});
-		res.end(`Route not found: ${req.url}\n`);
+		res.end(`419: Too Many Requests`);
 	} catch (e) {
-		console.error(`handleDefaultRoute(): Unable to serve route ${req.url}`, e);
+		console.error(`handleRateLimit(): Unable to serve route ${req.url}`, e);
 		res.end([]);
 	}
 }
