@@ -2,7 +2,7 @@ import assert from "node:assert";
 import test from "node:test";
 import autocannon from "autocannon";
 
-test("RateLimit Benchmark", async (t) => {
+test("RateLimit Benchmark", async () => {
 	const benchmark = await autocannon({
 		url: "https://localhost:8000/albums",
 		connections: 100,

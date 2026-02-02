@@ -3,6 +3,7 @@ import { test } from "node:test";
 import FixedWindowCounter from "#services/rateLimit/FixedWindowCounter.ts";
 import LeakyBucket from "#services/rateLimit/LeakyBucket.ts";
 import RateLimit from "#services/rateLimit/RateLimit.ts";
+import SlidingWindowLog from "#services/rateLimit/SlidingWindowLog.ts";
 import TokenBucket from "#services/rateLimit/TokenBucket.ts";
 
 test("RateLimit", () => {
@@ -111,6 +112,29 @@ test("RateLimit", () => {
 			assert.strictEqual(rateLimiter.allowRequest(), true);
 			assert.strictEqual(rateLimiter.allowRequest(), true);
 			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), false);
+		});
+	});
+
+	test("SlidingWindowLog", (t) => {
+		t.test("should allow the proper number of requests", () => {
+			t.mock.timers.enable({ apis: ["Date"], now: 1000 });
+			const rateLimiter = new RateLimit(new SlidingWindowLog(100, 2));
+
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), false);
+
+			t.mock.timers.tick(100);
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), false);
+
+			t.mock.timers.tick(100);
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+			assert.strictEqual(rateLimiter.allowRequest(), true);
+
+			t.mock.timers.tick(90);
 			assert.strictEqual(rateLimiter.allowRequest(), false);
 		});
 	});

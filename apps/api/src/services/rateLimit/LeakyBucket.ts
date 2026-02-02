@@ -1,9 +1,9 @@
-import type { AbstractRateLimit } from "./types.ts";
+import type { AbstractRateLimitStore } from "./types.ts";
 
 /**
  *
  */
-export default class LeakyBucket implements AbstractRateLimit {
+export default class LeakyBucket implements AbstractRateLimitStore {
 	capacity;
 	leakRate;
 	bucketSize;

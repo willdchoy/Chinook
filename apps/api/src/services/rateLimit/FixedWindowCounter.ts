@@ -1,9 +1,9 @@
-import type { AbstractRateLimit } from "./types.ts";
+import type { AbstractRateLimitStore } from "./types.ts";
 
 /**
  *
  */
-export default class FixedWindowCounter implements AbstractRateLimit {
+export default class FixedWindowCounter implements AbstractRateLimitStore {
 	windowSize;
 	maxRequests;
 	requests;
