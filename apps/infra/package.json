@@ -1,0 +1,16 @@
+{
+	"name": "infra",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev:build": "./scripts/dev-build.sh",
+		"dev:destroy": "./scripts/dev-destroy.sh",
+		"prod:build": "./scripts/prod-build.sh",
+		"prod:destroy": "./scripts/prod-destroy.sh"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.6.2"
+}
