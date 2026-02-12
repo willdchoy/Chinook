@@ -1,0 +1,1 @@
+variable "principle_arn" {}

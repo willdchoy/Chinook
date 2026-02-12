@@ -3,6 +3,14 @@
 	"version": "1.0.0",
 	"description": "",
 	"type": "module",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.6.2",
+	"imports": {
+		"#services/*.ts": "./src/services/*.ts",
+		"#routes/*.ts": "./src/routes/*.ts"
+	},
 	"scripts": {
 		"dev": "node --watch --env-file=.env ./src/server.ts",
 		"db:migrate": "tsx --env-file=.env ./scripts/migrations/migrate.ts",
@@ -12,24 +20,16 @@
 		"test:benchmark": "node --test --watch ./test/**/*.benchmark.ts",
 		"benchmark": "npx autocannon  -c 90 -d 10 -p 1 https://localhost:8000/albums"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"packageManager": "pnpm@10.6.2",
+	"dependencies": {
+		"pg": "^8.16.3",
+		"postgrator": "^8.0.0",
+		"tsx": "^4.21.0"
+	},
 	"devDependencies": {
 		"@chinook/types": "workspace:1.0.0",
 		"@types/autocannon": "^7.12.7",
 		"@types/node": "^24.10.1",
 		"@types/pg": "^8.16.0",
 		"autocannon": "^8.0.0"
-	},
-	"imports": {
-		"#services/*.ts": "./src/services/*.ts",
-		"#routes/*.ts": "./src/routes/*.ts"
-	},
-	"dependencies": {
-		"pg": "^8.16.3",
-		"postgrator": "^8.0.0",
-		"tsx": "^4.21.0"
 	}
 }
