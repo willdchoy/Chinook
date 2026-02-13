@@ -17,8 +17,7 @@
 		"prod:destroy": "./scripts/prod-destroy.sh && pnpm tf:delete",
 		"prod:init": "pnpm tf:delete && ./scripts/prod-init.sh",
 		"prod:plan": "./scripts/prod-plan.sh",
-		"prod:start": "pnpm localstack:start && pnpm prod:init && pnpm prod:apply:assumed-role && pnpm prod:apply",
-		"prod:restart": "pnpm localstack:reset && pnpm prod:start",
+		"prod:start": "pnpm prod:init && pnpm prod:apply:assumed-role && pnpm prod:apply",
 
 		"tf:delete": "./scripts/tf-delete.sh",
 		"tf:reset": "pnpm localstack:reset && pnpm tf:delete",
