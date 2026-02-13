@@ -20,3 +20,7 @@ module "s3_bucket" {
   source = "./modules/s3"
   bucket = "${var.s3_bucket}"
 }
+
+module "ec2_api-server" {
+  source = "./modules/e2c-api-server"
+}

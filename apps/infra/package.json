@@ -4,10 +4,26 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev:build": "./scripts/dev-build.sh",
-		"dev:destroy": "./scripts/dev-destroy.sh",
-		"prod:build": "./scripts/prod-build.sh",
-		"prod:destroy": "./scripts/prod-destroy.sh"
+		"dev:apply": "./scripts/dev-apply.sh",
+		"dev:apply:assumed-role": "./scripts/dev-apply-assume-role.sh",
+		"dev:destroy": "./scripts/dev-destroy.sh && pnpm tf:delete",
+		"dev:init": "./scripts/dev-init.sh",
+		"dev:plan": "./scripts/dev-plan.sh",
+		"dev:start": "pnpm localstack:start && pnpm dev:init && pnpm dev:apply:assumed-role && pnpm dev:apply",
+		"dev:restart": "pnpm localstack:reset && pnpm dev:start",
+
+		"prod:apply": "./scripts/prod-apply.sh",
+		"prod:apply:assumed-role": "./scripts/prod-apply-assume-role.sh",
+		"prod:destroy": "./scripts/prod-destroy.sh && pnpm tf:delete",
+		"prod:init": "./scripts/prod-init.sh",
+		"prod:plan": "./scripts/prod-plan.sh",
+		"prod:start": "pnpm localstack:start && pnpm prod:init && pnpm prod:apply:assumed-role && pnpm prod:apply",
+		"prod:restart": "pnpm localstack:reset && pnpm prod:start",
+
+		"tf:delete": "./scripts/tf-delete.sh",
+		"tf:reset": "pnpm localstack:reset && pnpm tf:delete",
+		"localstack:reset": "./scripts/localstack-reset.sh",
+		"localstack:start": "./scripts/localstack-start.sh"
 	},
 	"keywords": [],
 	"author": "",

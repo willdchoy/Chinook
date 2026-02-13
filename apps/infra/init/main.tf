@@ -31,7 +31,8 @@ data "aws_iam_policy_document" "terraform_policy" {
     effect    = "Allow"
     actions   = [
       "s3:*",
-      "iam:*"
+      "iam:*",
+      "ec2:*"
       ]
     resources = ["*"]
   }

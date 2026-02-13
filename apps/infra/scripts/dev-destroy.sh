@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd core
 tflocal destroy --var-file="./env/dev.tfvars" --auto-approve
 

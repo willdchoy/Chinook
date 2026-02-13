@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd core
 terraform destroy --var-file="./env/prod.tfvars" --auto-approve
 
