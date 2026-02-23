@@ -13,7 +13,7 @@ provider "aws" {
 
 resource "aws_iam_role" "Terraform" {
   name = "Terraform"
-  
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -24,23 +24,31 @@ resource "aws_iam_role" "Terraform" {
       }
     }]
   })
+
+  tags = {
+    name        = "ch-${var.env}-role-terraform"
+    env         = "${var.env}"
+    aws_service = "iam"
+    ch_service  = "ch-${var.env}-terraform"
+  }
 }
 
 data "aws_iam_policy_document" "terraform_policy" {
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "s3:*",
       "iam:*",
-      "ec2:*"
-      ]
+      "ec2:*",
+      "vpc:*"
+    ]
     resources = ["*"]
   }
 }
 
 resource "aws_iam_policy" "terraform_policy" {
-  name        = "Terraform"
-  policy      = data.aws_iam_policy_document.terraform_policy.json
+  name   = "Terraform"
+  policy = data.aws_iam_policy_document.terraform_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "terraform_attach" {

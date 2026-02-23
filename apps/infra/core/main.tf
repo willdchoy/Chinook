@@ -16,11 +16,19 @@ provider "aws" {
   }
 }
 
-module "s3_bucket" {
-  source = "./modules/s3"
-  bucket = "${var.s3_bucket}"
+module "ch_vpc_main" {
+  source = "./modules/vpc"
+  env    = var.env
 }
 
-module "ec2_api-server" {
-  source = "./modules/e2c-api-server"
+module "ch_ec2_api-server" {
+  source    = "./modules/e2c-api-server"
+  env       = var.env
+  subnet_id = module.ch_vpc_main.subnet_id
+}
+
+module "ch_s3_bucket" {
+  source = "./modules/s3"
+  bucket = var.s3_bucket
+  env    = var.env
 }

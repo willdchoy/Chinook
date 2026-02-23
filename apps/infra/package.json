@@ -9,7 +9,7 @@
 		"dev:destroy": "./scripts/dev-destroy.sh && pnpm tf:delete",
 		"dev:init": "pnpm tf:delete && ./scripts/dev-init.sh",
 		"dev:plan": "./scripts/dev-plan.sh",
-		"dev:start": "pnpm localstack:start && pnpm dev:init && pnpm dev:apply:assumed-role && pnpm dev:apply",
+		"dev:start": "pnpm localstack:start && pnpm tf:format && pnpm dev:init && pnpm dev:apply:assumed-role && pnpm dev:apply",
 		"dev:restart": "pnpm localstack:reset && pnpm dev:start",
 
 		"prod:apply": "./scripts/prod-apply.sh",
@@ -17,9 +17,10 @@
 		"prod:destroy": "./scripts/prod-destroy.sh && pnpm tf:delete",
 		"prod:init": "pnpm tf:delete && ./scripts/prod-init.sh",
 		"prod:plan": "./scripts/prod-plan.sh",
-		"prod:start": "pnpm prod:init && pnpm prod:apply:assumed-role && pnpm prod:apply",
+		"prod:start": "pnpm tf:format && pnpm prod:init && pnpm prod:apply",
 
 		"tf:delete": "./scripts/tf-delete.sh",
+		"tf:format": "terraform fmt --recursive",
 		"tf:reset": "pnpm localstack:reset && pnpm tf:delete",
 		"localstack:reset": "./scripts/localstack-reset.sh",
 		"localstack:start": "./scripts/localstack-start.sh"
