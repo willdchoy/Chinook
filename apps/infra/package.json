@@ -17,7 +17,7 @@
 		"prod:destroy": "./scripts/prod-destroy.sh && pnpm tf:delete",
 		"prod:init": "pnpm tf:delete && ./scripts/prod-init.sh",
 		"prod:plan": "./scripts/prod-plan.sh",
-		"prod:start": "pnpm tf:format && pnpm prod:init && pnpm prod:apply",
+		"prod:start": "pnpm pnpm tf:format && pnpm prod:init && pnpm prod:apply",
 
 		"tf:delete": "./scripts/tf-delete.sh",
 		"tf:format": "terraform fmt --recursive",
