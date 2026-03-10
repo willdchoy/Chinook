@@ -1,0 +1,20 @@
+import type FixedWindow from "./lib/FixedWindowCounter.ts";
+import type LeakyBucket from "./lib/LeakyBucket.ts";
+import type SlidingWindowLog from "./lib/SlidingWindowLog.ts";
+import type TokenBucket from "./lib/TokenBucket.ts";
+
+export type RateLimitStore =
+  | TokenBucket
+  | LeakyBucket
+  | FixedWindow
+  | SlidingWindowLog;
+
+export abstract class AbstractRateLimit {
+  abstract allowRequest(): boolean;
+  abstract getTokenCount(): number;
+}
+
+export abstract class AbstractRateLimitStore {
+  abstract allowRequest(): boolean;
+  abstract getTokenCount(): number;
+}

@@ -1,10 +1,10 @@
 import assert from "node:assert";
 import { test } from "node:test";
-import FixedWindowCounter from "#services/rateLimit/FixedWindowCounter.ts";
-import LeakyBucket from "#services/rateLimit/LeakyBucket.ts";
-import RateLimit from "#services/rateLimit/RateLimit.ts";
-import SlidingWindowLog from "#services/rateLimit/SlidingWindowLog.ts";
-import TokenBucket from "#services/rateLimit/TokenBucket.ts";
+import FixedWindowCounter from "#app/rateLimit/libs/FixedWindowCounter.ts";
+import LeakyBucket from "#app/rateLimit/libs/LeakyBucket.ts";
+import SlidingWindowLog from "#app/rateLimit/libs/SlidingWindowLog.ts";
+import TokenBucket from "#app/rateLimit/libs/TokenBucket.ts";
+import RateLimit from "#app/rateLimit/services/RateLimit.ts";
 
 test("RateLimit", () => {
   test("TokenStore", (t) => {

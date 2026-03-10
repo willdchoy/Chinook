@@ -4,7 +4,8 @@
   "description": "Repo for Postgres container",
   "scripts": {
     "db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
-    "db:start": "docker compose up -d"
+    "db:start": "docker compose up -d",
+    "db:destroy": "./scripts/db-destroy.sh"
   },
   "packageManager": "pnpm@10.6.2"
 }

@@ -8,16 +8,14 @@
   "license": "ISC",
   "packageManager": "pnpm@10.6.2",
   "imports": {
-    "#services/*.ts": "./src/services/*.ts",
-    "#routes/*.ts": "./src/routes/*.ts"
+    "#app/*.ts": "./src/*.ts"
   },
   "scripts": {
     "dev": "node --watch --env-file=.env ./src/server.ts",
     "db:migrate": "tsx --env-file=.env ./scripts/migrations/migrate.ts",
     "db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
-    "db:start": "pnpm db:run && sleep 3s && pnpm db:migrate",
-    "db:stop": "./scripts/db-destroy.sh",
-    "db:run": "pnpm --dir ../db run db:start",
+    "db:start": "pnpm --dir ../db run db:start && sleep 3s && pnpm db:migrate",
+    "db:destroy": "pnpm --dir ../db run db:destroy",
     "test": "node --test ./test/**/*.spec.ts",
     "test:watch": "node --test --watch ./test/**/*.spec.ts",
     "test:benchmark": "node --test --watch ./test/**/*.benchmark.ts",
