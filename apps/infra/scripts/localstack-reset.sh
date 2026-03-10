@@ -1,4 +1,7 @@
 #!/bin/bash
 
-localstack stop
-docker image rm localstack/localstack:latest
+CONTAINER_NAME="localstack-main"
+
+if [ -n "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
+  docker stop $CONTAINER_NAME
+fi

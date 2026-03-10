@@ -7,135 +7,135 @@ import SlidingWindowLog from "#services/rateLimit/SlidingWindowLog.ts";
 import TokenBucket from "#services/rateLimit/TokenBucket.ts";
 
 test("RateLimit", () => {
-	test("TokenStore", (t) => {
-		t.test("should allow the proper number of requests", () => {
-			t.mock.timers.enable({ apis: ["Date"], now: 1000 });
-			const rateLimiter = new RateLimit(new TokenBucket(5, 1));
+  test("TokenStore", (t) => {
+    t.test("should allow the proper number of requests", () => {
+      t.mock.timers.enable({ apis: ["Date"], now: 1000 });
+      const rateLimiter = new RateLimit(new TokenBucket(5, 1));
 
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(1000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(1000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(2000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(2000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(7000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(7000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(3000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
-		});
-	});
+      t.mock.timers.tick(3000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
+    });
+  });
 
-	test("LeakyBucket", (t) => {
-		t.test("should allow the proper number of requests", () => {
-			t.mock.timers.enable({ apis: ["Date"], now: 0 });
-			const rateLimiter = new RateLimit(new LeakyBucket(5, 1));
+  test("LeakyBucket", (t) => {
+    t.test("should allow the proper number of requests", () => {
+      t.mock.timers.enable({ apis: ["Date"], now: 0 });
+      const rateLimiter = new RateLimit(new LeakyBucket(5, 1));
 
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(1000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(1000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(2000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(2000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(7000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(7000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(3000);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
-		});
-	});
+      t.mock.timers.tick(3000);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
+    });
+  });
 
-	test("FixedWindowCounter", (t) => {
-		t.test("should allow the proper number of requests", () => {
-			t.mock.timers.enable({ apis: ["Date"], now: 0 });
-			const rateLimiter = new RateLimit(new FixedWindowCounter(3600, 5));
+  test("FixedWindowCounter", (t) => {
+    t.test("should allow the proper number of requests", () => {
+      t.mock.timers.enable({ apis: ["Date"], now: 0 });
+      const rateLimiter = new RateLimit(new FixedWindowCounter(3600, 5));
 
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(3600);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(3600);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(3600);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
+      t.mock.timers.tick(3600);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
 
-			t.mock.timers.tick(3600);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
-		});
-	});
+      t.mock.timers.tick(3600);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
+    });
+  });
 
-	test("SlidingWindowLog", (t) => {
-		t.test("should allow the proper number of requests", () => {
-			t.mock.timers.enable({ apis: ["Date"], now: 1000 });
-			const rateLimiter = new RateLimit(new SlidingWindowLog(100, 2));
+  test("SlidingWindowLog", (t) => {
+    t.test("should allow the proper number of requests", () => {
+      t.mock.timers.enable({ apis: ["Date"], now: 1000 });
+      const rateLimiter = new RateLimit(new SlidingWindowLog(100, 2));
 
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(100);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
+      t.mock.timers.tick(100);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
 
-			t.mock.timers.tick(100);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
-			assert.strictEqual(rateLimiter.allowRequest(), true);
+      t.mock.timers.tick(100);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
+      assert.strictEqual(rateLimiter.allowRequest(), true);
 
-			t.mock.timers.tick(90);
-			assert.strictEqual(rateLimiter.allowRequest(), false);
-		});
-	});
+      t.mock.timers.tick(90);
+      assert.strictEqual(rateLimiter.allowRequest(), false);
+    });
+  });
 });
