@@ -1,5 +1,6 @@
+name: ch
 services:
-  ch-db:
+  db:
     image: postgres
     restart: always
     environment:

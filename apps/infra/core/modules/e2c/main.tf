@@ -4,9 +4,8 @@ resource "aws_instance" "ch_ec2" {
   subnet_id     = var.subnet_id
 
   tags = {
-    Name        = var.name
-    env         = "${var.env}"
-    aws_service = "ec2/instance"
-    ch_service  = var.ch_service
+    Name       = var.name
+    env        = "${var.env}"
+    ch_service = var.ch_service
   }
 }

@@ -3,9 +3,8 @@ resource "aws_subnet" "ch_subnet" {
   cidr_block = var.cidr_block
 
   tags = {
-    Name        = var.name
-    env         = "${var.env}"
-    aws_service = "vpc/subnet"
-    ch_service  = var.ch_service
+    Name       = var.name
+    env        = "${var.env}"
+    ch_service = var.ch_service
   }
 }

@@ -17,3 +17,7 @@ variable "zone2" {
 variable "pub_key" {
   default = "YOUR_KEY"
 }
+
+variable "ch_api" {
+  default = "ch-api"
+}

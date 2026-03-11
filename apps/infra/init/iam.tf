@@ -13,10 +13,9 @@ resource "aws_iam_role" "Terraform" {
   })
 
   tags = {
-    Name        = "ch-${var.env}-iam-role-terraform"
-    env         = "${var.env}"
-    aws_service = "iam/role"
-    ch_service  = "terraform"
+    Name       = "ch-${var.env}-iam-role-terraform"
+    env        = "${var.env}"
+    ch_service = "terraform"
   }
 }
 
@@ -37,10 +36,9 @@ resource "aws_iam_policy" "terraform_policy" {
   policy = data.aws_iam_policy_document.terraform_policy.json
 
   tags = {
-    Name        = "ch-${var.env}-iam-policy-terraform"
-    env         = "${var.env}"
-    aws_service = "iam/policy"
-    ch_service  = "terraform"
+    Name       = "ch-${var.env}-iam-policy-terraform"
+    env        = "${var.env}"
+    ch_service = "terraform"
   }
 }
 

@@ -2,10 +2,9 @@ resource "aws_vpc" "ch_vpc_main" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name        = "ch-${var.env}-vpc-main"
-    env         = var.env
-    aws_service = "vpc"
-    ch_service  = "network"
+    Name       = "ch-${var.env}-vpc-main"
+    env        = var.env
+    ch_service = var.ch_api
   }
 }
 
@@ -15,17 +14,16 @@ module "ch_subnet" {
   env        = var.env
   cidr_block = "10.0.1.0/24"
   vpc_id     = aws_vpc.ch_vpc_main.id
-  ch_service = "ch-api"
+  ch_service = var.ch_api
 }
 
 resource "aws_internet_gateway" "ch_igw" {
   vpc_id = aws_vpc.ch_vpc_main.id
 
   tags = {
-    Name = "ch-${var.env}-igw-01"
-    env  = var.env
-    aws_service : "igw",
-    ch_service : "ch-api"
+    Name       = "ch-${var.env}-igw-01"
+    env        = var.env
+    ch_service = var.ch_api
   }
 }
 
@@ -37,10 +35,9 @@ resource "aws_route_table" "ch_public_rt" {
   }
 
   tags = {
-    Name = "ch-${var.env}-igw-01"
-    env  = var.env
-    aws_service : "igw",
-    ch_service : "ch-api"
+    Name       = "ch-${var.env}-rt-01"
+    env        = var.env
+    ch_service = var.ch_api
   }
 }
 

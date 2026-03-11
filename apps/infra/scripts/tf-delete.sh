@@ -6,13 +6,13 @@ remove_terraform_dir () {
 
 remove_terraform_files () {
 
-  if [ -f ".terraform.lock.hcl" ] ; then
+  if [[ -f ".terraform.lock.hcl" ]] ; then
     rm ".terraform.lock.hcl"
   fi
-  if [ -f "terraform.tfstate.backup" ] ; then
+  if [[ -f "terraform.tfstate.backup" ]] ; then
     rm "terraform.tfstate.backup"
   fi
-  if [ -f "terraform.tfstate" ] ; then
+  if [[ -f "terraform.tfstate" ]] ; then
     rm "terraform.tfstate"
   fi
 }
@@ -24,3 +24,5 @@ remove_terraform_files
 cd ../core
 remove_terraform_dir
 remove_terraform_files
+
+exit 0

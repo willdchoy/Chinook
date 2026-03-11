@@ -5,3 +5,5 @@ tflocal plan --var-file="./env/dev.tfvars"
 
 cd ../core
 tflocal plan --var-file="./env/dev.tfvars"
+
+exit 0
