@@ -26,6 +26,7 @@ data "aws_iam_policy_document" "terraform_policy" {
       "s3:*",
       "iam:*",
       "ec2:*",
+      "servicecatalog:*"
     ]
     resources = ["*"]
   }

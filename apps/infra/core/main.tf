@@ -9,6 +9,7 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+  alias  = "application"
 
   assume_role {
     role_arn     = "arn:aws:iam::${var.account_id}:role/Terraform"
