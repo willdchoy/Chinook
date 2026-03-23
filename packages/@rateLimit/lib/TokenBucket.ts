@@ -1,10 +1,10 @@
-import type { AbstractRateLimitStore } from "../services/types.ts";
+import type { AbstractRateLimitStore } from "../types.ts";
 
 /**
  * capacity {number} total number of available tokens
  * refillRate {number} number of tokens added per second
  */
-export default class TokenBucket implements AbstractRateLimitStore {
+export class TokenBucket implements AbstractRateLimitStore {
   capacity;
   refillRate;
   private tokens;

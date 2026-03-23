@@ -1,6 +1,6 @@
-import type { AbstractRateLimitStore } from "../services/types.ts";
+import type { AbstractRateLimitStore } from "../types.ts";
 
-export default class SlidingWindowLog implements AbstractRateLimitStore {
+export class SlidingWindowLog implements AbstractRateLimitStore {
   windowSize;
   maxRequests;
   requests: number[] = [];
@@ -12,18 +12,12 @@ export default class SlidingWindowLog implements AbstractRateLimitStore {
 
   allowRequest() {
     const now = Date.now();
-    console.log(
-      (this.requests[0] || 0) < now - this.windowSize,
-      this.requests[0],
-      now - this.windowSize,
-    );
 
     while (
       this.requests.length > 0 &&
       this.requests[0] &&
       (this.requests[0] || 0) <= now - this.windowSize
     ) {
-      console.log("here...");
       this.requests.shift();
     }
 

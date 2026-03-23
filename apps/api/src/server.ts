@@ -1,15 +1,15 @@
 import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
-import { handleAlbumsRoute } from "#app/music/routes/albums.ts";
-import FixedWindowCounter from "#app/rateLimit/lib/FixedWindowCounter.ts";
-import { handleRateLimit } from "#app/rateLimit/routes/rateLimit.ts";
-import RateLimit from "#app/rateLimit/services/RateLimit.ts";
-import { handleDefaultRoute } from "#app/root/routes/default.ts";
+import { FixedWindowCounter } from "@chinook/rateLimit/lib/FixedWindowCounter.ts";
+import { handleRateLimit } from "@chinook/rateLimit/routes/rateLimit.ts";
+import { RateLimit } from "@chinook/rateLimit/services/RateLimit.ts";
+import { handleAlbumsRoute } from "#features/music/routes/albums.ts";
+import { handleDefaultRoute } from "#features/root/routes/default.ts";
 
 const RATE_LIMIT_FIXED_WINDOW_IN_SECONDS = 3600;
-const POSTGRESS_MAX_CONNECTIONS = 100;
 const RATE_LIMIT_DEFAULT_TOKEN_COUNT = 3;
+const POSTGRESS_MAX_CONNECTIONS = 100;
 
 const options = {
   key: fs.readFileSync("./certs/localhost+2-key.pem"),
@@ -29,6 +29,8 @@ const requestListener = (req: IncomingMessage, res: ServerResponse) => {
     rateLimit.getTokenCount(),
     RATE_LIMIT_DEFAULT_TOKEN_COUNT,
   );
+  console.log(availableRateLimitTokens);
+
   if (!rateLimit.allowRequest()) {
     handleRateLimit(req, res, availableRateLimitTokens);
     return;
