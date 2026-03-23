@@ -4,7 +4,7 @@ import { FixedWindowCounter } from "../../../lib/FixedWindowCounter.ts";
 import { LeakyBucket } from "../../../lib/LeakyBucket.ts";
 import { SlidingWindowLog } from "../../../lib/SlidingWindowLog.ts";
 import { TokenBucket } from "../../../lib/TokenBucket.ts";
-import { RateLimit } from "../../../services/RateLimit.ts";
+import RateLimit from "../../../services/RateLimit.ts";
 
 test("RateLimit", () => {
   test("TokenStore", (t) => {

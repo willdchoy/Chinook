@@ -1,59 +1,24 @@
 import fs from "node:fs";
-import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
-import { FixedWindowCounter } from "@chinook/rateLimit/lib/FixedWindowCounter.ts";
-import { handleRateLimit } from "@chinook/rateLimit/routes/rateLimit.ts";
-import { RateLimit } from "@chinook/rateLimit/services/RateLimit.ts";
-import { handleAlbumsRoute } from "#features/music/routes/albums.ts";
-import { handleDefaultRoute } from "#features/root/routes/default.ts";
-
-const RATE_LIMIT_FIXED_WINDOW_IN_SECONDS = 3600;
-const RATE_LIMIT_DEFAULT_TOKEN_COUNT = 3;
-const POSTGRESS_MAX_CONNECTIONS = 100;
+import App from "./app.ts";
 
 const options = {
   key: fs.readFileSync("./certs/localhost+2-key.pem"),
   cert: fs.readFileSync("./certs/localhost+2.pem"),
 };
 
-const rateLimit = new RateLimit(
-  new FixedWindowCounter(
-    RATE_LIMIT_FIXED_WINDOW_IN_SECONDS,
-    POSTGRESS_MAX_CONNECTIONS,
-  ),
-);
-
-const requestListener = (req: IncomingMessage, res: ServerResponse) => {
-  // rate limiter
-  const availableRateLimitTokens = Math.min(
-    rateLimit.getTokenCount(),
-    RATE_LIMIT_DEFAULT_TOKEN_COUNT,
-  );
-  console.log(availableRateLimitTokens);
-
-  if (!rateLimit.allowRequest()) {
-    handleRateLimit(req, res, availableRateLimitTokens);
-    return;
-  }
-
-  // headers
-  res.setHeader(
-    "X-RateLimit-Limit",
-    `${availableRateLimitTokens} ${availableRateLimitTokens === 1 ? "token" : "tokens"} remaining`,
-  );
-
-  // routes
-  switch (req.url) {
-    case "/albums":
-      handleAlbumsRoute(req, res);
-      break;
-    default:
-      handleDefaultRoute(req, res);
-  }
-};
+function log(req, res, next) {
+  console.log("logging!!!!");
+  next();
+}
 
 try {
-  const server = https.createServer(options, requestListener);
+  const app = new App();
+
+  app.use([log]);
+
+  const server = https.createServer(options, app.handleRequests);
+
   server.listen(process.env.API_PORT, process.env.API_HOST, () => {
     console.log(
       `Server is running on ${process.env.API_HOST}:${process.env.API_PORT}`,

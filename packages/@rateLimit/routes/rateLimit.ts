@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-export function handleRateLimit(
+export function handleRateLimitRoute(
   req: IncomingMessage,
   res: ServerResponse,
   availableRateLimitTokens: number,

@@ -2,7 +2,7 @@
   "name": "@chinook/ratelimit",
   "version": "1.0.0",
   "description": "Rate limiter for api or igw.",
-  "main": "index.js",
+  "main": "./services/ratelimit.ts",
   "type": "module",
   "scripts": {
     "test": "node --test ./test/**/*.spec.ts",

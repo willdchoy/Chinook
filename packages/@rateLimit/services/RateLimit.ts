@@ -3,7 +3,7 @@ import type { AbstractRateLimit, RateLimitStore } from "../types.ts";
 /**
  *
  */
-export class RateLimit implements AbstractRateLimit {
+export default class RateLimit implements AbstractRateLimit {
   store: RateLimitStore;
 
   constructor(store: RateLimitStore) {
