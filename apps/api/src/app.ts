@@ -45,13 +45,12 @@ export default class App implements ApiServer {
 
     const next = (err?: unknown) => {
       if (err) return callback(err);
-
       const fn = this.middleware[idx++];
       if (!fn) return callback(err);
       fn(req, res, next);
     };
 
-    next.call(this);
+    next();
   };
 
   handleRequests = (req: IncomingMessage, res: ServerResponse) => {

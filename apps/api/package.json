@@ -10,7 +10,8 @@
   "imports": {
     "#app/*.ts": "./src/*.ts",
     "#features/*.ts": "./src/features/*.ts",
-    "#common/*.ts": "./src/common/*.ts"
+    "#common/*.ts": "./src/common/*.ts",
+    "#middleware": "./src/middleware/index.ts"
   },
   "scripts": {
     "dev": "node --watch --env-file=.env ./src/server.ts",

@@ -1,4 +1,4 @@
-import { createDbClient } from "#common/lib/db.ts";
+import { createDbClient } from "#app/features/common/lib/db.ts";
 
 export async function getAlbums(): Promise<string | undefined> {
   const client = createDbClient();
