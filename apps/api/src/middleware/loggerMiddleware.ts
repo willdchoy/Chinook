@@ -5,31 +5,32 @@ import { fileURLToPath } from "node:url";
 
 export default function loggerMiddleware(
   req: IncomingMessage,
-  _res: ServerResponse,
+  res: ServerResponse,
   next: (err?: unknown) => void,
 ) {
   const { rawHeaders, httpVersion, method, socket, url } = req;
   const { remoteAddress, remoteFamily } = socket;
 
-  console.log(
-    JSON.stringify({
+  const filePath = path.join(
+    dirname(fileURLToPath(import.meta.url)),
+    "../../logs",
+    `ch-api-${new Date().toISOString().split("T")[0]}.log`,
+  );
+
+  res.on("finish", () => {
+    const message = `${JSON.stringify({
       timestamp: Date.now(),
-      rawHeaders,
-      httpVersion,
+      statusCode: res.statusCode,
+      url,
       method,
       remoteAddress,
       remoteFamily,
-      url,
-    }),
-  );
+      httpVersion,
+      rawHeaders,
+    })}\n`;
 
-  // const filePath = path.join(
-  //   dirname(fileURLToPath(import.meta.url)),
-  //   "../../logs",
-  //   `${new Date().toISOString().split("T")[0]}`,
-  // );
-  // const message = `${new Date().toISOString().replace("T", " ")} :: ${req.method} :: ${req.url}\n`;
+    fs.appendFileSync(filePath, message);
+  });
 
-  // fs.appendFileSync(filePath, message);
   next();
 }

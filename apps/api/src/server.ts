@@ -13,6 +13,7 @@ try {
   app.use([debuggerMiddleware, loggerMiddleware]);
 
   const server = https.createServer(options, app.handleRequests);
+
   server.listen(process.env.API_PORT, process.env.API_HOST, () => {
     console.log(
       `Server is running on ${process.env.API_HOST}:${process.env.API_PORT}`,
