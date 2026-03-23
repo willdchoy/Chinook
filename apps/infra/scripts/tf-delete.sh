@@ -5,16 +5,17 @@ remove_terraform_dir () {
 }
 
 remove_terraform_files () {
+  files=(
+    ".terraform.lock.hcl" 
+    "terraform.tfstate.backup" 
+    "terraform.tfstate"
+  )
 
-  if [[ -f ".terraform.lock.hcl" ]] ; then
-    rm ".terraform.lock.hcl"
-  fi
-  if [[ -f "terraform.tfstate.backup" ]] ; then
-    rm "terraform.tfstate.backup"
-  fi
-  if [[ -f "terraform.tfstate" ]] ; then
-    rm "terraform.tfstate"
-  fi
+  for f in "${files[@]}"; do
+    if [[ -f "$f" ]]; then
+      rm -f "$f"
+    fi
+  done
 }
 
 cd init

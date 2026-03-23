@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import https from "node:https";
-import { handleAlbumsRoute } from "#app/product/routes/albums.ts";
+import { handleAlbumsRoute } from "#app/music/routes/albums.ts";
 import FixedWindowCounter from "#app/rateLimit/lib/FixedWindowCounter.ts";
 import { handleRateLimit } from "#app/rateLimit/routes/rateLimit.ts";
 import RateLimit from "#app/rateLimit/services/RateLimit.ts";
