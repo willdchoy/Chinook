@@ -4,7 +4,7 @@ import {
   Http2ServerRequest,
   Http2ServerResponse,
 } from 'node:http2'
-import { debuggerMiddleware, loggerMiddleware } from '#middleware'
+import { coreHeadersMiddleware, loggerMiddleware } from '#middleware'
 import App from './app.ts'
 
 const options = {
@@ -14,7 +14,7 @@ const options = {
 
 try {
   const app = new App()
-  app.use([debuggerMiddleware, loggerMiddleware])
+  app.use([loggerMiddleware, coreHeadersMiddleware])
 
   const http2Handlers = (
     req: Http2ServerRequest,

@@ -3,6 +3,13 @@ import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+class LoggingError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'LoggingError'
+  }
+}
+
 export default function loggerMiddleware(
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
@@ -19,6 +26,7 @@ export default function loggerMiddleware(
 
   res.once('finish', () => {
     const message = `${JSON.stringify({
+      user: req.headers['user-agent']?.split('/')[0],
       timestamp: Date.now(),
       statusCode: res.statusCode,
       url,
@@ -29,7 +37,15 @@ export default function loggerMiddleware(
       rawHeaders,
     })}\n`
 
-    fs.appendFileSync(filePath, message)
+    try {
+      fs.appendFile(filePath, message, (err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+    } catch (err) {
+      console.error('loggerMiddleware', err)
+    }
   })
 
   next()

@@ -1,6 +1,6 @@
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
-export function handleDefaultRoute(
+export function handleNotFound(
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
 ) {

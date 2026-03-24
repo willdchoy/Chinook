@@ -5,5 +5,6 @@ export default function debuggerMiddleware(
   _res: Http2ServerResponse<Http2ServerRequest>,
   next: (err?: unknown) => void,
 ) {
+  console.log('Debugging...')
   next()
 }

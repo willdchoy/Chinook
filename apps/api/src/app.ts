@@ -1,5 +1,6 @@
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
+import { handleNotFound } from './features/notFound/routes/notFound.ts'
 
 type Middleware = (
   req: Http2ServerRequest,
@@ -65,6 +66,7 @@ export default class App implements ApiServer {
           handleAlbumsRoute(req, res)
           break
         default:
+          handleNotFound(req, res)
       }
     })
   }
