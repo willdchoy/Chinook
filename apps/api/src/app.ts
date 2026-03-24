@@ -1,20 +1,22 @@
-import type { IncomingMessage, ServerResponse } from 'node:http'
-import { handleDefaultRoute } from '#app/features/404/routes/404.ts'
+import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
 
 type Middleware = (
-  req: IncomingMessage,
-  res: ServerResponse,
+  req: Http2ServerRequest,
+  res: Http2ServerResponse<Http2ServerRequest>,
   next: (err: unknown) => void,
 ) => void
 type Callback = (err: unknown) => void
 
 interface ApiServer {
   middleware: Middleware[]
-  handleRequests: (req: IncomingMessage, res: ServerResponse) => void
+  handleRequests: (
+    req: Http2ServerRequest,
+    res: Http2ServerResponse<Http2ServerRequest>,
+  ) => void
   runMiddleware: (
-    req: IncomingMessage,
-    res: ServerResponse,
+    req: Http2ServerRequest,
+    res: Http2ServerResponse<Http2ServerRequest>,
     callback: Callback,
   ) => void
   use: (fns: Middleware[]) => void
@@ -37,8 +39,8 @@ export default class App implements ApiServer {
   }
 
   runMiddleware = (
-    req: IncomingMessage,
-    res: ServerResponse,
+    req: Http2ServerRequest,
+    res: Http2ServerResponse<Http2ServerRequest>,
     callback: Callback,
   ) => {
     let idx = 0
@@ -53,14 +55,16 @@ export default class App implements ApiServer {
     next()
   }
 
-  handleRequests = (req: IncomingMessage, res: ServerResponse) => {
+  handleRequests = (
+    req: Http2ServerRequest,
+    res: Http2ServerResponse<Http2ServerRequest>,
+  ) => {
     this.runMiddleware(req, res, () => {
       switch (req.url) {
         case '/albums':
           handleAlbumsRoute(req, res)
           break
         default:
-          handleDefaultRoute(req, res)
       }
     })
   }

@@ -1,5 +1,9 @@
 import fs from 'node:fs'
-import https from 'node:https'
+import {
+  createSecureServer,
+  Http2ServerRequest,
+  Http2ServerResponse,
+} from 'node:http2'
 import { debuggerMiddleware, loggerMiddleware } from '#middleware'
 import App from './app.ts'
 
@@ -12,13 +16,18 @@ try {
   const app = new App()
   app.use([debuggerMiddleware, loggerMiddleware])
 
-  const server = https.createServer(options, app.handleRequests)
+  const http2Handlers = (
+    req: Http2ServerRequest,
+    res: Http2ServerResponse<Http2ServerRequest>,
+  ) => {
+    app.handleRequests(req, res)
+  }
 
-  server.listen(process.env.API_PORT, process.env.API_HOST, () => {
-    console.log(
-      `Server is running on ${process.env.API_HOST}:${process.env.API_PORT}`,
-    )
-  })
-} catch (e) {
-  console.error('Unable to start web server', e)
+  const server = createSecureServer(options, http2Handlers)
+  server.on('error', (err) => console.error('error from server.on', err))
+  server.listen(8000, () =>
+    console.log('HTTP/2 server running on https://localhost:8000'),
+  )
+} catch (err) {
+  console.log('Unable to start HTTP/2 on https://localhost:8000', err)
 }

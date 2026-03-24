@@ -1,11 +1,11 @@
 import fs from 'node:fs'
-import type { IncomingMessage, ServerResponse } from 'node:http'
+import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 export default function loggerMiddleware(
-  req: IncomingMessage,
-  res: ServerResponse,
+  req: Http2ServerRequest,
+  res: Http2ServerResponse<Http2ServerRequest>,
   next: (err?: unknown) => void,
 ) {
   const { rawHeaders, httpVersion, method, socket, url } = req

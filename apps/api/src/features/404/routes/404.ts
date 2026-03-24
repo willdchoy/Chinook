@@ -1,13 +1,15 @@
-import type { IncomingMessage, ServerResponse } from 'node:http'
+import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
-export function handleDefaultRoute(req: IncomingMessage, res: ServerResponse) {
+export function handleDefaultRoute(
+  req: Http2ServerRequest,
+  res: Http2ServerResponse<Http2ServerRequest>,
+) {
   try {
     res.writeHead(404, {
       'content-type': 'text/plain',
     })
     res.end(`Route not found: ${res.statusCode} ${req.url}\n`)
-  } catch (e) {
-    console.error(`handleDefaultRoute(): Unable to serve route ${req.url}`, e)
-    res.end(`Route not found: ${res.statusCode} ${req.url}\n`)
+  } catch (err) {
+    res.end(`handleDefaultRoute(): Unable to serve route :: ${err}`)
   }
 }

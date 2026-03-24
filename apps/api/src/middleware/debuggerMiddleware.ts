@@ -1,8 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'node:http'
+import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
 export default function debuggerMiddleware(
-  _req: IncomingMessage,
-  _res: ServerResponse,
+  _req: Http2ServerRequest,
+  _res: Http2ServerResponse<Http2ServerRequest>,
   next: (err?: unknown) => void,
 ) {
   next()
