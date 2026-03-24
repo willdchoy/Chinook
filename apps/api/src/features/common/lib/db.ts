@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { Client } from 'pg'
 
 export function createDbClient() {
   return new Client({
@@ -7,5 +7,5 @@ export function createDbClient() {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB,
-  });
+  })
 }

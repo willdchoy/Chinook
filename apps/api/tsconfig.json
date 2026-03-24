@@ -1,34 +1,34 @@
 {
-	"compilerOptions": {
-		"rootDir": ".",
-		"outDir": "${configDir}/distribution",
-		"module": "node20",
-		"moduleResolution": "node16",
-		"moduleDetection": "force",
-		"target": "esnext",
-		"lib": [
-			"DOM",
-			"DOM.Iterable",
-			"ES2023" // Node.js 20
-		],
-		"jsx": "react-jsx",
-		"declaration": true,
-		"newLine": "lf",
-		"stripInternal": true,
-		"erasableSyntaxOnly": true,
-		"strict": true,
-		"noImplicitReturns": true,
-		"noImplicitOverride": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedIndexedAccess": true,
-		"noPropertyAccessFromIndexSignature": false,
-		"noUncheckedSideEffectImports": true,
-		"noEmit": true,
-		"useDefineForClassFields": true,
-		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true,
-		"allowImportingTsExtensions": true
-	}
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "${configDir}/distribution",
+    "module": "node20",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
+    "target": "esnext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2023" // Node.js 20
+    ],
+    "jsx": "react-jsx",
+    "declaration": true,
+    "newLine": "lf",
+    "stripInternal": true,
+    "erasableSyntaxOnly": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedSideEffectImports": true,
+    "noEmit": true,
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true
+  }
 }

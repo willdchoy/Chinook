@@ -1,8 +1,8 @@
-import fs from "node:fs";
-import path, { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { Client } from "pg";
-import Postgrator from "postgrator";
+import fs from 'node:fs'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { Client } from 'pg'
+import Postgrator from 'postgrator'
 
 async function doMigration(): Promise<void> {
   const client = new Client({
@@ -11,46 +11,46 @@ async function doMigration(): Promise<void> {
     database: process.env.DB,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-  });
+  })
 
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-    const migrationDir = path.join(__dirname, "../../migrations/");
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+    const migrationDir = path.join(__dirname, '../../migrations/')
 
     if (!fs.existsSync(migrationDir)) {
       throw new Error(
         `Migration directory "${migrationDir}" does not exist. Skipping migrations.`,
-      );
+      )
     }
 
-    await client.connect();
+    await client.connect()
 
     const postgrator = new Postgrator({
       migrationPattern: `${migrationDir}*`,
-      driver: "pg",
-      database: "chinook",
-      schemaTable: "schemaversion",
+      driver: 'pg',
+      database: 'chinook',
+      schemaTable: 'schemaversion',
       execQuery: (query) => client.query(query),
-    });
+    })
 
     await postgrator
       .migrate()
-      .catch((e) => console.log("postgrator.migrate()", e));
+      .catch((e) => console.log('postgrator.migrate()', e))
 
-    console.log(await postgrator.getMigrations());
-    console.log("Migration completed!");
+    console.log(await postgrator.getMigrations())
+    console.log('Migration completed!')
   } catch (err: unknown) {
-    console.error("Migration error:", err);
-    if (err && typeof err === "object" && "appliedMigrations" in err) {
+    console.error('Migration error:', err)
+    if (err && typeof err === 'object' && 'appliedMigrations' in err) {
       console.error(
-        "Applied migrations before error:",
+        'Applied migrations before error:',
         (err as { appliedMigrations: unknown[] }).appliedMigrations,
-      );
+      )
     }
   } finally {
-    await client.end().catch((err: Error) => console.error(err));
+    await client.end().catch((err: Error) => console.error(err))
   }
 }
 
-doMigration();
+doMigration()

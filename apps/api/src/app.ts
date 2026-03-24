@@ -1,38 +1,38 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
-import { handleAlbumsRoute } from "#features/music/routes/albums.ts";
-import { handleDefaultRoute } from "#features/root/routes/default.ts";
+import type { IncomingMessage, ServerResponse } from 'node:http'
+import { handleDefaultRoute } from '#app/features/404/routes/404.ts'
+import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
 
 type Middleware = (
   req: IncomingMessage,
   res: ServerResponse,
   next: (err: unknown) => void,
-) => void;
-type Callback = (err: unknown) => void;
+) => void
+type Callback = (err: unknown) => void
 
 interface ApiServer {
-  middleware: Middleware[];
-  handleRequests: (req: IncomingMessage, res: ServerResponse) => void;
+  middleware: Middleware[]
+  handleRequests: (req: IncomingMessage, res: ServerResponse) => void
   runMiddleware: (
     req: IncomingMessage,
     res: ServerResponse,
     callback: Callback,
-  ) => void;
-  use: (fns: Middleware[]) => void;
+  ) => void
+  use: (fns: Middleware[]) => void
 }
 
 /**
  *
  */
 export default class App implements ApiServer {
-  middleware: Middleware[];
+  middleware: Middleware[]
 
   constructor() {
-    this.middleware = [];
+    this.middleware = []
   }
 
   use(fns: Middleware[]) {
     for (const fn of fns) {
-      this.middleware.push(fn);
+      this.middleware.push(fn)
     }
   }
 
@@ -41,27 +41,27 @@ export default class App implements ApiServer {
     res: ServerResponse,
     callback: Callback,
   ) => {
-    let idx = 0;
+    let idx = 0
 
     const next = (err?: unknown) => {
-      if (err) return callback(err);
-      const fn = this.middleware[idx++];
-      if (!fn) return callback(err);
-      fn(req, res, next);
-    };
+      if (err) return callback(err)
+      const fn = this.middleware[idx++]
+      if (!fn) return callback(err)
+      fn(req, res, next)
+    }
 
-    next();
-  };
+    next()
+  }
 
   handleRequests = (req: IncomingMessage, res: ServerResponse) => {
     this.runMiddleware(req, res, () => {
       switch (req.url) {
-        case "/albums":
-          handleAlbumsRoute(req, res);
-          break;
+        case '/albums':
+          handleAlbumsRoute(req, res)
+          break
         default:
-          handleDefaultRoute(req, res);
+          handleDefaultRoute(req, res)
       }
-    });
-  };
+    })
+  }
 }
