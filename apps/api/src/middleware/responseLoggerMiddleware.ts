@@ -3,12 +3,12 @@ import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export default function loggerMiddleware(
+export default function responseLoggerMiddleware(
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
   next: (err?: unknown) => void,
 ) {
-  const { rawHeaders, httpVersion, method, socket, url } = req
+  const { httpVersion, method, socket, url } = req
   const { remoteAddress, remoteFamily } = socket
 
   const filePath = path.join(
@@ -19,7 +19,7 @@ export default function loggerMiddleware(
 
   res.once('finish', () => {
     const message = `${JSON.stringify({
-      user: req.headers['user-agent']?.split('/')[0],
+      type: 'res',
       timestamp: Date.now(),
       statusCode: res.statusCode,
       url,
@@ -27,7 +27,6 @@ export default function loggerMiddleware(
       remoteAddress,
       remoteFamily,
       httpVersion,
-      rawHeaders,
     })}\n`
 
     try {
@@ -37,7 +36,7 @@ export default function loggerMiddleware(
         }
       })
     } catch (err) {
-      console.error('loggerMiddleware', err)
+      console.error('responseLoggerMiddleware', err)
     }
   })
 

@@ -17,16 +17,15 @@ export default function coreHeadersMiddleware(
     'X-Frame-Options': 'DENY',
     'X-XSS-Protection': '0',
     'X-Content-Type-Options': 'nosniff',
+    'Permissions-Policy': [
+      'geolocation=(), camera=(), microphone=()',
+      'interest-cohort=()',
+    ],
   }
 
   for (const header in headerMap) {
     res.setHeader(header, headerMap[header as keyof typeof headerMap])
   }
 
-  // set multiple value headers here
-  res.setHeader('Permissions-Policy', [
-    'geolocation=(), camera=(), microphone=()',
-    'interest-cohort=()',
-  ])
   next()
 }
