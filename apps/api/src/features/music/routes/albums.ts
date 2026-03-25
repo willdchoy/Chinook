@@ -4,12 +4,14 @@ import { getAlbumsService } from '../services/getAlbums.ts'
 export async function handleAlbumsRoute(
   _req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
-) {
+): Promise<void> {
   try {
     res.writeHead(200)
-    res.write(await getAlbumsService())
+    const data = await getAlbumsService()
+    res.write(data)
     res.end()
-  } catch (err) {
-    res.end(`handleAlbumsRoute(): Unable to serve route :: ${err}`)
+  } catch (err: unknown) {
+    console.error('handleAlbumsRoute(): Unable to serve route', err)
+    res.end('handleAlbumsRoute(): Unable to serve route')
   }
 }

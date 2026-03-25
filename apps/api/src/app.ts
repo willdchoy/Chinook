@@ -11,10 +11,7 @@ type Callback = (err: unknown) => void
 
 interface ApiServer {
   middleware: Middleware[]
-  handleRequests: (
-    req: Http2ServerRequest,
-    res: Http2ServerResponse<Http2ServerRequest>,
-  ) => void
+  handleRequests: (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => void
   runMiddleware: (
     req: Http2ServerRequest,
     res: Http2ServerResponse<Http2ServerRequest>,
@@ -56,14 +53,11 @@ export default class App implements ApiServer {
     next()
   }
 
-  handleRequests = (
-    req: Http2ServerRequest,
-    res: Http2ServerResponse<Http2ServerRequest>,
-  ) => {
+  handleRequests = (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => {
     this.runMiddleware(req, res, () => {
       switch (req.url) {
         case '/albums':
-          handleAlbumsRoute(req, res)
+          handleAlbumsRoute(req, res).catch((err) => console.error(err))
           break
         default:
           handleNotFound(req, res)

@@ -19,9 +19,7 @@ async function doMigration(): Promise<void> {
     const migrationDir = path.join(__dirname, '../../migrations/')
 
     if (!fs.existsSync(migrationDir)) {
-      throw new Error(
-        `Migration directory "${migrationDir}" does not exist. Skipping migrations.`,
-      )
+      throw new Error(`Migration directory "${migrationDir}" does not exist. Skipping migrations.`)
     }
 
     await client.connect()
@@ -34,9 +32,7 @@ async function doMigration(): Promise<void> {
       execQuery: (query) => client.query(query),
     })
 
-    await postgrator
-      .migrate()
-      .catch((e) => console.log('postgrator.migrate()', e))
+    await postgrator.migrate().catch((e) => console.log('postgrator.migrate()', e))
 
     console.log(await postgrator.getMigrations())
     console.log('Migration completed!')
@@ -53,4 +49,4 @@ async function doMigration(): Promise<void> {
   }
 }
 
-doMigration()
+await doMigration()

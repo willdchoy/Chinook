@@ -9,7 +9,8 @@ export function handleNotFound(
       'content-type': 'text/plain',
     })
     res.end(`Route not found: ${res.statusCode} ${req.url}\n`)
-  } catch (err) {
-    res.end(`handleDefaultRoute(): Unable to serve route :: ${err}`)
+  } catch (err: unknown) {
+    console.error('handleDefaultRoute(): Unable to serve route', err)
+    res.end('handleDefaultRoute(): Unable to serve route')
   }
 }
