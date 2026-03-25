@@ -17,6 +17,8 @@ node_modules
 dist
 dist-ssr
 *.local
+apps/obsv/grafana-storage
+apps/obsv/prometheus-storage
 
 # Editor directories and files
 .vscode/*
