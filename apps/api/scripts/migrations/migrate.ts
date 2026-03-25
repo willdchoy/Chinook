@@ -7,7 +7,7 @@ import Postgrator from 'postgrator'
 async function doMigration(): Promise<void> {
   const client = new Client({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    port: +process.env.DB_PORT || 5432,
     database: process.env.DB,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
