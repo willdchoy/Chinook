@@ -1,4 +1,4 @@
-name: obsv
+name: obsvr
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -33,7 +33,7 @@ services:
 
 networks:
   backend:
-    name: obsv
+    name: obsvr
 
 volumes:
   grafana-storage: {}

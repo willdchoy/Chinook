@@ -52,8 +52,6 @@ importers:
 
   apps/infra: {}
 
-  apps/obsv: {}
-
   apps/ui:
     dependencies:
       react:
