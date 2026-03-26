@@ -1,9 +1,26 @@
 name: ch
 
-include:
-  # - path: ./apps/db/docker-compose.yml
-  - path: ./apps/api/docker-compose.yml
-  # - path: ./apps/obsvr/docker-compose.yml
+services:
+  db-pg:
+    extends:
+      file: ./apps/db/docker-compose.yml
+      service: db-pg
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+
+  api-web:
+    extends:
+      file: ./apps/api/docker-compose.yml
+      service: api-web
+    ports:
+      - '3000:3000'
+    networks:
+      - backend
+    depends_on:
+      db-pg:
+        condition: service_healthy
 
 networks:
   backend:
