@@ -10,7 +10,12 @@ services:
       - backend
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-storage:/prometheus
+      - type: bind
+        source: ./prometheus-storage
+        target: /prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
 
   grafana:
     image: grafana/grafana:latest
@@ -24,7 +29,7 @@ services:
     networks:
       - backend
     volumes:
-      - grafana-storage:/grafana
+      - ./grafana-storage:/var/lib/grafana/
 
 networks:
   backend:
