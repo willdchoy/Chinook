@@ -13,7 +13,7 @@
     "#middleware": "./src/middleware/index.ts"
   },
   "scripts": {
-    "dev": "node --watch --env-file=.env ./src/server.ts",
+    "dev": "pnpm db:migrate && node --watch --env-file=.env ./src/server.ts",
     "db:migrate": "node --env-file=.env ./scripts/migrations/migrate.ts",
     "db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
     "db:start": "pnpm --dir ../db run db:start && sleep 3s && pnpm db:migrate",

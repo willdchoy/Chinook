@@ -19,7 +19,7 @@ dist-ssr
 *.local
 apps/obsvr/grafana-data
 apps/obsvr/prometheus-data
-apps/db/db-data
+apps/db/pg-data
 
 # Editor directories and files
 .vscode/*

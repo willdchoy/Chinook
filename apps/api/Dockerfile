@@ -5,7 +5,7 @@ ARG PNPM_VERSION=10.6.2
 
 FROM node:${NODE_VERSION}-alpine
 
-ENV NODE_ENV production
+ENV NODE_ENV development
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install -g pnpm@${PNPM_VERSION}
@@ -18,8 +18,6 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     pnpm install --prod --frozen-lockfile
 
 COPY . .
-
-RUN pnpm db:migrate
 
 EXPOSE 3000
 

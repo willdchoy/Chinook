@@ -4,8 +4,34 @@ services:
     build:
       context: .
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
     ports:
       - 3000:3000
     networks:
       - backend
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: chinook
+    ports:
+      - '5432:5432'
+    volumes:
+      - ../db/pg-data:/var/lib/postgresql
+    networks:
+      - backend
+    env_file:
+      - .env
+    healthcheck:
+      test: ['CMD-SHELL', "sh -c 'pg_isready -U ${DB_USER} -d ${DB}'"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pg-data:

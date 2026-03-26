@@ -1,8 +1,8 @@
 name: ch
 
 include:
-  - path: ./apps/db/docker-compose.yml
-  # - path: ./apps/api/docker-compose.yml
+  # - path: ./apps/db/docker-compose.yml
+  - path: ./apps/api/docker-compose.yml
   # - path: ./apps/obsvr/docker-compose.yml
 
 networks:
