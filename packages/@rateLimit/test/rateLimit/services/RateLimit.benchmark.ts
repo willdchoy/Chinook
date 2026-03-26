@@ -1,13 +1,13 @@
-import assert from "node:assert";
-import test from "node:test";
-import autocannon from "autocannon";
+import assert from 'node:assert'
+import test from 'node:test'
+import autocannon from 'autocannon'
 
-test("RateLimit Benchmark", async () => {
+test('RateLimit Benchmark', async () => {
   const benchmark = await autocannon({
-    url: "https://localhost:8000/albums",
+    url: 'https://localhost:3000/albums',
     connections: 100,
     duration: 10,
-  });
+  })
 
-  assert.deepEqual(benchmark.statusCodeStats?.["200"]?.count, 1000);
-});
+  assert.deepEqual(benchmark.statusCodeStats?.['200']?.count, 1000)
+})

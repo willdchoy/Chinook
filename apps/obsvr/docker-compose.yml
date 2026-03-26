@@ -11,7 +11,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - type: bind
-        source: ./prometheus-storage
+        source: ./prometheus-data
         target: /prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -29,12 +29,8 @@ services:
     networks:
       - backend
     volumes:
-      - ./grafana-storage:/var/lib/grafana/
-
-networks:
-  backend:
-    name: obsvr
+      - ./grafana-data:/var/lib/grafana/
 
 volumes:
-  grafana-storage: {}
-  prometheus-storage: {}
+  grafana-data: {}
+  prometheus-data: {}
