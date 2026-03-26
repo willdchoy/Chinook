@@ -9,10 +9,8 @@ services:
       POSTGRES_DB: chinook
     volumes:
       - ./pg-data:/var/lib/postgresql
-    env_file:
-      - ./.env
     healthcheck:
-      test: ['CMD-SHELL', "sh -c 'pg_isready -U ${DB_USER} -d ${DB}'"]
+      test: ['CMD-SHELL', "sh -c 'pg_isready -U admin -d chinook'"]
       interval: 3s
       timeout: 3s
       retries: 30

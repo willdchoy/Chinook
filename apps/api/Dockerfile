@@ -19,6 +19,6 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8000 9090
 
 CMD ["pnpm", "dev"]
