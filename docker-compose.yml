@@ -8,39 +8,47 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - backend
+      backend:
+        ipv4_address: 172.18.0.2
 
   api-web:
+    build: ./apps/api
     extends:
       file: ./apps/api/docker-compose.yml
       service: api-web
     ports:
       - '8000:8000'
-      - '9090:9090'
+      - '9100:9100'
+      - '127.0.0.1:80:80'
     networks:
-      - backend
-    depends_on:
-      db-pg:
-        condition: service_healthy
+      backend:
+        ipv4_address: 172.18.0.3
+    # depends_on:
+    #   db-pg:
+    #     condition: service_healthy
 
-  prometheus:
+  obsvr-prom:
     extends:
       file: ./apps/obsvr/docker-compose.yml
-      service: obsvr-prometheus
+      service: obsvr-prom
     ports:
       - 9090:9090
     networks:
-      - backend
-
-  grafana:
+      backend:
+        ipv4_address: 172.18.0.4
+  obsvr-graf:
     extends:
       file: ./apps/obsvr/docker-compose.yml
-      service: obsvr-grafana
+      service: obsvr-graf
     ports:
       - '3000:3000'
     networks:
-      - backend
+      backend:
+        ipv4_address: 172.18.0.5
 
 networks:
   backend:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24

@@ -22,7 +22,7 @@ try {
 
   const server = createSecureServer(options, http2Handlers)
   server.on('error', (err) => console.error('error from server.on', err))
-  server.listen(3000, () => console.log('HTTP/2 server running on https://localhost:3000'))
+  server.listen(8000, () => console.log('HTTP/2 server running on https://localhost:8000'))
 } catch (err) {
-  console.log('Unable to start HTTP/2 on https://localhost:3000', err)
+  console.log('Unable to start HTTP/2 on https://localhost:8000', err)
 }
