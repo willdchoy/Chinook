@@ -6,7 +6,7 @@ services:
       file: ./apps/db/docker-compose.yml
       service: db-pg
     ports:
-      - '5432:5432'
+      - 5432:5432
     networks:
       backend:
         ipv4_address: 172.18.0.2
@@ -16,10 +16,6 @@ services:
     extends:
       file: ./apps/api/docker-compose.yml
       service: api-web
-    ports:
-      - '8000:8000'
-      - '9100:9100'
-      - '127.0.0.1:80:80'
     networks:
       backend:
         ipv4_address: 172.18.0.3
@@ -41,7 +37,7 @@ services:
       file: ./apps/obsvr/docker-compose.yml
       service: obsvr-graf
     ports:
-      - '3000:3000'
+      - 3000:3000
     networks:
       backend:
         ipv4_address: 172.18.0.5

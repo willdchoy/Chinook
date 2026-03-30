@@ -6,4 +6,11 @@ services:
     environment:
       NODE_ENV: development
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw # why do I have to have this here to pass the docker build?
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - 8000:8000
+      - 9100:9100
+      - 127.0.0.1:80:80
