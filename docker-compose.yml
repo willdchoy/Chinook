@@ -23,9 +23,9 @@ services:
     networks:
       backend:
         ipv4_address: 172.18.0.3
-    # depends_on:
-    #   db-pg:
-    #     condition: service_healthy
+    depends_on:
+      db-pg:
+        condition: service_healthy
 
   obsvr-prom:
     extends:

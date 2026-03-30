@@ -5,3 +5,5 @@ services:
       context: .
     environment:
       NODE_ENV: development
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
