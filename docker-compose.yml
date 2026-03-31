@@ -5,8 +5,8 @@ services:
     extends:
       file: ./apps/db/docker-compose.yml
       service: db-pg
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
     networks:
       backend:
         ipv4_address: 172.18.0.2
@@ -16,6 +16,10 @@ services:
     extends:
       file: ./apps/api/docker-compose.yml
       service: api-web
+    ports:
+      - 8000:8000
+      - 9100:9100
+      - 127.0.0.1:80:80
     networks:
       backend:
         ipv4_address: 172.18.0.3
@@ -32,6 +36,7 @@ services:
     networks:
       backend:
         ipv4_address: 172.18.0.4
+
   obsvr-graf:
     extends:
       file: ./apps/obsvr/docker-compose.yml
@@ -41,6 +46,26 @@ services:
     networks:
       backend:
         ipv4_address: 172.18.0.5
+
+  obsvr-loki:
+    extends:
+      file: ./apps/obsvr/docker-compose.yml
+      service: obsvr-loki
+    ports:
+      - 3100:3100
+    networks:
+      backend:
+        ipv4_address: 172.18.0.6
+
+  obsvr-alloy:
+    extends:
+      file: ./apps/obsvr/docker-compose.yml
+      service: obsvr-alloy
+    ports:
+      - 12345:12345
+    networks:
+      backend:
+        ipv4_address: 172.18.0.7
 
 networks:
   backend:

@@ -1,2 +1,3 @@
 ./docker-destroy.sh
-docker compose up
+echo "\033[1;32mChinook - Composing containers... \033[0m"
+docker compose up -d

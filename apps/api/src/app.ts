@@ -2,13 +2,13 @@ import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
 import { handleNotFound } from './features/notFound/routes/notFound.ts'
 
+type Next = (err: unknown) => void
+type Callback = (err: unknown) => void
 type Middleware = (
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
-  next: (err: unknown) => void,
+  next: Next,
 ) => void
-type Callback = (err: unknown) => void
-
 interface ApiServer {
   middleware: Middleware[]
   handleRequests: (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => void

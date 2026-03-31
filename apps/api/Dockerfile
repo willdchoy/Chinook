@@ -41,6 +41,4 @@ EOF
 RUN chmod +x /etc/init.d/node_exporter
 RUN chmod +x /usr/local/bin/node_exporter
 
-EXPOSE 8000 9100 80
-
 CMD ["./init.sh"]
