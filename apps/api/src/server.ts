@@ -1,10 +1,6 @@
 import fs from 'node:fs'
 import { createSecureServer, Http2ServerRequest, Http2ServerResponse } from 'node:http2'
-import {
-  coreHeadersMiddleware,
-  responseLoggerMiddleware,
-  requestLoggerMiddleware,
-} from '#middleware'
+import { coreHeadersMiddleware, httpLoggerMiddleware } from '#middleware'
 import App from './app.ts'
 
 const port = 8000
@@ -15,7 +11,7 @@ const options = {
 
 try {
   const app = new App()
-  app.use([requestLoggerMiddleware, coreHeadersMiddleware, responseLoggerMiddleware])
+  app.use([httpLoggerMiddleware, coreHeadersMiddleware])
 
   const http2Handlers = (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => {
     app.handleRequests(req, res)

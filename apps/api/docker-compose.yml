@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - ./alloy/config.alloy:/etc/alloy/config.alloy
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw # Need this enabled or it will fail on limits_config: enabled: true
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw # Need this enabled for Loki or it will fail on limits_config: enabled: true
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/host/rootfs:ro

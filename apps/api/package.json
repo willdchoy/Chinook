@@ -21,7 +21,7 @@
     "test": "node --test ./src/**/*.spec.ts",
     "test:watch": "node --test --watch ./src/**/*.spec.ts",
     "test:benchmark": "node --test --watch ./src/**/*.benchmark.ts",
-    "benchmark": "npx autocannon  -c 90 -d 10 -p 1 https://localhost:3000/albums",
+    "benchmark": "npx autocannon -c 90 -d 10 -p 1 https://localhost:8000/albums",
     "lint": "oxlint",
     "lint:watch": "oxlint --watch",
     "fmt": "oxfmt",
