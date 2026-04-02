@@ -19,6 +19,7 @@ services:
     ports:
       - 8000:8000
       - 9100:9100
+      - 12345:12345
       - 127.0.0.1:80:80
     networks:
       backend:
@@ -56,16 +57,6 @@ services:
     networks:
       backend:
         ipv4_address: 172.18.0.6
-
-  obsvr-alloy:
-    extends:
-      file: ./apps/obsvr/docker-compose.yml
-      service: obsvr-alloy
-    ports:
-      - 12345:12345
-    networks:
-      backend:
-        ipv4_address: 172.18.0.7
 
 networks:
   backend:

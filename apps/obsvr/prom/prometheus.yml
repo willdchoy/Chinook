@@ -9,7 +9,7 @@ scrape_configs:
   #   static_configs:
   #     - targets: ['localhost:9090']
 
-  - job_name: 'ch-api-web'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['172.18.0.3:9100']
+  # - job_name: 'ch-api-web'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['172.18.0.3:9100']

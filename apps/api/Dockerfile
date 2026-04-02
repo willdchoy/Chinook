@@ -7,9 +7,11 @@ FROM node:${NODE_VERSION}-alpine
 
 RUN apk update 
 RUN apk add openrc
+RUN apk add alloy
 RUN apk add nodejs npm
 
 RUN openrc default
+RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install -g pnpm@${PNPM_VERSION}
@@ -23,22 +25,4 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-RUN wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
-RUN tar xvfz node_exporter-1.10.2.linux-amd64.tar.gz
-RUN cp node_exporter-1.10.2.linux-amd64/node_exporter /usr/local/bin/
-
-RUN cat <<EOF > /etc/init.d/node_exporter
-#!/sbin/openrc-run
-name="node_exporter"
-command="/usr/local/bin/node_exporter"
-pidfile="/run/${name}.pid"
-command_background="yes"
-depend() {
-    after network
-}
-EOF
-
-RUN chmod +x /etc/init.d/node_exporter
-RUN chmod +x /usr/local/bin/node_exporter
-
-CMD ["./init.sh"]
+CMD ["./scripts/init.sh"]

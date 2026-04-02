@@ -1,0 +1,37 @@
+logging {
+  level    = "info"
+  format   = "json"
+  write_to = [loki.write.ch_api_web.receiver]
+}
+
+local.file_match "ch_api_web" {
+    path_targets = [{"__path__" = "/var/log/*.log"}]
+}
+
+loki.source.file "local_logs" {
+    targets    = local.file_match.ch_api_web.targets
+    forward_to = [loki.write.ch_api_web.receiver]
+}
+
+loki.write "ch_api_web" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
+
+prometheus.exporter.unix "ch_api_web" {}
+
+prometheus.scrape "ch_api_web" {
+    scrape_interval = "10s"
+
+    targets    = prometheus.exporter.unix.ch_api_web.targets
+    forward_to = [
+        prometheus.remote_write.ch_api_web.receiver,
+    ]
+}
+
+prometheus.remote_write "ch_api_web" {
+    endpoint {
+        url = "http://prometheus:9090/api/v1/write"
+    }
+}

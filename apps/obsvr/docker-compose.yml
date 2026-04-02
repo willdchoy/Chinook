@@ -12,6 +12,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-remote-write-receiver'
 
   obsvr-graf:
     image: grafana/grafana:latest
@@ -32,13 +33,6 @@ services:
     command:
       - '-target=all'
       - '-config.file=/etc/loki/local-config.yaml'
-
-  obsvr-alloy:
-    image: grafana/alloy:latest
-    container_name: alloy
-    restart: unless-stopped
-    volumes:
-      - ./alloy/config.alloy:/etc/alloy/config.alloy
 
 volumes:
   grafana-data: {}
