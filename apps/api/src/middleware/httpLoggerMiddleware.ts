@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import os from 'node:os'
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
 export default function responseLoggerMiddleware(
@@ -23,8 +24,22 @@ export default function responseLoggerMiddleware(
         return 'error'
     }
   }
+
   res.once('finish', () => {
-    const message = `${JSON.stringify({
+    const response = `${JSON.stringify({
+      level: handleResponseLevel(res),
+      type: 'res',
+      timestamp: Date.now(),
+      statusCode: res.statusCode,
+      url,
+      method,
+      remoteAddress,
+      remoteFamily,
+      httpVersion,
+      headers: res.getHeaders(),
+    })}\n`
+
+    const request = `${JSON.stringify({
       level: 'info',
       type: 'req',
       timestamp: Date.now(),
@@ -38,38 +53,13 @@ export default function responseLoggerMiddleware(
     })}\n`
 
     try {
-      fs.appendFile(filePath, message, (err) => {
+      fs.appendFile(filePath, `${request}${response}`, (err) => {
         if (err) {
           console.log(err)
         }
       })
     } catch (err) {
-      console.error('requestLoggerMiddleware', err)
-    }
-  })
-
-  res.once('finish', () => {
-    const message = `${JSON.stringify({
-      level: handleResponseLevel(res),
-      type: 'res',
-      timestamp: Date.now(),
-      statusCode: res.statusCode,
-      url,
-      method,
-      remoteAddress,
-      remoteFamily,
-      httpVersion,
-      headers: res.getHeaders(),
-    })}\n`
-
-    try {
-      fs.appendFile(filePath, message, (err) => {
-        if (err) {
-          console.log(err)
-        }
-      })
-    } catch (err) {
-      console.error('responseLoggerMiddleware', err)
+      console.error('httpLoggerMiddleware', err)
     }
   })
 
