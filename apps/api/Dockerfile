@@ -5,7 +5,7 @@ ARG PNPM_VERSION=10.6.2
 
 FROM node:${NODE_VERSION}-alpine
 
-# Must run before apk add openrc?
+# Must run before apk add openrc
 RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
 
 RUN apk update 
