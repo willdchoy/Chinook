@@ -5,13 +5,13 @@ ARG PNPM_VERSION=10.6.2
 
 FROM node:${NODE_VERSION}-alpine
 
+# Must run before apk add openrc?
+RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
+
 RUN apk update 
-RUN apk add openrc
-RUN apk add alloy
-RUN apk add nodejs npm
+RUN apk add openrc alloy nodejs npm
 
 RUN openrc default
-RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install -g pnpm@${PNPM_VERSION}

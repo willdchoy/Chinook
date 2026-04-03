@@ -2,6 +2,8 @@ name: ch
 services:
   api-web:
     build: .
+    ports:
+      - 8000:8000
     volumes:
       - ./alloy/config.alloy:/etc/alloy/config.alloy
       - /sys/fs/cgroup:/sys/fs/cgroup:rw # Need this enabled for Loki or it will fail on limits_config: enabled: true

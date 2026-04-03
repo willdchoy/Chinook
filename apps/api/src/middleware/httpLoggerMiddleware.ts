@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import os from 'node:os'
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
 export default function responseLoggerMiddleware(
