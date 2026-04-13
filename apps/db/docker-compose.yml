@@ -1,16 +1,17 @@
 name: ch
 services:
   db-pg:
-    image: postgres
+    build: .
     restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: chinook
     expose:
       - 5432
     volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - ./pg-data:/var/lib/postgresql
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host/rootfs:ro
     healthcheck:
       test: ['CMD-SHELL', "sh -c 'pg_isready -U admin -d chinook'"]
       interval: 3s

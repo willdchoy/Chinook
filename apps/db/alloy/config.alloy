@@ -1,0 +1,14 @@
+prometheus.exporter.postgres "ch_db_pg" {
+  data_source_names = ["postgresql://admin:admin@localhost:5432/chinook?sslmode=disable"]
+}
+
+prometheus.scrape "ch_db_pg" {
+  targets    = prometheus.exporter.postgres.ch_db_pg.targets
+  forward_to = [prometheus.remote_write.demo.receiver]
+}
+
+prometheus.remote_write "ch_db_pg" {
+  endpoint {
+    url = "http://prometheus:9090/api/v1/write"
+  }
+}
