@@ -4,6 +4,8 @@
 
 #### INFR
 
-- Add health checks to containers
+x Add health checks to containers
 
 #### UI
+
+#### OBSVR

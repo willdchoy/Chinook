@@ -9,7 +9,7 @@ FROM node:${NODE_VERSION}-alpine
 RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
 
 RUN apk update 
-RUN apk add openrc alloy nodejs npm
+RUN apk add openrc alloy nodejs npm curl
 
 RUN openrc default
 

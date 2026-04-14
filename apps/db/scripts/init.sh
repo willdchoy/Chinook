@@ -1,2 +1,2 @@
-systemctl start alloy
-systemctl start postgres
+rc-service alloy start
+rc-service posgres start

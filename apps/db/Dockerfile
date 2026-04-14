@@ -16,6 +16,7 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com 
 RUN apt update
 RUN apt install gpg -y
 RUN apt install alloy -y
+RUN apt install openrc -y
 
 COPY . .
 

@@ -6,7 +6,12 @@ services:
       - 8000:8000
     volumes:
       - ./alloy/config.alloy:/etc/alloy/config.alloy
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw # Need this enabled for Loki or it will fail on limits_config: enabled: true
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/host/rootfs:ro
+    healthcheck:
+      test: ['CMD-SHELL', "sh -c 'curl -k https://localhost:8000/ping'"]
+      interval: 3s
+      timeout: 3s
+      retries: 30

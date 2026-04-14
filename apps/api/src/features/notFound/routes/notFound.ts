@@ -1,6 +1,6 @@
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 
-export function handleNotFound(
+export function handleNotFoundRoute(
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
 ) {
@@ -11,6 +11,6 @@ export function handleNotFound(
     res.end(`Route not found: ${res.statusCode} ${req.url}\n`)
   } catch (err: unknown) {
     console.error('handleDefaultRoute(): Unable to serve route', err)
-    res.end('handleDefaultRoute(): Unable to serve route')
+    res.end('handleDefaultRoute(): Unable to serve route\n')
   }
 }
