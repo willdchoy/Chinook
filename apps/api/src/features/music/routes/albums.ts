@@ -8,7 +8,7 @@ export async function handleAlbumsRoute(
   try {
     res.writeHead(200)
     const data = await getAlbumsService()
-    res.write(data)
+    res.write(`${data}\n`)
     res.end()
   } catch (err: unknown) {
     console.error('handleAlbumsRoute(): Unable to serve route', err)
