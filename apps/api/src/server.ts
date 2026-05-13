@@ -3,7 +3,8 @@ import { createSecureServer, Http2ServerRequest, Http2ServerResponse } from 'nod
 import { coreHeadersMiddleware, httpLoggerMiddleware } from '#middleware'
 import App from './app.ts'
 
-const port = 8000
+const port = process.env.PORT
+
 const options = {
   key: fs.readFileSync('./certs/localhost+2-key.pem'),
   cert: fs.readFileSync('./certs/localhost+2.pem'),
