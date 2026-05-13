@@ -1,5 +1,8 @@
 import './App.css'
-import type { Test } from '@chinook/types'
+
+export type Test = {
+  test: boolean
+}
 
 function App() {
   const test: Test = {

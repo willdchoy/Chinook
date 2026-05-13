@@ -5,7 +5,7 @@ export async function getAlbumsService(): Promise<string> {
   await client.connect()
 
   try {
-    const response = await client.query('SELECT * from album limit 10')
+    const response = await client.query('select * from album limit 10')
     return JSON.stringify(response.rows ?? [])
   } catch (err: unknown) {
     console.error('getAlbumsService(): Unable to retrieve album', err)
