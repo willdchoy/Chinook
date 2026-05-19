@@ -12,6 +12,6 @@ export async function handleAlbumsRoute(
     res.end()
   } catch (err: unknown) {
     console.error('handleAlbumsRoute(): Unable to serve route', err)
-    res.end('handleAlbumsRoute(): Unable to serve route')
+    res.end('handleAlbumsRoute(): Unable to serve route\n')
   }
 }

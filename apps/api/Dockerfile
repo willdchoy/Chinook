@@ -1,17 +1,13 @@
 # syntax=docker/dockerfile:1
 
+FROM ch/base:v1
+
 ARG NODE_VERSION=25.8.2
 ARG PNPM_VERSION=10.6.2
 
-FROM node:${NODE_VERSION}-alpine
+EXPOSE 8000
 
-# Must run before apk add openrc
-RUN echo 'rc_need="!dev !net"' >> /etc/rc.conf
-
-RUN apk update 
-RUN apk add openrc alloy nodejs npm curl
-
-RUN openrc default
+RUN apk add nodejs npm curl
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install -g pnpm@${PNPM_VERSION}
@@ -25,4 +21,4 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-CMD ["./scripts/init.sh"]
+CMD ["make", "dev"]

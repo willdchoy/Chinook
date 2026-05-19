@@ -1,4 +1,3 @@
-# Variables
 BINARY_NAME=igw
 
 .PHONY: build run test clean help

@@ -13,6 +13,7 @@ async function doMigration(): Promise<void> {
     password: process.env.DB_PASSWORD,
   })
 
+
   try {
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = dirname(__filename)

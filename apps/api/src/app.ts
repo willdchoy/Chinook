@@ -1,7 +1,7 @@
 import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
 import { handleNotFoundRoute } from './features/notFound/routes/notFound.ts'
-import { handlePingRoute } from './features/ping/routes/ping.ts'
+import { handleHealthyRoute } from './features/healthy/routes/healthy.ts'
 
 type Next = (err: unknown) => void
 type Callback = (err: unknown) => void
@@ -60,8 +60,8 @@ export default class App implements ApiServer {
         case '/albums':
           handleAlbumsRoute(req, res)
           break
-        case '/ping':
-          handlePingRoute(req, res)
+        case '/healthy':
+          handleHealthyRoute(req, res)
           break
         default:
           handleNotFoundRoute(req, res)
