@@ -1,19 +1,18 @@
 .PHONY: dev docker-build docker-clean docker-run start test
 
 container = ch-api-web
-image = ch/api-web:v1
-
-dev:
-	rc-service alloy start
-	pnpm dev
+registry_hostname=localhost:5000
+image = "${registry_hostname}/ch/api-web:latest"
 
 docker-build: test
 	docker build -t $(image) .
+	docker push $(image)
+	docker image rm $(image)
 
 docker-clean:
 	docker rm -f $(container)
 
-docker-start: docker-clean
+docker-run: docker-build
 	 docker run --rm --name $(container) \
 		-p 8000:8000 \
 		-v /sys/fs/cgroup:/sys/fs/cgroup:rw \
@@ -23,8 +22,14 @@ docker-start: docker-clean
 		-v /:/host/rootfs:ro \
 		$(image)
 
+docker-start: docker-run
+	
 docker-stop:
 	docker stop $(container)
 	
-test:
+start:
+	rc-service alloy start
+	pnpm dev
+
+test: docker-clean
 	pnpm test

@@ -1,5 +1,2 @@
+ALTER USER postgres WITH PASSWORD 'postgres';
 CREATE DATABASE chinook;
--- CREATE USER admin WITH PASSWORD 'admin';
--- GRANT CONNECT ON DATABASE chinook TO admin;
--- GRANT USAGE ON SCHEMA public TO admin;
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;

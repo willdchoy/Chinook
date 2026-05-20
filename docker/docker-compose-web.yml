@@ -1,0 +1,52 @@
+name: ch
+
+services:
+
+  db-pg:
+    image: localhost:5000/ch/db-pg:latest
+    container_name: ch-db-pg
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host/rootfs:ro
+    networks:
+      - shared-ch-web
+    healthcheck:
+      test: ['CMD-SHELL', "sh -c 'pg_isready -U postgres -d chinook'"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  api-web:
+    image: localhost:5000/ch/api-web:latest
+    container_name: ch-api-web
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host/rootfs:ro
+    networks:
+      - shared-ch-web
+    depends_on:
+      db-pg:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', "sh -c 'curl -k https://localhost:8000/healthy'"]
+      interval: 30s
+      timeout: 3s
+      retries: 30
+
+networks:
+  shared-ch-web:
+    external: true
+    name: ch-web
+
+volumes:
+  pg-data:

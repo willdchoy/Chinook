@@ -1,0 +1,64 @@
+name: ch
+
+services:
+
+  obsvr-prom:
+    image: prom/prometheus:latest
+    container_name: ch-prom
+    restart: unless-stopped
+    expose: 
+      - 9090
+    volumes:
+      - ../apps/obsvr/prom/prometheus.yml:/etc/prometheus/prometheus.yml
+      - type: bind
+        source: ../apps/obsvr/prom/prometheus-data
+        target: /prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-remote-write-receiver'
+    networks:
+      - shared-ch-web
+      - shared-ch-obsvr
+
+  obsvr-loki:
+    image: grafana/loki:latest
+    container_name: ch-loki
+    restart: unless-stopped
+    expose:
+      - 3100
+    volumes:
+      - ../apps/obsvr/loki/local-config.yaml:/etc/loki/local-config.yaml
+    command:
+      - '-target=all'
+      - '-config.file=/etc/loki/local-config.yaml'
+    networks:
+      - shared-ch-web
+      - shared-ch-obsvr
+  
+  obsvr-graf:
+    image: grafana/grafana:latest
+    container_name: ch-graf
+    restart: unless-stopped
+    environment:
+      - TERM=linux
+      - GF_PLUGINS_PREINSTALL=grafana-clock-panel,grafana-polystat-panel,grafana-lokiexplore-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ../apps/obsvr/graf/grafana-data:/var/lib/grafana/
+    networks:
+      - shared-ch-web
+      - shared-ch-obsvr
+
+networks:
+  shared-ch-web:
+    external: true
+    name: ch-web
+  shared-ch-obsvr:
+    external: true
+    name: ch-obsvr
+
+volumes:
+  grafana-data: {}
+  prometheus-data: {}

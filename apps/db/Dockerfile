@@ -1,9 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ch/base:v1
-
-ENV PGDATA=/var/lib/postgresql/17/data
-
-EXPOSE 5432
+FROM localhost:5000/ch/base:latest
 
 RUN apk add postgresql postgresql-contrib busybox-suid && \
   /etc/init.d/postgresql setup && \
@@ -15,6 +11,15 @@ RUN apk add postgresql postgresql-contrib busybox-suid && \
 WORKDIR /usr/src/app
 
 COPY ./Makefile .
+COPY ./alloy/config.alloy /etc/alloy/config.alloy
+COPY ./init/init.sql /docker-entrypoint-initdb.d/init.sql
+COPY ./init/postgresql_override.conf /etc/postgresql/postgresql_override.conf
+COPY ./init/pg_hba_override.conf /etc/postgresql/pg_hba_override.conf
+
+RUN mkdir -p /var/lib/alloy
+RUN chown -R postgres:postgres /var/lib/alloy
+
+EXPOSE 5432
 
 USER postgres:postgres
 

@@ -1,0 +1,16 @@
+name: ch
+
+services:
+
+  regi:
+    image: registry:3
+    container_name: ch-regi
+    ports:
+      - 5000:5000
+    networks:
+      - shared-ch-web
+
+networks:
+  shared-ch-web:
+    external: true
+    name: ch-web
