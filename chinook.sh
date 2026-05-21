@@ -103,7 +103,6 @@ function destroyObsvrContainers() {
 
 function createClient() {
   destroyClientContainers
-  createDockerRegistry
   createClientImages
   createClientContainers
   seedClient
@@ -116,6 +115,7 @@ function createObsvr() {
 
 function createAll() {
   destroyAll
+  createDockerRegistry
   createObsvr
   createClient
 }
@@ -135,7 +135,8 @@ function destroyAll() {
 }
 
 # handle init --------------------------------------------------------
-args=("all, destroy, client, obsvr, regi, setup")
+
+args=("all destroy client obsvr regi setup")
 error_message="\033[1;31mChinook - Argument of < ${args} > is required! \033[0m"
 
 if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
@@ -162,12 +163,13 @@ case "$1" in
     createObsvr
     ;;
   regi)
+    createCoreServices
     createDockerRegistry
     ;;
   setup)
     echo "Run the following commands to add chinook to your PATH and enable autocomplete:"
     echo "export PATH="\$PATH:$(pwd)""
-    echo "complete -W "all destroy client obsvr regi setup" chinook.sh"
+    echo "complete -W '${args}' chinook.sh"
     ;;
   *)
     echo -e "${error_message}"
