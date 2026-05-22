@@ -1,9 +1,11 @@
 #!/bin/bash
 
-obsvrNetwork=ch-obsvr
-clientNetwork=ch-client
+obsvr_network=ch-obsvr
+client_network=ch-client
 
-function getToDaChoppa() {
+# core --------------------------------------------------------
+
+function get_to_da_choppa() {
   echo
 cat << "EOF"
                                          /\
@@ -21,35 +23,46 @@ EOF
   echo
 }
 
-# client --------------------------------------------------------
-
-function createClientNetwork() {
-  if [[ $(docker network ls | grep -w $clientNetwork) ]]; then
-    echo "${clientNetwork} network already exits."
+function destroy_network() {
+  echo -e "\033[1;32mChinook - Destroying network $1.., \033[0m"
+  if [[ ! $(docker network ls | grep -w $1) ]]; then
     echo ""
   else
-    echo -e "\033[1;32mChinook - Setting up $clientNetwork network... \033[0m"
-    docker network create $clientNetwork \
-      --attachable \
-      -d bridge \
-      --subnet 172.18.0.0/24 || true
+    docker network rm $1
     echo
   fi
 }
 
-function createDockerRegistry() {
-  echo -e "\033[1;32mChinook - Creating docker registry... \033[0m"
-  docker compose -v -f ./docker/docker-compose-regi.yml up -d --remove-orphans
-  echo
+function create_network() {
+  echo -e "\033[1;32mChinook - Creating network $1... \033[0m"
+  if [[ $(docker network ls | grep -w $1) ]]; then
+    echo "$1 network already exits."
+    echo ""   
+  else 
+    docker network create $1 \
+      --attachable \
+      -d bridge \
+      --subnet $2 || true
+    echo
+  fi
 }
 
-function destroyDockerRegistry() {
+# client --------------------------------------------------------
+
+function destroy_docker_registry() {
   echo -e "\033[1;32mChinook - Destroying docker registry... \033[0m"
   docker rm -f ch-regi
   echo
 }
 
-function createClientImages() {
+function create_docker_registry() {
+  destroy_docker_registry
+  echo -e "\033[1;32mChinook - Creating docker registry... \033[0m"
+  docker compose -v -f ./docker/docker-compose-regi.yml up -d
+  echo
+}
+
+function create_client_images() {
   echo -e "\033[1;32mChinook - Building and deploy images to docker registry... \033[0m"
   make -C ./docker/ch-base docker-build
   make -C ./apps/api docker-build
@@ -57,102 +70,88 @@ function createClientImages() {
   echo
 }
 
-function createClientContainers() {
-  echo -e "\033[1;32mChinook - Composing web containers... \033[0m"
-  docker compose -f ./docker/docker-compose-web.yml up -d --remove-orphans
+function create_client_containers() {
+  echo -e "\033[1;32mChinook - Composing client containers... \033[0m"
+  docker compose -f ./docker/docker-compose-web.yml up -d
   echo 
 }
 
-function seedClient() {
+function client_seed() {
   echo -e "\033[1;32mChinook - Seeding database... \033[0m"
   make -C ./apps/db docker-seed
   echo
 }
 
-function destroyClientContainers() {
+function destroy_client_containers() {
   echo -e "\033[1;32mChinook - Stopping and removing client containers... \033[0m"
   docker rm -f ch-api-web ch-db-pg
   echo
 }
 
-function destroyClientImages() {
+function destroy_client_images() {
   echo -e "\033[1;32mChinook - Removing images... \033[0m"
   docker rmi localhost:5000/ch/base:latest localhost:5000/ch/api-web:latest localhost:5000/ch/db-pg:latest
   echo
 }
 
-function destroyClientNetwork() {
-  echo -e "\033[1;32mChinook - Destroying client network $clientNetwork \033[0m"
-  docker network rm $clientNetwork
-  echo
-}
-
 # obsvr --------------------------------------------------------
 
-function createObsvrNetwork() {
-  echo -e "\033[1;32mChinook - Setting up $obsvrNetwork network... \033[0m"
-  docker network create $obsvrNetwork \
-    --attachable \
-    -d bridge \
-    --subnet 172.18.1.0/24 || true
-  echo 
-}
-
-function createObsvrContainers() {
+function create_obsvr_containers() {
   echo -e "\033[1;32mChinook - Composing Obsvr containers... \033[0m"
-  docker compose -f ./docker/docker-compose-obsvr.yml up -d --remove-orphans
+  docker compose -f ./docker/docker-compose-obsvr.yml up -d
   echo
 }
 
-function destroyObsvrImages() {
+function destroy_obsvr_images() {
   echo -e "\033[1;32mChinook - Removing images... \033[0m"
   docker rmi grafana/grafana:latest grafana/loki:latest prom/prometheus:latest
   echo
 }
 
-function destroyObsvrContainers() {
+function destroy_obsvr_containers() {
   echo -e "\033[1;32mChinook - Stopping and removing obsvr containers... \033[0m"
   docker rm -f -v ch-graf ch-loki ch-prom
   echo
 }
 
-function destroyObsvrNetwork() {
-  echo -e "\033[1;32mChinook - Destroying obsvr network $obsvrNetwork... \033[0m"
-  docker network rm $obsvrNetwork
-  echo
-}
 
 # case handlers --------------------------------------------------------
 
-function createClient() {
-  destroyClientContainers
-  destroyClientImages
-
-  createClientImages
-  createClientContainers
-  seedClient
+function destroy_client() {
+  destroy_client_containers
+  destroy_client_images
 }
 
-function createObsvr() {
-  destroyObsvrContainers
-  destroyObsvrNetwork
-  
-  createObsvrNetwork
-  createObsvrContainers
+function create_client() {
+  destroy_client
+  create_client_images
+  create_client_containers
+  client_seed
 }
 
-function destroyAll() {
-  destroyObsvrContainers
-  destroyObsvrNetwork
-  destroyDockerRegistry
-  destroyClientContainers
-  destroyClientImages
-  destroyClientNetwork
+function destroy_obsvr() {
+  destroy_obsvr_containers
+  destroy_network "${obsvr_network}"
+}
+
+function create_obsvr() {
+  destroy_obsvr
+  create_network "${obsvr_network}" "172.18.2.0/24"
+  create_obsvr_containers
+}
+
+function destroy_all() {
+  destroy_obsvr_containers
+  destroy_network "${obsvr_network}"
+  destroy_docker_registry
+  destroy_client_containers
+  destroy_client_images
+  destroy_network "${client_network}"
 }
 
 # handle init --------------------------------------------------------
 
-args=("destroy client obsvr regi")
+args=("destroy destroy_client destroy_obsvr client obsvr regi start")
 error_message="\033[1;31mChinook - Argument of < ${args} > is required! \033[0m"
 
 # vaidate argument
@@ -161,25 +160,35 @@ if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
     exit 1
 fi
 
-getToDaChoppa
+get_to_da_choppa
 
 if [[ ! $1 == 'destroy' ]]; then
-  createClientNetwork
+  create_network "${client_network}"  "172.18.1.0/24"
 fi
 
 case "$1" in
   destroy)
-    destroyAll
+    destroy_all
+    ;;
+  destroy_client)
+    destroy_client
+    ;;
+  destroy_obsvr)
+    destroy_obsvr
     ;;
   client)
-    createClient
+    create_client
     ;;
   obsvr)
-    createObsvr
+    create_obsvr
     ;;
   regi)
-    destroyDockerRegistry
-    createDockerRegistry
+    create_docker_registry
+    ;;
+  start)
+    create_docker_registry
+    create_client
+    create_obsvr
     ;;
   *)
     echo -e "${error_message}"
