@@ -1,0 +1,36 @@
+logging {
+  level    = "info"
+  format   = "json"
+  write_to = [loki.write.ch_db_pg.receiver]
+}
+
+local.file_match "ch_db_pg" {
+  path_targets = [{"__path__" = "/var/log/*.log", "service_name" = "ch-db-pg"}]
+}
+
+loki.source.file "local_logs" {
+    targets    = local.file_match.ch_db_pg.targets
+    forward_to = [loki.write.ch_db_pg.receiver]
+}
+
+loki.write "ch_db_pg" {
+  endpoint {
+    url = "http://172.18.0.2:3100/loki/api/v1/push"
+  }
+}
+
+prometheus.exporter.unix "ch_db_pg" {}
+
+prometheus.scrape "ch_db_pg" {
+    scrape_interval = "10s"
+    targets    = prometheus.exporter.unix.ch_db_pg.targets
+    forward_to = [
+        prometheus.remote_write.ch_db_pg.receiver,
+    ]
+}
+
+prometheus.remote_write "ch_db_pg" {
+    endpoint {
+        url = "http://172.18.0.4/9090/api/v1/write"
+    }
+}

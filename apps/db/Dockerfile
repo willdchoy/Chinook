@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1
+
 FROM localhost:5000/ch/base:latest
 
 RUN apk add postgresql postgresql-contrib busybox-suid && \

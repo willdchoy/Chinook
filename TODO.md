@@ -1,20 +1,20 @@
 #### API
- - rewrite in go with middle
+- rewrite in go with middleware and rate limit
 
 #### DB
-- create new container from chinook default
-- install postgres and alloy
+* install postgres and alloy
+- shard db
 
 #### INFR
-- setup igw with rate limit and lb
-- setup k8s on api with 2 pods?
+- setup igw with rate limit and load balancings
+- setup k8s for api with two pods
 
 x Add health checks to containers
 
 #### UI
-- Handle auth
+- handle auth
 - color scheme, fonts, images, etc.
 
 #### OBSVR
-- setup alloy on each new server
-- create distint name/service 
+x setup alloy on each new server
+x create distint name/service 

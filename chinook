@@ -1,6 +1,9 @@
 #!/bin/bash
 
-function drawChoppa() {
+obsvrNetwork=ch-obsvr
+clientNetwork=ch-client
+
+function getToDaChoppa() {
   echo
 cat << "EOF"
                                          /\
@@ -15,29 +18,34 @@ cat << "EOF"
 EOF
   echo
   echo -e "\033[1;32mChinook - Get to the Choppa! \033[0m"
-  echo          
+  echo
 }
 
-# core/client --------------------------------------------------------
+# client --------------------------------------------------------
 
-function createCoreServices() {
-  echo -e "\033[1;32mChinook - Setting up core services (networking)... \033[0m"
-  docker network create ch-web \
-    --attachable \
-    -d bridge \
-    --subnet 172.18.0.0/24 || true
-
-  docker network create ch-obsvr \
-    --attachable \
-    -d bridge \
-    --subnet 172.18.1.0/24 || true
-  echo 
+function createClientNetwork() {
+  if [[ $(docker network ls | grep -w $clientNetwork) ]]; then
+    echo "${clientNetwork} network already exits."
+    echo ""
+  else
+    echo -e "\033[1;32mChinook - Setting up $clientNetwork network... \033[0m"
+    docker network create $clientNetwork \
+      --attachable \
+      -d bridge \
+      --subnet 172.18.0.0/24 || true
+    echo
+  fi
 }
 
 function createDockerRegistry() {
-  createCoreServices
-  echo -e "\033[1;32mChinook - Starting docker registry... \033[0m"
-  docker compose -v -f ./docker/docker-compose-regi.yml up -d
+  echo -e "\033[1;32mChinook - Creating docker registry... \033[0m"
+  docker compose -v -f ./docker/docker-compose-regi.yml up -d --remove-orphans
+  echo
+}
+
+function destroyDockerRegistry() {
+  echo -e "\033[1;32mChinook - Destroying docker registry... \033[0m"
+  docker rm -f ch-regi
   echo
 }
 
@@ -51,7 +59,7 @@ function createClientImages() {
 
 function createClientContainers() {
   echo -e "\033[1;32mChinook - Composing web containers... \033[0m"
-  docker compose -f ./docker/docker-compose-web.yml up -d
+  docker compose -f ./docker/docker-compose-web.yml up -d --remove-orphans
   echo 
 }
 
@@ -62,8 +70,8 @@ function seedClient() {
 }
 
 function destroyClientContainers() {
-  echo -e "\033[1;32mChinook - Stopping and removing containers... \033[0m"
-  docker rm -f ch-api-web ch-db-pg ch-regi
+  echo -e "\033[1;32mChinook - Stopping and removing client containers... \033[0m"
+  docker rm -f ch-api-web ch-db-pg
   echo
 }
 
@@ -73,17 +81,26 @@ function destroyClientImages() {
   echo
 }
 
-function destroyCoreServices() {
-  echo -e "\033[1;32mChinook - Destroying core services... \033[0m"
-  docker network rm ch-web ch-obsvr
+function destroyClientNetwork() {
+  echo -e "\033[1;32mChinook - Destroying client network $clientNetwork \033[0m"
+  docker network rm $clientNetwork
   echo
 }
 
 # obsvr --------------------------------------------------------
 
+function createObsvrNetwork() {
+  echo -e "\033[1;32mChinook - Setting up $obsvrNetwork network... \033[0m"
+  docker network create $obsvrNetwork \
+    --attachable \
+    -d bridge \
+    --subnet 172.18.1.0/24 || true
+  echo 
+}
+
 function createObsvrContainers() {
   echo -e "\033[1;32mChinook - Composing Obsvr containers... \033[0m"
-  docker compose -f ./docker/docker-compose-obsvr.yml up -d
+  docker compose -f ./docker/docker-compose-obsvr.yml up -d --remove-orphans
   echo
 }
 
@@ -94,8 +111,14 @@ function destroyObsvrImages() {
 }
 
 function destroyObsvrContainers() {
-  echo -e "\033[1;32mChinook - Stopping and removing containers... \033[0m"
+  echo -e "\033[1;32mChinook - Stopping and removing obsvr containers... \033[0m"
   docker rm -f -v ch-graf ch-loki ch-prom
+  echo
+}
+
+function destroyObsvrNetwork() {
+  echo -e "\033[1;32mChinook - Destroying obsvr network $obsvrNetwork... \033[0m"
+  docker network rm $obsvrNetwork
   echo
 }
 
@@ -103,6 +126,8 @@ function destroyObsvrContainers() {
 
 function createClient() {
   destroyClientContainers
+  destroyClientImages
+
   createClientImages
   createClientContainers
   seedClient
@@ -110,66 +135,51 @@ function createClient() {
 
 function createObsvr() {
   destroyObsvrContainers
+  destroyObsvrNetwork
+  
+  createObsvrNetwork
   createObsvrContainers
 }
 
-function createAll() {
-  destroyAll
-  createDockerRegistry
-  createObsvr
-  createClient
-}
-
-function destroyClient() {
+function destroyAll() {
+  destroyObsvrContainers
+  destroyObsvrNetwork
+  destroyDockerRegistry
   destroyClientContainers
   destroyClientImages
-}
-
-function destroyObsvr() {
-  destroyObsvrContainers
-}
-
-function destroyAll() {
-  destroyObsvr
-  destroyClient
+  destroyClientNetwork
 }
 
 # handle init --------------------------------------------------------
 
-args=("all destroy client obsvr regi setup")
+args=("destroy client obsvr regi")
 error_message="\033[1;31mChinook - Argument of < ${args} > is required! \033[0m"
 
+# vaidate argument
 if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
     echo -e ${error_message}
     exit 1
 fi
 
-drawChoppa
+getToDaChoppa
+
+if [[ ! $1 == 'destroy' ]]; then
+  createClientNetwork
+fi
 
 case "$1" in
-  all)
-    createCoreServices
-    createAll
-    ;;
   destroy)
     destroyAll
     ;;
   client)
-    createCoreServices
     createClient
     ;;
   obsvr)
-    createCoreServices
     createObsvr
     ;;
   regi)
-    createCoreServices
+    destroyDockerRegistry
     createDockerRegistry
-    ;;
-  setup)
-    echo "Run the following commands to add chinook to your PATH and enable autocomplete:"
-    echo "export PATH="\$PATH:$(pwd)""
-    echo "complete -W '${args}' chinook.sh"
     ;;
   *)
     echo -e "${error_message}"
