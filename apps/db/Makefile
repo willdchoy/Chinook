@@ -1,8 +1,8 @@
 .PHONY: docker-build docker-clean docker-run start
 
-container = ch-db-pg
+container = ch-client-db
 registry_hostname=localhost:5000
-image = "${registry_hostname}/ch/db-pg:latest"
+image = "${registry_hostname}/ch/client-db:latest"
 
 docker-build: docker-clean
 	docker build -t $(image) .

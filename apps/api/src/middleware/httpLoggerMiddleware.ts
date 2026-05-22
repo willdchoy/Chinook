@@ -8,7 +8,7 @@ export default function responseLoggerMiddleware(
 ) {
   const { rawHeaders, httpVersion, method, socket, url } = req
   const { remoteAddress, remoteFamily } = socket
-  const filePath = `/var/log/ch-api-${new Date().toISOString().split('T')[0]}.log`
+  const filePath = `/var/log/ch-client-api${new Date().toISOString().split('T')[0]}.log`
 
   function handleResponseLevel({ statusCode }: { statusCode: number }) {
     switch (statusCode.toString().slice(0, 1)) {

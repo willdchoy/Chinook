@@ -3,14 +3,14 @@ global:
   external_labels:
     monitor: 'ch-obsvr'
 
-scrape_configs:
-  - job_name: 'ch-prom'
-    static_configs: 
-      - targets: ['localhost:9090']
-  - job_name: 'ch-api-web'
-    static_configs: 
-      - targets: ['ch-api-web:9090']
-  - job_name: 'ch-db-pg'
-    static_configs: 
-      - targets: ['ch-db-pg:9090']
+# scrape_configs:
+#   - job_name: 'ch-prom'
+#     static_configs: 
+#       - targets: ['localhost:9090']
+#   - job_name: 'ch-client-api'
+#     static_configs: 
+#       - targets: ['ch-client-api:9090']
+#   - job_name: 'ch-client-db'
+#     static_configs: 
+#       - targets: ['ch-client-db:9090']
       

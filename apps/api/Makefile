@@ -1,8 +1,8 @@
 .PHONY: dev docker-build docker-clean docker-run start test
 
-container = ch-api-web
+container = ch-client-api
 registry_hostname=localhost:5000
-image = "${registry_hostname}/ch/api-web:latest"
+image = "${registry_hostname}/ch/client-api:latest"
 
 docker-build: test
 	docker build -t $(image) .

@@ -5,7 +5,7 @@ logging {
 }
 
 local.file_match "ch_db_pg" {
-  path_targets = [{"__path__" = "/var/log/*.log", "service_name" = "ch-db-pg"}]
+  path_targets = [{"__path__" = "/var/log/*.log", "service_name" = "ch-client-db"}]
 }
 
 loki.source.file "local_logs" {
