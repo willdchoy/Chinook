@@ -155,8 +155,6 @@ if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
     exit 1
 fi
 
-get_to_the_choppa
-
 if [[ ! $1 == 'stop' ]]; then
   create_network ${client_network} ${client_network_cidr}
 fi
@@ -184,6 +182,7 @@ case "$1" in
     chinook stop && chinook start
     ;;
   start)
+    get_to_the_choppa
     start_docker_registry
     start_client
     start_obsvr

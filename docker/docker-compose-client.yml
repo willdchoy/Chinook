@@ -25,7 +25,7 @@ services:
 
   client-api:
     image: localhost:5000/ch/client-api:latest
-    container_name: client-api
+    container_name: ch-client-api
     restart: unless-stopped
     ports:
       - 8000:8000
