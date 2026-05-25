@@ -5,7 +5,7 @@ logging {
 }
 
 local.file_match "ch_client_api" {
-  path_targets = [{"__path__" = "/var/log/*.log", "service_name" = "ch-client-api"}]
+  path_targets = [{"__path__" = "/var/log/*.log", service_name = "ch-client-api-logs"}]
 }
 
 loki.source.file "local_logs" {
@@ -25,7 +25,7 @@ prometheus.scrape "ch_client_api" {
     scrape_interval = "10s"
     targets    = prometheus.exporter.unix.ch_client_api.targets
     forward_to = [
-        prometheus.remote_write.ch_client_api.receiver,
+        prometheus.relabel.rename_job_for_system_metrics.receiver,
     ]
 }
 
@@ -33,4 +33,14 @@ prometheus.remote_write "ch_client_api" {
     endpoint {
         url = "http://ch-prom:9090/api/v1/write"
     }
+}
+
+prometheus.relabel "rename_job_for_system_metrics" {
+  forward_to = [prometheus.remote_write.ch_client_api.receiver]
+
+  rule {
+    target_label = "job"
+    replacement  = "ch-client-api-sys-metrics"
+    action       = "replace"
+  }
 }

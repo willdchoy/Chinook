@@ -1,8 +1,8 @@
 #!/bin/bash
 
-obsvr_network=ch-obsvr
+obsvr_network=ch-obsvr-network
 obsvr_network_cidr=172.18.1.0/24
-client_network=ch-client
+client_network=ch-client-network
 client_network_cidr=172.18.0.0/24
 
 # core --------------------------------------------------------
@@ -26,7 +26,7 @@ EOF
 }
 
 function destroy_network() {
-  echo -e "\033[1;32mChinook - Destroying network $1.., \033[0m"
+  echo -e "\033[1;32mChinook - Destroying network $1... \033[0m"
   if [[ ! $(docker network ls | grep -w $1) ]]; then
     echo ""
   else

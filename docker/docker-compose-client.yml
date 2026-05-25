@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     ports:
       - 5432:5432
+      - 12345:12345
     expose:
       - 9100
     volumes:
@@ -16,7 +17,7 @@ services:
       - /sys:/host/sys:ro
       - /:/host/rootfs:ro
     networks:
-      - shared-ch-client
+      - shared-ch-client-network
     healthcheck:
       test: ['CMD-SHELL', "sh -c 'pg_isready -U postgres -d chinook'"]
       interval: 3s
@@ -37,7 +38,7 @@ services:
       - /sys:/host/sys:ro
       - /:/host/rootfs:ro
     networks:
-      - shared-ch-client
+      - shared-ch-client-network
     depends_on:
       client-db:
         condition: service_healthy
@@ -48,9 +49,9 @@ services:
       retries: 30
 
 networks:
-  shared-ch-client:
+  shared-ch-client-network:
     external: true
-    name: ch-client
+    name: ch-client-network
 
 volumes:
   pg-data:

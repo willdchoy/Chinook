@@ -26,7 +26,7 @@ docker-start: docker-run
 	
 docker-stop:
 	docker stop $(container)
-	
+
 start:
 	rc-service alloy start
 	pnpm dev

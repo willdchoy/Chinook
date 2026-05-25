@@ -18,8 +18,8 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.enable-remote-write-receiver'
     networks:
-      - shared-ch-client
-      - shared-ch-obsvr
+      - shared-ch-client-network
+      - shared-ch-obsvr-network
 
   obsvr-loki:
     image: grafana/loki:latest
@@ -33,8 +33,8 @@ services:
       - '-target=all'
       - '-config.file=/etc/loki/local-config.yaml'
     networks:
-      - shared-ch-client
-      - shared-ch-obsvr
+      - shared-ch-client-network
+      - shared-ch-obsvr-network
   
   obsvr-graf:
     image: grafana/grafana:latest
@@ -48,16 +48,16 @@ services:
     volumes:
       - ../apps/obsvr/graf/grafana-data:/var/lib/grafana/
     networks:
-      - shared-ch-client
-      - shared-ch-obsvr
+      - shared-ch-client-network
+      - shared-ch-obsvr-network
 
 networks:
-  shared-ch-client:
+  shared-ch-client-network:
     external: true
-    name: ch-client
-  shared-ch-obsvr:
+    name: ch-client-network
+  shared-ch-obsvr-network:
     external: true
-    name: ch-obsvr
+    name: ch-obsvr-network
 
 volumes:
   grafana-data: {}

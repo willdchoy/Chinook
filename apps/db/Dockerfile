@@ -17,10 +17,10 @@ COPY ./init/init.sql /docker-entrypoint-initdb.d/init.sql
 COPY ./init/postgresql_override.conf /etc/postgresql/postgresql_override.conf
 COPY ./init/pg_hba_override.conf /etc/postgresql/pg_hba_override.conf
 
+EXPOSE 5432
+
 RUN mkdir -p /var/lib/alloy
 RUN chown -R postgres:postgres /var/lib/alloy
-
-EXPOSE 5432
 
 USER postgres:postgres
 

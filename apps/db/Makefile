@@ -34,4 +34,4 @@ psql:
 
 start:
 	pg_ctl start -D /var/lib/postgresql/17/data -o "-c config_file=/etc/postgresql/postgresql_override.conf"
-	/usr/bin/alloy run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+	/usr/bin/alloy run /etc/alloy/config.alloy --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data

@@ -8,9 +8,9 @@ services:
     ports:
       - 5000:5000
     networks:
-      - shared-ch-client
+      - shared-ch-client-network
 
 networks:
-  shared-ch-client:
+  shared-ch-client-network:
     external: true
-    name: ch-client
+    name: ch-client-network
