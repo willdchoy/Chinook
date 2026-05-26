@@ -1,0 +1,50 @@
+@import "reset.css";
+
+:root {
+  --color: #007ab7;
+  --chroma: 0.95;
+  --color-05: oklch(
+    from var(--color) 18.5% calc(0.08 * var(--chroma, c / 0.2)) h
+  );
+  --color-10: oklch(from var(--color) 24% calc(0.1 * var(--chroma, c / 0.2)) h);
+  --color-20: oklch(
+    from var(--color) 32.5% calc(0.135 * var(--chroma, c / 0.2)) h
+  );
+  --color-30: oklch(
+    from var(--color) 40% calc(0.16 * var(--chroma, c / 0.2)) h
+  );
+  --color-40: oklch(
+    from var(--color) 45% calc(0.185 * var(--chroma, c / 0.2)) h
+  );
+  --color-50: oklch(from var(--color) 57% calc(0.2 * var(--chroma, c / 0.2)) h);
+  --color-60: oklch(
+    from var(--color) 67% calc(0.175 * var(--chroma, c / 0.2)) h
+  );
+  --color-70: oklch(
+    from var(--color) 75% calc(0.13 * var(--chroma, c / 0.2)) h
+  );
+  --color-80: oklch(
+    from var(--color) 83.5% calc(0.085 * var(--chroma, c / 0.2)) h
+  );
+  --color-90: oklch(
+    from var(--color) 92% calc(0.04 * var(--chroma, c / 0.2)) h
+  );
+  --color-95: oklch(
+    from var(--color) 96% calc(0.02 * var(--chroma, c / 0.2)) h
+  );
+  --color-100: oklch(
+    from var(--color) 96% calc(0.01 * var(--chroma, c / 0.2)) h
+  );
+}
+
+html {
+  background-color: var(--color-100);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}

@@ -2,4 +2,4 @@
 export PATH="$PATH:/Users/williamchoy/Sites/chinook"
 
 ### Enable autocomplete
-complete -W "stop stop_client stop_obsvr client obsvr regi restart start" chinook
+complete -W "destroy destroy_client destory_obsvr client obsvr regi restart start" chinook

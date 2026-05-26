@@ -27,12 +27,10 @@ EOF
 
 function destroy_network() {
   echo -e "\033[1;32mChinook - Destroying network $1... \033[0m"
-  if [[ ! $(docker network ls | grep -w $1) ]]; then
-    echo ""
-  else
+  if [[ $(docker network ls | grep -w $1) ]]; then
     docker network rm $1
-    echo
   fi
+  echo
 }
 
 function create_network() {
@@ -62,12 +60,6 @@ function destroy_containers() {
 }
 
 # client --------------------------------------------------------
-
-function destroy_docker_registry() {
-  echo -e "\033[1;32mChinook - Destroying docker registry... \033[0m"
-    destroy_images "ch-regi" 
-  echo
-}
 
 function start_docker_registry() {
   destroy_docker_registry
@@ -104,7 +96,7 @@ function create_obsvr_containers() {
   echo
 }
 
-function stop_obsvr_containers() {
+function destory_obsvr_containers() {
   echo -e "\033[1;32mChinook - Stopping and removing obsvr containers... \033[0m"
   docker rm -f -v ch-graf ch-loki ch-prom
   echo
@@ -112,41 +104,42 @@ function stop_obsvr_containers() {
 
 # case handlers --------------------------------------------------------
 
-function stop_client() {
-  destroy_containers "ch-client-api ch-client-db"
-  destroy_images "localhost:5000/ch/base:late localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
-}
-
-function start_client() {
-  stop_client
-  create_client_images
-  create_client_containers
-  client_seed
-}
-
-function stop_obsvr() {
+function destroy() {
   destroy_containers "ch-graf ch-loki ch-prom"
   destroy_network "${obsvr_network}"
-}
-
-function start_obsvr() {
-  stop_obsvr
-  create_network $obsvr_network $obsvr_network_cidr
-  create_obsvr_containers
-}
-
-function stop() {
-  destroy_containers "ch-graf ch-loki ch-prom"
-  destroy_network "${obsvr_network}"
-  destroy_docker_registry
+  destroy_containers "ch-regi"
+  destroy_images "registry:3" 
   destroy_containers "ch-client-api ch-client-db"
   destroy_images "localhost:5000/ch/base:late localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
   destroy_network "${client_network}"
 }
 
+function destroy_client() {
+  destroy_containers "ch-client-api ch-client-db"
+  destroy_images "localhost:5000/ch/base:late localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
+}
+
+function start_client() {
+  destroy_client
+  create_client_images
+  create_client_containers
+  client_seed
+}
+
+function destroy_obsvr() {
+  destroy_containers "ch-graf ch-loki ch-prom"
+  destroy_network "${obsvr_network}"
+}
+
+function start_obsvr() {
+  destory_obsvr
+  create_network $obsvr_network $obsvr_network_cidr
+  create_obsvr_containers
+}
+
 # handle init --------------------------------------------------------
 
-args=("stop stop_client stop_obsvr client obsvr regi restart start")
+args=("destroy destroy_client destory_obsvr client obsvr regi restart start")
 error_message="\033[1;31mChinook - Argument of < ${args} > is required! \033[0m"
 
 # vaidate argument
@@ -155,19 +148,19 @@ if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
     exit 1
 fi
 
-if [[ ! $1 == 'stop' ]]; then
+if [[ ! $1 == 'destroy' ]]; then
   create_network ${client_network} ${client_network_cidr}
 fi
 
 case "$1" in
-  stop)
-    stop
+  destroy)
+    destroy
     ;;
-  stop_client)
-    stop_client
+  destroy_client)
+    destroy_client
     ;;
-  stop_obsvr)
-    stop_obsvr
+  destory_obsvr)
+    destory_obsvr
     ;;
   client)
     start_client
@@ -179,7 +172,7 @@ case "$1" in
     start_docker_registry
     ;;
   restart)
-    chinook stop && chinook start
+    chinook destroy && chinook start
     ;;
   start)
     get_to_the_choppa
