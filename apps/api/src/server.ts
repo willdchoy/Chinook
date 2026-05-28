@@ -8,6 +8,7 @@ const port = process.env.PORT
 const options = {
   key: fs.readFileSync('./certs/localhost+2-key.pem'),
   cert: fs.readFileSync('./certs/localhost+2.pem'),
+  allowHTTP1: true
 }
 
 try {

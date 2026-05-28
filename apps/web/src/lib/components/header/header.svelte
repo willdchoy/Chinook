@@ -1,14 +1,15 @@
 <header>
   <h1 class="logo">
-    <a href="/">Chinook</a>
+    <a href="/">CHINOOK</a>
   </h1>
   <nav>
     <ul>
-      <li>Albums</li>
-      <li>Favorites</li>
-      <li>Explore</li>
-      <li>Library</li>
-      <li>Account</li>
+      <li>
+        <a href="/">Albums</a>
+        <a href="/">Playlist</a>
+        <a href="/">Explore</a>
+        <a href="/">Account</a>
+      </li>
     </ul>
   </nav>
 </header>
@@ -20,17 +21,20 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 50px;
     background-color: var(--color-10);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
   }
 
   .logo {
     margin-left: 15px;
 
     a {
-      font-size: 2.5rem;
+      font-size: var(--font-size-lg);
       color: white;
-      font-family: "Black Ops One", system-ui;
-      font-weight: 400;
+      font-family: var(--heading-font-family);
+      font-optical-sizing: auto;
+      font-weight: 700;
       font-style: normal;
     }
   }
@@ -45,7 +49,7 @@
       padding: 0;
       list-style-type: none;
 
-      li {
+      li a {
         cursor: pointer;
         margin-right: 20px;
         color: var(--color-100);

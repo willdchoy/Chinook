@@ -3,6 +3,6 @@
 <style>
   footer {
     grid-area: footer;
-    background-color: var(--color-30);
+    background-color: var(--color-20);
   }
 </style>
