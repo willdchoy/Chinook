@@ -1,13 +1,22 @@
+<script>
+  import logoImg from '$lib/assets/img/logo-text.png'
+</script>
+
 <header>
-  <h1 class="logo">
-    <a href="/">CHINOOK</a>
-  </h1>
+  <div>
+    <h1 class="logo">
+      <div class="record"></div>
+      <a href="/">    
+        Chinook
+      </a>
+    </h1>
+  </div>
   <nav>
     <ul>
       <li>
-        <a href="/">Albums</a>
+        <a href="/discover">Discover</a>
         <a href="/">Playlist</a>
-        <a href="/">Explore</a>
+        <a href="/">Shows</a>
         <a href="/">Account</a>
       </li>
     </ul>
@@ -22,22 +31,31 @@
     justify-content: space-between;
     width: 100%;
     height: 50px;
-    background-color: var(--color-10);
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    border-bottom: 1px solid var(--vinyl-50);
   }
 
   .logo {
+    display: flex;
+    align-items: center;
     margin-left: 15px;
 
     a {
-      font-size: var(--font-size-lg);
-      color: white;
-      font-family: var(--heading-font-family);
-      font-optical-sizing: auto;
-      font-weight: 700;
-      font-style: normal;
+      text-transform: uppercase;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
+
+.record {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  border: 12px solid var(--blue);
+  border-radius: 50%;
+  background-color: transparent;
+}
 
   nav {
     margin-right: 10px;
@@ -52,11 +70,6 @@
       li a {
         cursor: pointer;
         margin-right: 20px;
-        color: var(--color-100);
-
-        &:hover {
-          color: var(--color-70);
-        }
       }
     }
   }

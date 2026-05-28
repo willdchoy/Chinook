@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald&display=swap");
+@import "reset.css";
+@import "colors.css";
+@import "vars.css";
+@import "utils";
+@import "layout.css";
+
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--white);
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    color: var(--blue-300);
+  }
+}

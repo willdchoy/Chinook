@@ -1,5 +1,5 @@
 <script lang="ts">
-  import List from "$lib/components/List/List.svelte"
+  import List from "$lib/components/list/List.svelte"
 
   let { data: albums } = $props()
 </script>

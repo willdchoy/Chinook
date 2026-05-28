@@ -1,0 +1,54 @@
+:root {
+  /* typography */
+  --body-font-family: "Inter", sans-serif;
+  --heading-font-family: "Oswald", sans-serif;
+  --font-size-xs: clamp(0.6rem, 0.17vw + 0.76rem, 0.7rem);
+  --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
+  --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1rem);
+  --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+  --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+  --font-size-xl: clamp(1.95rem, 1.56vw + 1.56rem, 2.81rem);
+  --font-size-xxl: clamp(2.44rem, 2.38vw + 1.85rem, 3rem);
+  --font-size-xxxl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
+  /* --fw-100: 'wght' 100;
+	--fw-100-italic: 'wght' 100, 'ital' 1; */
+
+  /* backgrounds */
+  --bg: var(--black);
+  --bg-1: var(--black-1);
+  --bg-2: var(--black-2);
+  --bg-sheet: var(--white);
+
+  /* foreground */
+  --fg: var(--white);
+  --fg-1: var(--white);
+  --fg-2: var(--black-9);
+  --fg-sheet: var(--black);
+
+  /* interface colors */
+  --primary: var(--yellow);
+  --accent: var(--teal);
+  --subtle-accent: var(--purple);
+  --warning: var(--red);
+  --success: var(--green);
+  --line: var(--black-2);
+  --tint-or-shade: color-mix(in oklab, var(--fg), transparent 75%);
+
+  /* borders */
+  --brad: 5px;
+  --border-size: 1.5px;
+  --border: solid var(--border-size) var(--fg-sheet);
+
+  /* breakpoints / sizes */
+  --site-max-width: 1440px;
+  --site-min-vh: 100vh;
+
+  @custom-media --below-sm (width < 400px);
+  @custom-media --below-md (width < 700px);
+  @custom-media --below-lg (width < 900px);
+  @custom-media --below-xl (width < 1200px);
+  @custom-media --above-sm (width > 400px);
+  @custom-media --above-md (width > 700px);
+  @custom-media --above-lg (width > 900px);
+  @custom-media --above-xl (width > 1200px);
+}
