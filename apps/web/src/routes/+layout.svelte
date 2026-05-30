@@ -22,5 +22,4 @@
       <Track />
     </aside>
   </div>
-  <Footer />
 </div>

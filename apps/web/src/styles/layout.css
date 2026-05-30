@@ -11,22 +11,19 @@ body {
 
 .container {
   display: grid;
-  grid-template-areas:
-    "header"
-    "footer";
   min-height: var(--site-min-vh);
   width: 100%;
-  width: var(--site-max-width);
+  grid-template-areas:
+    "header"
+    "content";
 
-  @media (min-width: 700px) {
-    grid-template-areas:
-      "header"
-      "aside"
-      "footer";
-  }
+    @media (min-width: 700px) {
+      width: var(--site-max-width);
+    }
 }
 
 .content {
+  grid-area: content;
   display: flex;
 
   aside {
@@ -45,10 +42,10 @@ body {
   }
 
   main {
-    padding: 10px;
     width: 100%;
-    padding-bottom: 25px;
-    border-right: 1px solid var(--vinyl-50);
-    border-left: 1px solid var(--vinyl-50);
+    padding: 10px;
+    margin-bottom: 50px;
+    border: 1px solid var(--vinyl-50);
+    border-top: none;
   }
 }

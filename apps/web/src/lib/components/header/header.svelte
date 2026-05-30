@@ -5,6 +5,7 @@
       <a href="/"> Chinook </a>
     </h1>
   </div>
+  <div class="hamburger">&#9776;</div>
   <nav>
     <ul>
       <li>
@@ -34,13 +35,13 @@
     justify-content: space-between;
     width: 100%;
     height: 50px;
+    padding: 0 15px;
     border-bottom: 1px solid var(--vinyl-50);
   }
 
   .logo {
     display: flex;
     align-items: center;
-    margin-left: 15px;
 
     a {
       text-transform: uppercase;
@@ -60,8 +61,22 @@
     background-color: transparent;
   }
 
+  .hamburger {
+    margin-top: -9px;
+    font-size: var(--font-size-xxl);
+
+    @media (min-width: 700px) {
+      display: none;
+    }
+  }
+
   nav {
+    display: none;
     margin-right: 10px;
+
+    @media (min-width: 700px) {
+      display: block;
+    }
 
     ul {
       display: flex;
