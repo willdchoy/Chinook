@@ -5,7 +5,7 @@
 </script>
 
 <div class="list-view">
-  <h3 class="title">Hard Rock Classics (1983 - 1992)</h3>
+  <h3 class="title">Top Albums of the Day (1983 - 1997)</h3>
   <div class="list-items">
     <div class="direction">Prev</div>
     {#each albums.data as album}

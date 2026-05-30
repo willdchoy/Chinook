@@ -1,22 +1,25 @@
-<script>
-  import logoImg from '$lib/assets/img/logo-text.png'
-</script>
-
-<header>
+<header class="main-header">
   <div>
     <h1 class="logo">
       <div class="record"></div>
-      <a href="/">    
-        Chinook
-      </a>
+      <a href="/"> Chinook </a>
     </h1>
   </div>
   <nav>
     <ul>
       <li>
-        <a href="/discover">Discover</a>
+        <a href="/">
+          Latest
+          <span>(23)</span>
+        </a>
+      </li>
+      <li>
         <a href="/">Playlist</a>
-        <a href="/">Shows</a>
+      </li>
+      <li>
+        <a href="/">Discover</a>
+      </li>
+      <li>
         <a href="/">Account</a>
       </li>
     </ul>
@@ -24,7 +27,7 @@
 </header>
 
 <style>
-  header {
+  header.main-header {
     grid-area: header;
     display: flex;
     align-items: center;
@@ -47,15 +50,15 @@
     }
   }
 
-.record {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  margin-right: 5px;
-  border: 12px solid var(--blue);
-  border-radius: 50%;
-  background-color: transparent;
-}
+  .record {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+    border: 12px solid var(--blue);
+    border-radius: 50%;
+    background-color: transparent;
+  }
 
   nav {
     margin-right: 10px;
@@ -70,6 +73,11 @@
       li a {
         cursor: pointer;
         margin-right: 20px;
+      }
+
+      li:first-child a span {
+        margin-left: 5px;
+        color: var(--blue);
       }
     }
   }

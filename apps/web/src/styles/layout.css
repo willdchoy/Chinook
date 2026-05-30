@@ -36,12 +36,11 @@ body {
       display: block;
       grid-area: aside;
       min-width: 250px;
-      width: 250px;
+      width: 500px;
       padding: 10px;
       min-height: var(--site-min-vh);
       height: 100%;
       border-right: 1px solid var(--vinyl-50);
-      border-left: 1px solid var(--vinyl-50);
     }
   }
 
@@ -50,5 +49,6 @@ body {
     width: 100%;
     padding-bottom: 25px;
     border-right: 1px solid var(--vinyl-50);
+    border-left: 1px solid var(--vinyl-50);
   }
 }

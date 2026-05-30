@@ -1,21 +1,25 @@
 <script lang="ts">
-  let { album, isActive = false } = $props()
-
-  // temp fix. update with real album cover image
-  album.albumCoverUrl="https://upload.wikimedia.org/wikipedia/en/f/fb/Aerosmith_-_Big_Ones.JPG"
+  let { album } = $props()
 </script>
 
 <div class="list-item">
-  <img src={album.albumCoverUrl} alt="{album.title}" />
-  <div class="details">
-  <a href="/">{album.title}</a><br />
-  <a href="/">
-    <span class="white-muted">
-      by {album.name}
+  <a href="{`/albums/${album.id}`}">
+  <div class="album-cover">
+    <span>
+    {album.title.split(' ').map((word: string) => word[0].toUpperCase()).join('')  }
     </span>
-  </a>
-  
   </div>
+  <div class="details">
+      {album.title} 
+      <span class="white-muted">
+        {album.year}
+      </span>
+      <br />
+      <span class="white-muted">
+        by {album.artist}
+      </span>
+  </div>
+  </a>
 </div>
 
 <style>
@@ -23,15 +27,36 @@
     position: relative;
     cursor: pointer;
     border-radius: 5px;
-    max-width: 300px;
+    width: 100%;
+    max-width: 192px;
+
+    .album-cover {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      min-height: 190px;
+      max-height: 300px;
+      border: 1px solid var(--vinyl-50);
+      background-color: transparent; 
+      transition: background-color 0.1s ease-in-out, color 0.02s ease-in-out;
+
+      &:hover {
+        background-color: var(--vinyl-50);
+      }
+      
+      span {
+        width: 90%;
+        text-align: center;
+        font-size: var(--font-size-xl);
+        line-height: 1;
+        word-wrap: break-word;  
+      }
+    }
 
     .details {
       font-size: var(--font-size-sm);
       padding: 5px;
-    }
-
-    span.white-muted {
-      color: var(--white-muted);
     }
   }
 </style>

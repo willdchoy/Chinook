@@ -1,7 +1,23 @@
-<!-- <script lang="ts">
-  import List from "$lib/components/list/List.svelte"
-
-  let { data: albums } = $props()
+<script>
+  import homepageBanner from "$lib/assets/img/homepage-banner.png"
+  import List from "$lib/components/list/List.svelte";
+  const { data: albums } = $props();
 </script>
 
-<List albums={albums} /> -->
+<div class="home">
+  <div class="home-banner">
+    <img src={homepageBanner} alt="The Band" />
+  </div>
+  <List {albums} />
+</div>
+
+<style>
+  .home {
+    .home-banner {
+      margin: -10px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--vinyl-50);
+    }
+  }
+</style>
+

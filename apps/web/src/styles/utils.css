@@ -1,1 +1,3 @@
-/*  */
+.white-muted {
+  color: var(--white-muted);
+}

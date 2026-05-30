@@ -56,9 +56,11 @@ export default class App implements ApiServer {
 
   handleRequests = (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => {
     this.runMiddleware(req, res, () => {
-      switch (req.url) {
+      const endpoint = `/${req.url.split('/')[1]}`
+
+      switch (endpoint) {
         case '/albums':
-          handleAlbumsRoute(req, res)
+          handleAlbumsRoute(req, res,)
           break
         case '/healthy':
           handleHealthyRoute(req, res)
