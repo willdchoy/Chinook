@@ -1,6 +1,6 @@
 <script>
-  import homepageBanner from "$lib/assets/img/homepage-banner.png"
   import List from "$lib/components/list/List.svelte";
+  import homepageBanner from "$lib/assets/img/homepage-banner.png"
   const { data: albums } = $props();
 </script>
 
@@ -20,4 +20,3 @@
     }
   }
 </style>
-

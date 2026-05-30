@@ -6,4 +6,4 @@
 </script>
 
 <Breadcrumbs {album} />
-<Playlist {album} />
+<Playlist {album} isAblum />

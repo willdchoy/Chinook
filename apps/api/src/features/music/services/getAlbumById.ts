@@ -20,24 +20,26 @@ export async function getAlbumById(albumId: number): Promise<object | string> {
     `;
     const values = [albumId];
     const response = await client.query(query, values);
-    const tracks = response.rows.map(row => {
+    const albumYear = Math.floor(Math.random() * (2023 - 1960 + 1)) + 1960;
+    const tracks = response.rows.map((row) => {
       return {
         id: row.track_id,
         composer: row.track_composer,
-        name: row.track_name
-      }
-    })
+        name: row.track_name,
+        year: albumYear,
+      };
+    });
     const album = {
       id: response.rows[0].album_id,
       title: response.rows[0].album_title,
       artist: response.rows[0].artist_name,
       coverUrl: response.rows[0].album_cover_url,
-      year: Math.floor(Math.random() * (2023 - 1960 + 1)) + 1960,
-      tracks
-    }
-    return album 
+      year: albumYear,
+      tracks,
+    };
+    return album;
   } catch (err: unknown) {
-    const message = `service: getAlbumById(): Unable to retrieve album with id of ${albumId}`
+    const message = `service: getAlbumById(): Unable to retrieve album with id of ${albumId}`;
     console.error(message, err);
     return message;
   } finally {

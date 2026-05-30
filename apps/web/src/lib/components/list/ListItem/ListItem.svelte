@@ -39,7 +39,7 @@
       max-height: 300px;
       border: 1px solid var(--vinyl-50);
       background-color: transparent; 
-      transition: background-color 0.1s ease-in-out, color 0.02s ease-in-out;
+      transition: background-color 0.1s ease-in-out, color 0.01s ease-in-out;
 
       &:hover {
         background-color: var(--vinyl-50);
