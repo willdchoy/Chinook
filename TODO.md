@@ -1,13 +1,15 @@
 #### API
-- rewrite in go with middleware and rate limit
+- rewrite in go gin
+  - create dev container
+  - add live reload via air (https://github.com/air-verse/air)
+  - create docker container with multistage build
+  - setup obsvr for sys, log, err, and gin logs
 
 #### DB
-- shard db
+- reseach db schemas
 x install postgres and alloy
 
 #### INFR
-- setup igw with rate limit and load balancings
-- setup k8s for api with two pods
 x Add health checks to containers
 
 #### UI

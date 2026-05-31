@@ -15,7 +15,8 @@
   "scripts": {
     "dev": "pnpm db:migrate && PORT=8000 node --watch --env-file=.env ./src/server.ts >> /var/log/ch-client-app.log 2> /var/log/ch-client-err.log",
     "log": "ch-client-app.log &>> ch-client-err.log",
-    "db:migrate": "node --env-file=.env ./scripts/migrations/migrate.ts",
+    "createTLS": "openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj \"/CN=localhost\" -extensions EXT -config <(printf \"[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost,IP:192.168.1.134\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth\")",
+    "db:migrate": "node --env-file=.env ./scripts/migrations/migrate.ts >> /var/log/ch-client-app.log 2> /var/log/ch-client-err.log",
     "db:psql": "psql -p 5432 -h localhost -U admin -d chinook",
     "db:start": "pnpm --dir ../db run db:start && sleep 3s && pnpm db:migrate",
     "db:destroy": "pnpm --dir ../db run db:destroy",
