@@ -22,6 +22,8 @@ func NewAlbumHandler(service AlbumService) AlbumHandler {
 
 func (h *AlbumHandlerImpl) GetAlbums(c *gin.Context) {
 	albums := h.service.GetAlbums(c)
+	
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, albums)
 }
 
@@ -33,5 +35,6 @@ func (h *AlbumHandlerImpl) GetById(c *gin.Context) {
 	}
 	
 	album := h.service.GetById(c, AlbumId(id))
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, album)
 }

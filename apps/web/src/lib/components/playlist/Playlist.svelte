@@ -3,8 +3,6 @@
   const playlistTitle = $derived(title || album.title)
   const playlistArtist = $derived(album.artist || 'Various Artists')
 
-  console.log(album);
-  
 </script>
 
 <br />
