@@ -1,5 +1,5 @@
 #### API
-- rewrite in go gin
+  - add api design patterns (https://gin-gonic.com/en/docs/routing/api-design/)
   - create dev container
   - add live reload via air (https://github.com/air-verse/air)
   - create docker container with multistage build
