@@ -1,6 +1,6 @@
 import { createDbClient } from "#app/features/common/lib/db.ts";
 
-export async function getAlbums(): Promise<object | string> {
+export async function listAlbums(): Promise<object | string> {
   const client = createDbClient();
   await client.connect();
 
@@ -27,7 +27,7 @@ export async function getAlbums(): Promise<object | string> {
     return albums
 
   } catch (err: unknown) {
-    const message = `service: getAlbumsById(): Unable to retrieve albums.`
+    const message = `service: listAlbums(): Unable to retrieve albums.`
     console.error(message, err);
     return message;
   } finally {

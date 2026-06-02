@@ -15,7 +15,10 @@ func main() {
     log.Fatal("Error loading .env file")
   }
 
-  db := database.SetupDB()
+  db, err := database.SetupDB()
+  if err != nil {
+    log.Fatal("Unable to start database", err)
+  }
   defer db.Close()
 
   r := router.SetupRouter(db)

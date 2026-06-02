@@ -1,6 +1,7 @@
 package album
 
 import (
+	"ch-client-api/internal/api"
 	"net/http"
 	"strconv"
 
@@ -8,7 +9,7 @@ import (
 )
 
 type AlbumHandler interface {
-	GetAlbums(c *gin.Context)
+	ListAlbums(c *gin.Context)
 	GetById(c *gin.Context)
 }
 
@@ -20,21 +21,21 @@ func NewAlbumHandler(service AlbumService) AlbumHandler {
 	return &AlbumHandlerImpl{service: service}
 }
 
-func (h *AlbumHandlerImpl) GetAlbums(c *gin.Context) {
-	albums := h.service.GetAlbums(c)
-	
+func (h *AlbumHandlerImpl) ListAlbums(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
-	c.JSON(http.StatusOK, albums)
+	albums := h.service.ListAlbums(c)
+	api.OK(c, albums)
 }
 
 func (h *AlbumHandlerImpl) GetById(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		api.Fail(c, http.StatusBadRequest, "ALBUM_NOT_FOUND", "no album with ID")
 		return
 	}
-	
+
 	album := h.service.GetById(c, AlbumId(id))
-	c.Header("Access-Control-Allow-Origin", "*")
-	c.JSON(http.StatusOK, album)
+	api.OK(c, album)
 }

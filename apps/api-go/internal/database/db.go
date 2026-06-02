@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/lib/pq"
 )
-func SetupDB() *sql.DB {
+func SetupDB() (*sql.DB, error) {
   var db *sql.DB
 
   host := os.Getenv(("DB_HOST"))
@@ -24,12 +24,14 @@ func SetupDB() *sql.DB {
   db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatalf("Error opening database connection: %v", err)
+		return nil, err
 	}
 
   err = db.Ping()
 	if err != nil {
 		log.Fatalf("Database is unreachable: %v", err)
+		return nil, err
 	}
 
-  return db
+  return db, nil
 }

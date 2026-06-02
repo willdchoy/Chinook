@@ -8,11 +8,17 @@
 <div class="list-view">
   <h3 class="title">Top Albums of the Day (1983 - 1997)</h3>
   <div class="list-items">
-    {#each albums.data as album, i}
-      {#if i < maxListItems}
-        <ListItem {album} />
-      {/if}
-    {/each}
+    {#if albums?.data?.length > 0}
+      {#each albums.data as album, i}
+        {#if i < maxListItems}
+          <ListItem {album} />
+        {/if}
+      {/each}
+    {:else}
+      <div class="white-muted">
+        No items are available
+      </div>
+    {/if}
   </div>
 </div>
 

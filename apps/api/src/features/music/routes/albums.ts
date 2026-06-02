@@ -1,6 +1,6 @@
 import { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { getAlbumById } from '../services/getAlbumById.ts'
-import { getAlbums } from '../services/getAlbums.ts'
+import { listAlbums } from '../services/listAlbums.ts'
 
 export async function handleAlbumsRoute(
   req: Http2ServerRequest,
@@ -16,7 +16,7 @@ export async function handleAlbumsRoute(
           res.end(JSON.stringify(await getAlbumById(albumId)))
         } else {
           res.writeHead(200)
-          res.end(JSON.stringify(await getAlbums()))      
+          res.end(JSON.stringify(await listAlbums()))      
         }
         break;
       default:

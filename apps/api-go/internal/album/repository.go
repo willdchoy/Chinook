@@ -4,12 +4,17 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"math/rand/v2"
 
 	_ "github.com/lib/pq"
 )
 
+func createRandomYear() int {
+	return rand.IntN(2026 - 1967) + 1967
+}
+
 type AlbumRepository interface {
-		GetAlbums(ctx context.Context) []Album
+		ListAlbums(ctx context.Context) []Album
 		GetById(ctx context.Context, albumid AlbumId) Album
 }
 
@@ -21,21 +26,23 @@ func NewAlbumRepository(db *sql.DB) AlbumRepository {
 	return &AlbumRepositoryImpl{db: db}
 }
 
-func (r *AlbumRepositoryImpl) GetAlbums(ctx context.Context) []Album {
+func (r *AlbumRepositoryImpl) ListAlbums(ctx context.Context) []Album {
 	rows, err := r.db.Query("SELECT title, albumid, artistid, coverurl FROM album LIMIT 10")
+
 	if err == sql.ErrNoRows {
-    log.Printf("Unable to retrieve albums")
+		log.Print("Unable to retrieve albums", err)
 	}
 	defer rows.Close()
 
 	var albums = []Album{}
 	for rows.Next() {
-		var alb Album
-
-		if err := rows.Scan(&alb.Title, &alb.AlbumId, &alb.ArtistId, &alb.CoverUrl); err != nil {
-			log.Print("error in rows.Next()")
+		var album Album
+		album.Year = createRandomYear()
+		if err := rows.Scan(&album.Title, &album.Id, &album.ArtistId, &album.CoverUrl); err != nil {
+			log.Print("error in rows.Next()", err)
 		}
-		albums = append(albums, alb)
+
+		albums = append(albums, album)
 	}
 
 	return albums
@@ -43,14 +50,14 @@ func (r *AlbumRepositoryImpl) GetAlbums(ctx context.Context) []Album {
 
 func (r *AlbumRepositoryImpl) GetById(ctx context.Context, albumId AlbumId) Album {
     var album = Album{}
+		album.Year = createRandomYear()
 
-    err := r.db.QueryRow("SELECT albumid, title, artistid, coverurl FROM album WHERE albumid = $1", albumId).Scan(&album.AlbumId, &album.Title, &album.ArtistId, &album.CoverUrl)
+    err := r.db.QueryRow("SELECT albumid, title, artistid, coverurl FROM album WHERE albumid = $1", albumId).Scan(&album.Id, &album.Title, &album.ArtistId, &album.CoverUrl)
     if err == sql.ErrNoRows {
-        log.Printf("No album found with that albumid %s", albumId)
+      log.Printf("No album found with albumId %d", albumId)
     } else if err != nil {
-        log.Print("GetById failed...")
-        log.Fatal(err)
+			log.Fatal("GetById failed...", err)
     }
-		
+
 		return album
 }
