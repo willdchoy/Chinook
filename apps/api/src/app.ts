@@ -1,39 +1,39 @@
-import type { Http2ServerRequest, Http2ServerResponse } from 'node:http2'
-import { handleAlbumsRoute } from '#features/music/routes/albums.ts'
-import { handleNotFoundRoute } from './features/notFound/routes/notFound.ts'
-import { handleHealthyRoute } from './features/healthy/routes/healthy.ts'
+import type { Http2ServerRequest, Http2ServerResponse } from "node:http2";
+import { handleAlbumsRoute } from "#features/music/routes/albums.ts";
+import { handleNotFoundRoute } from "./features/notFound/routes/notFound.ts";
+import { handleHealthyRoute } from "./features/healthy/routes/healthy.ts";
 
-type Next = (err: unknown) => void
-type Callback = (err: unknown) => void
+type Next = (err: unknown) => void;
+type Callback = (err: unknown) => void;
 type Middleware = (
   req: Http2ServerRequest,
   res: Http2ServerResponse<Http2ServerRequest>,
   next: Next,
-) => void
+) => void;
 interface ApiServer {
-  middleware: Middleware[]
-  handleRequests: (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => void
+  middleware: Middleware[];
+  handleRequests: (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => void;
   runMiddleware: (
     req: Http2ServerRequest,
     res: Http2ServerResponse<Http2ServerRequest>,
     callback: Callback,
-  ) => void
-  use: (fns: Middleware[]) => void
+  ) => void;
+  use: (fns: Middleware[]) => void;
 }
 
 /**
  *
  */
 export default class App implements ApiServer {
-  middleware: Middleware[]
+  middleware: Middleware[];
 
   constructor() {
-    this.middleware = []
+    this.middleware = [];
   }
 
   use(fns: Middleware[]) {
     for (const fn of fns) {
-      this.middleware.push(fn)
+      this.middleware.push(fn);
     }
   }
 
@@ -42,32 +42,32 @@ export default class App implements ApiServer {
     res: Http2ServerResponse<Http2ServerRequest>,
     callback: Callback,
   ) => {
-    let idx = 0
+    let idx = 0;
 
     const next = (err?: unknown) => {
-      if (err) return callback(err)
-      const fn = this.middleware[idx++]
-      if (!fn) return callback(err)
-      fn(req, res, next)
-    }
+      if (err) return callback(err);
+      const fn = this.middleware[idx++];
+      if (!fn) return callback(err);
+      fn(req, res, next);
+    };
 
-    next()
-  }
+    next();
+  };
 
   handleRequests = (req: Http2ServerRequest, res: Http2ServerResponse<Http2ServerRequest>) => {
     this.runMiddleware(req, res, () => {
-      const endpoint = `/${req.url.split('/')[1]}`
+      const endpoint = `/${req.url.split("/")[1]}`;
 
       switch (endpoint) {
-        case '/albums':
-          handleAlbumsRoute(req, res,)
-          break
-        case '/healthy':
-          handleHealthyRoute(req, res)
-          break
+        case "/albums":
+          handleAlbumsRoute(req, res);
+          break;
+        case "/healthy":
+          handleHealthyRoute(req, res);
+          break;
         default:
-          handleNotFoundRoute(req, res)
+          handleNotFoundRoute(req, res);
       }
-    })
-  }
+    });
+  };
 }

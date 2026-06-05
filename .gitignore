@@ -20,8 +20,6 @@ dist-ssr
 apps/obsvr/graf/grafana-data
 apps/obsvr/prom/prometheus-data
 apps/db/pg-data
-apps/igw/cmd/bin
-apps/igw/cmd/pkg
 
 # Editor directories and files
 .vscode/*
@@ -35,3 +33,5 @@ apps/igw/cmd/pkg
 *.sw?
 
 coverage/**/**
+
+apps/api-go/cmd/server/tmp

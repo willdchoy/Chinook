@@ -13,7 +13,7 @@
       </span>
       <br />
       <span class="white-muted">
-        by {album.artist}
+        by {album.artist.name}
       </span>
     </div>
   </a>

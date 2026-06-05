@@ -62,7 +62,6 @@ function destroy_containers() {
 # client --------------------------------------------------------
 
 function start_docker_registry() {
-  destroy_docker_registry
   echo -e "\033[1;32mChinook - Creating docker registry... \033[0m"
   docker compose -v -f ./docker/docker-compose-regi.yml up -d
   echo
@@ -71,7 +70,7 @@ function start_docker_registry() {
 function create_client_images() {
   echo -e "\033[1;32mChinook - Building and deploy images to docker registry... \033[0m"
   make -C ./docker/ch-base docker-build
-  make -C ./apps/api docker-build
+  make -C ./apps/api-go docker-build
   make -C ./apps/db docker-build
   echo
 }
@@ -110,13 +109,13 @@ function destroy() {
   destroy_containers "ch-regi"
   destroy_images "registry:3" 
   destroy_containers "ch-client-api ch-client-db"
-  destroy_images "localhost:5000/ch/base:late localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
+  destroy_images "localhost:5000/ch/base:latest localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
   destroy_network "${client_network}"
 }
 
 function destroy_client() {
   destroy_containers "ch-client-api ch-client-db"
-  destroy_images "localhost:5000/ch/base:late localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
+  destroy_images "localhost:5000/ch/base:latest localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
 }
 
 function start_client() {

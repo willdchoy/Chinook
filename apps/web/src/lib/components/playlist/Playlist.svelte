@@ -1,7 +1,7 @@
 <script lang="ts">
-  const { isAblum = false, title = null, album = null} = $props()
-  const playlistTitle = $derived(title || album?.data?.title)
-  const playlistArtist = $derived(album?.data?.artistId || 'Various Artists') 
+  const { title = null, playlist = null} = $props()
+  const playlistTitle = $derived(title || playlist?.data?.title)
+  const playlistArtist = $derived(playlist?.data?.name || 'Various Artists')
 </script>
 
 <br />
@@ -10,9 +10,7 @@
   <div class="title">
     <h1>
       {playlistTitle}
-      {#if isAblum}
-        <span class="white-muted">{album?.data?.year}</span>
-      {/if}
+      <span class="white-muted">{playlist?.data?.year}</span>
       <br />
       <span class="artist-name white-muted">by {playlistArtist}</span>
   </h1>
@@ -30,14 +28,12 @@
       </tr>
     </thead>
     <tbody>
-      <!-- {#each album.data as track}
+      {#each playlist.data as track}
         <tr>
-          <td>{track.name}</td>
-          <td>{album.title}</td>
+          <td>{track.title}</td>
           <td>{track.year}</td>
-          <td>{track.composer}</td>
         </tr>
-      {/each} -->
+      {/each}
     </tbody>
   </table>
 </div>

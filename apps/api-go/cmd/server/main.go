@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"ch-client-api/internal/database"
-	"ch-client-api/internal/router"
+	"ch-client-api/internal/platform/database"
+	"ch-client-api/internal/platform/router"
 
 	"github.com/joho/godotenv"
 )
@@ -12,15 +12,15 @@ import (
 func main() {
   err := godotenv.Load()
   if err != nil {
-    log.Fatal("Error loading .env file")
+    log.Fatal("main.go : Error loading .env file")
   }
 
   db, err := database.SetupDB()
   if err != nil {
-    log.Fatal("Unable to start database", err)
+    log.Fatal("main.go : Unable to start database", err)
   }
   defer db.Close()
 
   r := router.SetupRouter(db)
-  r.RunTLS(":443", "./cmd/server/certs/localhost+3.pem", "./cmd/server/certs/localhost+3-key.pem")
+  r.RunTLS(":8000", "./cmd/server/certs/localhost+4.pem", "./cmd/server/certs/localhost+4-key.pem")
 }

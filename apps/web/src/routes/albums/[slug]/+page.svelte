@@ -2,8 +2,8 @@
   import Breadcrumbs from "$lib/components/breadcrumbs/Breadcrumbs.svelte";
   import Playlist from "$lib/components/playlist/Playlist.svelte"
  
-  const { data: album } = $props()
+  const { data: playlist } = $props()
 </script>
 
-<Breadcrumbs {album} />
-<Playlist {album} isAblum />
+<Breadcrumbs {playlist} />
+<Playlist {playlist} />
