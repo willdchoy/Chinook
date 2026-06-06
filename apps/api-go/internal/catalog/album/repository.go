@@ -56,7 +56,6 @@ func (r *AlbumRepositoryImpl) ListAlbums(ctx context.Context) []Album {
 		if err := rows.Scan(&album.Title, &album.Id, &album.Artist.Id, &album.CoverUrl, &album.Artist.Id, &album.Artist.Name); err != nil {
 			log.Print("error in rows.Next()", err)
 		}
-
 		albums = append(albums, album)
 	}
 
@@ -67,22 +66,13 @@ func (r *AlbumRepositoryImpl) GetById(ctx context.Context, albumId AlbumId) Albu
     var album = Album{}
 		album.Year = createRandomYear()
 		query := `
-		select 
-			track.track, track.name, track.albumid, track.genreid, track.composer, track.milliseconds, track.bytes,
-			album.title, album.coverurl,
-			artist.name,
-			genre.name
-		from track
-		join album
-			on album.albumid = track.albumid
-		join artist
-			on artist.artistid = album.artistid
-		join genre
-			on genre.genreid = track.genreid
-		where track.albumid = $1
+			select
+				album.albumid
+			from album
+			where album.albumid = 1
 		`
 
-    err := r.db.QueryRow(query, albumId).Scan(&album.Id, &album.Title, &album.Artist.Id, &album.CoverUrl, &album.Artist.Id, &album.Artist.Name)
+    err := r.db.QueryRow(query, albumId).Scan(&album.Id)
     if err == sql.ErrNoRows {
       log.Printf("No album found with albumId %d", albumId)
     } else if err != nil {
