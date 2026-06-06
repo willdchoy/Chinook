@@ -1,19 +1,15 @@
 package database
 
 import (
+	database "ch-client-api/internal/platform/database/seed"
 	"database/sql"
-	"embed"
 	"fmt"
 	"log"
 	"os"
 	"strconv"
 
 	_ "github.com/lib/pq"
-	goose "github.com/pressly/goose/v3"
 )
-
-//go:embed migrations/*.sql
-var embedMigrations embed.FS
 
 func SetupDB() (*sql.DB, error) {
   var db *sql.DB
@@ -37,22 +33,7 @@ func SetupDB() (*sql.DB, error) {
 		log.Fatalf("Database is unreachable: %v", err)
 	}
 
-	seedDB(db)
+	database.SeedDB(db)
 
   return db, nil
-}
-
-func seedDB(db *sql.DB) {
-		fmt.Print("seedDB : Starting seed...")
-    goose.SetBaseFS(embedMigrations)
-
-    if err := goose.SetDialect("postgres"); err != nil {
-        panic(err)
-    }
-
-    if err := goose.Up(db, "migrations"); err != nil {
-        panic(err)
-    }
-
-		fmt.Print("seedDB : Seed complete!")
 }

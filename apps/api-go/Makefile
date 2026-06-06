@@ -23,9 +23,11 @@ docker-start: docker-run
 docker-stop:
 	docker stop $(container)
 
-air:
-	export PATH="$PATH:$(go env GOPATH)/bin"
-	cd cmd/server && air
+air-install:
+	go install github.com/air-verse/air@latest
+
+air: air-install
+	air
 
 start:
 # 	rc-service alloy stop
