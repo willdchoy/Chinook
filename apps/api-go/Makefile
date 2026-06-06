@@ -1,4 +1,4 @@
-.PHONY: dev docker-build docker-clean docker-run start test
+.PHONY: dev docker-build docker-clean docker-run air start test
 
 container = ch-client-api
 registry_hostname=localhost:5000

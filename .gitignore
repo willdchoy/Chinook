@@ -34,4 +34,4 @@ apps/db/pg-data
 
 coverage/**/**
 
-apps/api-go/cmd/server/tmp
+apps/api-go/tmp

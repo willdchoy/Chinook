@@ -18,7 +18,6 @@ type Track struct {
   Id           int    `json:"id"`
   Name         string `json:"name"`
   Year         int    `json:"year"`
-  MediaTypeId  int    `json:"mediatypeId"`
   Composer     string `json:"composer"`
   Milliseconds int    `json:"milliseconds"`
   Bytes        int    `json:"bytes"`
@@ -37,12 +36,18 @@ type Genre struct {
   Name    string `json:"name"`
 }
 
+
+type PlaylistId int
+
 type PlaylistTrack struct {
-  PlaylistId int    `json:"playlistId"`
-  TrackId    string `json:"trackdId"`
+  PlaylistId PlaylistId `json:"playlistId"`
+  TrackId    string     `json:"trackdId"`
+  Year       int        `json:"year"`
 }
 
 type Playlist struct {
-  Id int    `json:"id"`
-  Name       string `json:"name"`
+  Id   PlaylistId `json:"id"`
+  Name   string     `json:"name"`
+  Year   int        `json:"year"`
 }
+

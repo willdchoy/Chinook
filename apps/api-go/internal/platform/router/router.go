@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"ch-client-api/internal/catalog/album"
+	"ch-client-api/internal/catalog/playlist"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,7 @@ func SetupRouter(db *sql.DB) *gin.Engine {
 
   v1 := r.Group(("/api/v1"))
   album.RegisterAlbumsRoutes(v1, db)
+  playlist.RegisterPlaylistsRoutes(v1, db)
   registerHealth(v1)
 
   return r

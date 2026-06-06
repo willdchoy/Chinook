@@ -67,14 +67,21 @@ func (r *AlbumRepositoryImpl) GetById(ctx context.Context, albumId AlbumId) Albu
     var album = Album{}
 		album.Year = createRandomYear()
 		query := `
-			select 
-				album.albumid, album.title, album.artistid, album.coverurl,
-				artist.artistid, artist.name
-			from album
-			join artist
-				on artist.artistid = album.artistid
-			where albumid = $1
+		select 
+			track.track, track.name, track.albumid, track.genreid, track.composer, track.milliseconds, track.bytes,
+			album.title, album.coverurl,
+			artist.name,
+			genre.name
+		from track
+		join album
+			on album.albumid = track.albumid
+		join artist
+			on artist.artistid = album.artistid
+		join genre
+			on genre.genreid = track.genreid
+		where track.albumid = $1
 		`
+
     err := r.db.QueryRow(query, albumId).Scan(&album.Id, &album.Title, &album.Artist.Id, &album.CoverUrl, &album.Artist.Id, &album.Artist.Name)
     if err == sql.ErrNoRows {
       log.Printf("No album found with albumId %d", albumId)
