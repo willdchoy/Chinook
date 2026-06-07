@@ -1,6 +1,7 @@
 #### DB
-
-- [ ] reseach db schemas
+- [ ] add indexes
+- [ ] research transactions for content
+- [x] reseach db schemas
 - [x] install postgres and alloy
 
 #### INFR

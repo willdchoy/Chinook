@@ -54,6 +54,13 @@ create table track (
   album_id INT
 );
 
+create table playlist (
+  id INT NOT NULL,
+  title TEXT NOT NULL,
+  year INT,
+  created_at TIMESTAMPTZ DEFAULT NOW() 
+);
+
 create table promo (
   id INT NOT NULL,
   name TEXT
@@ -81,12 +88,19 @@ create table track_genre (
   genre_id INT NOT NULL
 );
 
+create table track_playlist (
+  playlist_id INT NOT NULL,
+  track_id INT NOT NULL,
+  promo_id INT
+);
+
 -- primary keys
 ALTER TABLE album ADD CONSTRAINT pk_album_id PRIMARY KEY (id);
 ALTER TABLE country ADD CONSTRAINT pk_country_id PRIMARY KEY (id);
 ALTER TABLE account ADD CONSTRAINT pk_account_id PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT pk_artist_id PRIMARY KEY (id);
 ALTER TABLE track ADD CONSTRAINT pk_track_id PRIMARY KEY (id);
+ALTER TABLE playlist ADD CONSTRAINT pk_playlist_id PRIMARY KEY (id);
 ALTER TABLE genre ADD CONSTRAINT pk_genre_id PRIMARY KEY (id);
 ALTER TABLE promo ADD CONSTRAINT pk_promo_id PRIMARY KEY (id);
 
@@ -101,3 +115,5 @@ ALTER TABLE track_album ADD CONSTRAINT fk_track_album_track_id FOREIGN KEY (trac
 ALTER TABLE track_album ADD CONSTRAINT fk_track_album_album_id FOREIGN KEY (album_id) REFERENCES album (id);
 ALTER TABLE track_genre ADD CONSTRAINT fk_track_genre_track_id FOREIGN KEY (track_id) REFERENCES track (id);
 ALTER TABLE track_genre ADD CONSTRAINT fk_track_genre_genre_id FOREIGN KEY (genre_id) REFERENCES genre (id);
+ALTER TABLE track_playlist ADD CONSTRAINT fk_track_playlist_track_id FOREIGN KEY (track_id) REFERENCES track (id);
+ALTER TABLE track_playlist ADD CONSTRAINT fk_track_playlist_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist (id);
