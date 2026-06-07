@@ -19,7 +19,7 @@ func GlobalHeadersMiddleware() gin.HandlerFunc {
 		c.Header("Permissions-Policy", "geolocation=(), camera=(), microphone=()")
 		c.Header("X-Server-Version", "1.0.0")
 		c.Header("Access-Control-Allow-Origin", "*")
-		
+
 		c.Next()
 	}
 }

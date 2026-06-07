@@ -6,43 +6,44 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
 type AppError struct {
-  Status  int    `json:"-"`
-  Code    string `json:"code"`
-  Message string `json:"message"`
+	Status  int    `json:"-"`
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
 
 func (e *AppError) Error() string {
-  return e.Message
+	return e.Message
 }
 
 var (
-  ErrNotFound     = &AppError{Status: 404, Code: "NOT_FOUND", Message: "resource not found"}
-  ErrUnauthorized = &AppError{Status: 401, Code: "UNAUTHORIZED", Message: "authentication required"}
-  ErrBadRequest   = &AppError{Status: 400, Code: "BAD_REQUEST", Message: "invalid request"}
+	ErrNotFound     = &AppError{Status: 404, Code: "NOT_FOUND", Message: "resource not found"}
+	ErrUnauthorized = &AppError{Status: 401, Code: "UNAUTHORIZED", Message: "authentication required"}
+	ErrBadRequest   = &AppError{Status: 400, Code: "BAD_REQUEST", Message: "invalid request"}
 )
 
 func ErrorHandlerMiddle() gin.HandlerFunc {
-  return func(c *gin.Context) {
-    c.Next()
+	return func(c *gin.Context) {
+		c.Next()
 
-    if len(c.Errors) == 0 {
-      return
-    }
+		if len(c.Errors) == 0 {
+			return
+		}
 
-    err := c.Errors.Last().Err
-    var appErr *AppError
-    
-    if errors.As(err, &appErr) {
-      c.JSON(appErr.Status, gin.H{
-        "success": false,
-        "error":   gin.H{"code": appErr.Code, "message": appErr.Message},
-      })
-    } else {
-      c.JSON(http.StatusInternalServerError, gin.H{
-        "success": false,
-        "error":   gin.H{"code": "INTERNAL", "message": "an unexpected error occurred"},
-      })
-    }
-  }
+		err := c.Errors.Last().Err
+		var appErr *AppError
+
+		if errors.As(err, &appErr) {
+			c.JSON(appErr.Status, gin.H{
+				"success": false,
+				"error":   gin.H{"code": appErr.Code, "message": appErr.Message},
+			})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"success": false,
+				"error":   gin.H{"code": "INTERNAL", "message": "an unexpected error occurred"},
+			})
+		}
+	}
 }

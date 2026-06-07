@@ -6,7 +6,7 @@ import (
 
 type AlbumService interface {
 	ListAlbums(ctx context.Context) []Album
-	GetById(ctx context.Context, albumId AlbumId) Album 
+	GetById(ctx context.Context, albumId AlbumId) Album
 }
 
 type AlbumServiceImpl struct {

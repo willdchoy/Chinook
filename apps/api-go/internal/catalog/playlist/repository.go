@@ -10,7 +10,7 @@ import (
 )
 
 func createRandomYear() int {
-	return rand.IntN(2026 - 1967) + 1967
+	return rand.IntN(2026-1967) + 1967
 }
 
 type PlaylistRepository interface {
@@ -27,7 +27,7 @@ func NewPlaylistRepository(db *sql.DB) PlaylistRepository {
 }
 
 func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
-	return  []Playlist{}
+	return []Playlist{}
 
 	// query := `
 	// 	select
@@ -46,7 +46,7 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	// 	log.Print("ListPlaylists failed...", err)
 	// 	return albums
 	// }
-	
+
 	// defer rows.Close()
 
 	// for rows.Next() {
@@ -64,9 +64,9 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 }
 
 func (r *PlaylistRepositoryImpl) GetById(ctx context.Context, playlistId PlaylistId) Playlist {
-    var playlist = Playlist{}
-		playlist.Year = createRandomYear()
-		query := `
+	var playlist = Playlist{}
+	playlist.Year = createRandomYear()
+	query := `
 			select 
 				pl.playlistid, pl.name
 			from playlist as pl
@@ -82,12 +82,12 @@ func (r *PlaylistRepositoryImpl) GetById(ctx context.Context, playlistId Playlis
 				on track.genreid = genre.genreid
 			where pl.playlistid = $1
 		`
-    err := r.db.QueryRow(query, playlistId).Scan(&playlist.Id)
-		if err == sql.ErrNoRows {
-      log.Printf("No playlist found with playlistId %d", playlistId)
-    } else if err != nil {
-			log.Print("GetById failed...", err)
-    }
+	err := r.db.QueryRow(query, playlistId).Scan(&playlist.Id)
+	if err == sql.ErrNoRows {
+		log.Printf("No playlist found with playlistId %d", playlistId)
+	} else if err != nil {
+		log.Print("GetById failed...", err)
+	}
 
-		return playlist
+	return playlist
 }

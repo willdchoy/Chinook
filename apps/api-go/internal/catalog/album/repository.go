@@ -10,7 +10,7 @@ import (
 )
 
 func createRandomYear() int {
-	return rand.IntN(2026 - 1967) + 1967
+	return rand.IntN(2026-1967) + 1967
 }
 
 type AlbumRepository interface {
@@ -46,7 +46,7 @@ func (r *AlbumRepositoryImpl) ListAlbums(ctx context.Context) []Album {
 		log.Print("ListAlbums failed...", err)
 		return albums
 	}
-	
+
 	defer rows.Close()
 
 	for rows.Next() {
@@ -63,21 +63,21 @@ func (r *AlbumRepositoryImpl) ListAlbums(ctx context.Context) []Album {
 }
 
 func (r *AlbumRepositoryImpl) GetById(ctx context.Context, albumId AlbumId) Album {
-    var album = Album{}
-		album.Year = createRandomYear()
-		query := `
+	var album = Album{}
+	album.Year = createRandomYear()
+	query := `
 			select
 				album.albumid
 			from album
 			where album.albumid = 1
 		`
 
-    err := r.db.QueryRow(query, albumId).Scan(&album.Id)
-    if err == sql.ErrNoRows {
-      log.Printf("No album found with albumId %d", albumId)
-    } else if err != nil {
-			log.Print("GetById failed...", err)
-    }
+	err := r.db.QueryRow(query, albumId).Scan(&album.Id)
+	if err == sql.ErrNoRows {
+		log.Printf("No album found with albumId %d", albumId)
+	} else if err != nil {
+		log.Print("GetById failed...", err)
+	}
 
-		return album
+	return album
 }

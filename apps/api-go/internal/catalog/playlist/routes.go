@@ -8,13 +8,13 @@ import (
 
 // playlist
 func RegisterPlaylistsRoutes(rg *gin.RouterGroup, db *sql.DB) {
-  repo    := NewPlaylistRepository(db)
-  service := NewPlaylistService(repo)
-  handler := NewPlaylistHandler(service)
+	repo := NewPlaylistRepository(db)
+	service := NewPlaylistService(repo)
+	handler := NewPlaylistHandler(service)
 
-  playlist := rg.Group(("/playlists"))
-  {
-    playlist.GET("", handler.ListPlaylists)
-    playlist.GET("/:id", handler.GetById)
-  }
+	playlist := rg.Group(("/playlists"))
+	{
+		playlist.GET("", handler.ListPlaylists)
+		playlist.GET("/:id", handler.GetById)
+	}
 }
