@@ -42,11 +42,11 @@ type Genre struct {
 }
 
 type AlbumId int
-type Album struct {
-	Title    string          `json:"title"`
-	Id       AlbumId         `json:"id"`
-	CoverUrl *sql.NullString `json:"coverUrl"`
-	Year     int             `json:"year"`
-	Artist   Artist          `json:"artist"`
+type Album      struct {
+	Title         string          `json:"title"`
+	Id            AlbumId         `json:"id"`
+	CoverImageUrl *sql.NullString `json:"coverUrl"`
+	Year          int             `json:"year"`
+	Artist        Artist          `json:"artist"`
 }
 type Albums []Album

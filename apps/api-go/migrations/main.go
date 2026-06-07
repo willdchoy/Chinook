@@ -1,35 +1,50 @@
-package database
+package main
 
 import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"log"
+
+	database "ch-client-api/internal/platform/database"
 
 	"github.com/go-faker/faker/v4"
+	"github.com/joho/godotenv"
 	goose "github.com/pressly/goose/v3"
 )
 
 const (
 	baseMod       = 1
-	maxArtistId   = 1000 * baseMod
+	maxArtistId   = 1000  * baseMod
 	maxAccountId  = 10000 * baseMod
-	maxAlbumId    = 600 * baseMod
-	maxTrackId    = 8000 * baseMod
-	maxPlaylistId = 1000 * baseMod
+	maxAlbumId    = 600   * baseMod
+	maxTrackId    = 8000  * baseMod
+	maxPlaylistId = 1000  * baseMod
 	maxGenreId    = 25
 	minYear       = 1977 
 	maxYear       = 2026
 )
 
-//go:embed migrations/*.sql
+//go:embed sql/*.sql
 var embedMigrations embed.FS
 
-func SeedDB(db *sql.DB) {
+func SeedDB() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("main.go : Error loading .env file")
+	}
+
+	db, err := database.SetupDB()
+	if err != nil {
+		log.Fatal("main.go : Unable to start database", err)
+	}
+	defer db.Close()
+
 	SeedMigrations(db)
-	SeedTestData(db)
+	SeedData(db)
 }
 
-func SeedTestData(db *sql.DB) {
+func SeedData(db *sql.DB) {
 	fmt.Print("seedDB : Adding seed data...\n")
 	AddAccounts(db)
 	AddArtists(db)
@@ -51,7 +66,7 @@ func SeedMigrations(db *sql.DB) {
 	}
 
 	fmt.Print("seedDB : Starting migrations...\n")
-	if err := goose.Up(db, "migrations"); err != nil {
+	if err := goose.Up(db, "sql"); err != nil {
 		panic(err)
 	}
 	fmt.Print("seedDB : Migrations complete!\n")
@@ -80,7 +95,7 @@ func AddAccounts(db *sql.DB) {
 		}
 
 		query := `
-			INSERT INTO account 
+			INSERT INTO account
 				(id, country_id, postal_code, email, username, first_name, last_name, password, account_level, created_at)
 			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 			`
@@ -252,7 +267,7 @@ func AddTrackAlbum(db *sql.DB) {
 	}
 }
 
-// track_album
+// track_artist
 type TrackArtist struct {
 	TrackId  int `faker:"boundary_start=1,boundary_end=7500"`
 	ArtistId int `faker:"boundary_start=1,boundary_end=250"`
@@ -335,4 +350,8 @@ func AddTrackPlaylist(db *sql.DB) {
 
 		fmt.Print("track_playlist ", i, "\n")
 	}
+}
+
+func main() {
+	SeedDB()
 }

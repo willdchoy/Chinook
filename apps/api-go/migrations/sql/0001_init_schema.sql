@@ -109,8 +109,10 @@ ALTER TABLE album ADD CONSTRAINT fk_album_artist_id FOREIGN KEY (artist_id) REFE
 ALTER TABLE account ADD CONSTRAINT fk_account_country_id FOREIGN KEY (country_id) REFERENCES country (id);
 ALTER TABLE artist ADD CONSTRAINT fk_artist_country_id FOREIGN KEY (country_id) REFERENCES country (id);
 ALTER TABLE artist ADD CONSTRAINT fk_artist_account_id FOREIGN KEY (account_id) REFERENCES account (id);
+
 ALTER TABLE track_artist ADD CONSTRAINT fk_track_artist_track_id FOREIGN KEY (track_id) REFERENCES track (id);
 ALTER TABLE track_artist ADD CONSTRAINT fk_track_artist_artist_id FOREIGN KEY (artist_id) REFERENCES artist (id);
+
 ALTER TABLE track_album ADD CONSTRAINT fk_track_album_track_id FOREIGN KEY (track_id) REFERENCES track (id);
 ALTER TABLE track_album ADD CONSTRAINT fk_track_album_album_id FOREIGN KEY (album_id) REFERENCES album (id);
 ALTER TABLE track_genre ADD CONSTRAINT fk_track_genre_track_id FOREIGN KEY (track_id) REFERENCES track (id);

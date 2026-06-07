@@ -1,7 +1,6 @@
 package database
 
 import (
-	database "ch-client-api/internal/platform/database/seed"
 	"database/sql"
 	"fmt"
 	"log"
@@ -32,8 +31,6 @@ func SetupDB() (*sql.DB, error) {
 	if err != nil {
 		log.Fatalf("Database is unreachable: %v", err)
 	}
-
-	database.SeedDB(db)
 
 	return db, nil
 }

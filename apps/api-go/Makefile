@@ -35,5 +35,8 @@ start:
 # 	go fmt
 	go run ./cmd/server/main.go
 
+seed:
+	go run ./migrations/main.go
+
 test:
 	go test ./...
