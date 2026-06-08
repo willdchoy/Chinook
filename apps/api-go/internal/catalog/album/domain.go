@@ -2,33 +2,13 @@ package album
 
 import "database/sql"
 
-type PlaylistId int
-
-type PlaylistTrack struct {
-	PlaylistId PlaylistId `json:"playlistId"`
-	TrackId    string     `json:"trackdId"`
-}
-
-type Playlist struct {
-	Name     string          `json:"title"`
-	Id       AlbumId         `json:"id"`
-	CoverUrl *sql.NullString `json:"coverUrl"`
-	Year     int             `json:"year"`
-	Tracks   Tracks          `json:"tracks"`
-	Album    Album           `json:"album"`
-}
-
 type Tracks []Track
 type Track struct {
 	Id           int    `json:"id"`
-	Name         string `json:"name"`
-	Year         int    `json:"year"`
+	Title        string `json:"title"`
 	Composer     string `json:"composer"`
-	Milliseconds int    `json:"milliseconds"`
+	Duration     int    `json:"duration"`
 	Bytes        int    `json:"bytes"`
-	Album        Album  `json:"album"`
-	Artist       Artist `json:"artist"`
-	Genre        Genre  `json:"genre"`
 }
 
 type Artist struct {
@@ -42,11 +22,25 @@ type Genre struct {
 }
 
 type AlbumId int
+type Albums []Album
 type Album      struct {
-	Title         string          `json:"title"`
 	Id            AlbumId         `json:"id"`
+	Title         string          `json:"title"`
 	CoverImageUrl *sql.NullString `json:"coverUrl"`
 	Year          int             `json:"year"`
 	Artist        Artist          `json:"artist"`
+	Tracks        Tracks          `json:"tracks"`
 }
-type Albums []Album
+
+type PlaylistId int
+
+type PlaylistTrack struct {
+	PlaylistId PlaylistId `json:"playlistId"`
+	TrackId    string     `json:"trackdId"`
+}
+
+type Playlist struct {
+	Id   PlaylistId `json:"id"`
+	Name string     `json:"name"`
+	Year int        `json:"year"`
+}

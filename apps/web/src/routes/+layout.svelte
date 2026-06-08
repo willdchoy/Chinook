@@ -1,8 +1,6 @@
 <script lang="ts">
   import "../styles/base.css"
-  import Footer from "$lib/components/footer/Footer.svelte"
   import Header from "$lib/components/header/Header.svelte"
-  import Track from "$lib/components/track/Track.svelte"
   import favicon from "$lib/assets/favicon.svg"
 
   let { children } = $props()
@@ -18,8 +16,5 @@
     <main>
       {@render children()}
     </main>
-    <aside>
-      <Track />
-    </aside>
   </div>
 </div>

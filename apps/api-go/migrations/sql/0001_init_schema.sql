@@ -47,9 +47,9 @@ create table artist (
 create table track (
   id INT NOT NULL,
   title TEXT NOT NULL,
-  duration_seconds INT NOT NULL,
+  duration INT NOT NULL,
+  composer TEXT,
   track_number INT,
-  year INT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   album_id INT
 );

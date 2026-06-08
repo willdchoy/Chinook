@@ -10,7 +10,6 @@ body {
 }
 
 .container {
-  display: grid;
   min-height: var(--site-min-vh);
   width: 100%;
   grid-template-areas:
@@ -25,21 +24,6 @@ body {
 .content {
   grid-area: content;
   display: flex;
-
-  aside {
-    display: none;
-
-    @media (min-width: 700px) {
-      display: block;
-      grid-area: aside;
-      min-width: 250px;
-      width: 500px;
-      padding: 10px;
-      min-height: var(--site-min-vh);
-      height: 100%;
-      border-right: 1px solid var(--vinyl-50);
-    }
-  }
 
   main {
     width: 100%;

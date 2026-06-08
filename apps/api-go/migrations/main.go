@@ -45,7 +45,7 @@ func SeedDB() {
 }
 
 func SeedData(db *sql.DB) {
-	fmt.Print("seedDB : Adding seed data...\n")
+	fmt.Println("seedDB : Adding seed data...")
 	AddAccounts(db)
 	AddArtists(db)
 	AddAlbums(db)
@@ -55,7 +55,7 @@ func SeedData(db *sql.DB) {
 	AddTrackArtist(db)
 	AddTrackGenre(db)
 	AddTrackPlaylist(db)
-	fmt.Print("seedDB : Seed complete!\n")
+	fmt.Println("seedDB : Seed complete!")
 }
 
 func SeedMigrations(db *sql.DB) {
@@ -65,11 +65,11 @@ func SeedMigrations(db *sql.DB) {
 		panic(err)
 	}
 
-	fmt.Print("seedDB : Starting migrations...\n")
+	fmt.Println("seedDB : Starting migrations...")
 	if err := goose.Up(db, "sql"); err != nil {
 		panic(err)
 	}
-	fmt.Print("seedDB : Migrations complete!\n")
+	fmt.Println("seedDB : Migrations complete!")
 }
 
 // account
@@ -104,7 +104,7 @@ func AddAccounts(db *sql.DB) {
 			fmt.Print("AddAccounts() : Failed to import faker data...", err)
 		}
 
-		fmt.Print("account ", i, "\n")
+		fmt.Println("account ", i)
 	}
 }
 
@@ -139,7 +139,7 @@ func AddArtists(db *sql.DB) {
 			fmt.Print("AddArtists() : Failed to import faker data...", err)
 		}
 
-		fmt.Print("artists ", i, "\n")
+		fmt.Println("artists ", i)
 	}
 }
 
@@ -168,10 +168,10 @@ func AddAlbums(db *sql.DB) {
 			`
 		_, err = db.Exec(query, i, &a.Title, &a.ArtistId, &a.Year, &a.CoverImageUrl, &a.CreatedAt)
 		if err != nil {
-			fmt.Print("AddAlbums() : Failed to import faker data...", err)
+			fmt.Println("AddAlbums() : Failed to import faker data...", err)
 		}
 
-		fmt.Print("album ", i, "\n")
+		fmt.Println("album ", i)
 	}
 }
 
@@ -198,22 +198,22 @@ func AddPlaylists(db *sql.DB) {
 			`
 		_, err = db.Exec(query, i, &p.Title, &p.Year, &p.CreatedAt)
 		if err != nil {
-			fmt.Print("AddPlaylists() : Failed to import faker data...", err)
+			fmt.Println("AddPlaylists() : Failed to import faker data...", err)
 		}
 
-		fmt.Print("playlist ", i, "\n")
+		fmt.Println("playlist ", i)
 	}
 }
 
 // track
 type Track struct {
-	Id              int
-	Title           string `faker:"sentence" validate:"max=50"`
-	TrackNumber     int    `faker:"boundary_start=1,boundary_end=17"`
-	AlbumId         int    `faker:"boundary_start=1,boundary_end=275"`
-	DurationSeconds int    `faker:"boundary_start=130,boundary_end=550"`
-	Year            int    `faker:"boundary_start=1967,boundary_end=2026"`
-	CreatedAt       string `faker:"date"`
+	Id            int
+	Title         string `faker:"sentence" validate:"max=50"`
+	TrackNumber   int    `faker:"boundary_start=1,boundary_end=17"`
+	AlbumId       int    `faker:"boundary_start=1,boundary_end=275"`
+	Duration      int    `faker:"boundary_start=120000,boundary_end=600000"`
+	Composer      string `faker:"name" len:"3"` 
+	CreatedAt     string `faker:"date"`
 }
 
 func AddTracks(db *sql.DB) {
@@ -226,15 +226,15 @@ func AddTracks(db *sql.DB) {
 
 		query := `
 			INSERT INTO track
-				(id, title, track_number, album_id, duration_seconds, year, created_at)
+				(id, title, track_number, album_id, duration, composer, created_at)
 			VAlUES ($1, $2, $3, $4, $5, $6, $7)
 			`
-		_, err = db.Exec(query, i, &t.Title, &t.TrackNumber, &t.AlbumId, &t.DurationSeconds, &t.Year, &t.CreatedAt)
+		_, err = db.Exec(query, i, &t.Title, &t.TrackNumber, &t.AlbumId, &t.Duration, &t.Composer, &t.CreatedAt)
 		if err != nil {
-			fmt.Print("AddTracks() : Failed to import faker data...", err)
+			fmt.Println("AddTracks() : Failed to import faker data...", err)
 		}
 
-		fmt.Print("track ", i, "\n")
+		fmt.Println("track ", i)
 	}
 }
 
@@ -260,10 +260,10 @@ func AddTrackAlbum(db *sql.DB) {
 			`
 		_, err = db.Exec(query, &ta.TrackId, &ta.AlbumId, &ta.PromoId)
 		if err != nil {
-			fmt.Print("AddTrackAlbum : Failed to import faker data...", err)
+			fmt.Println("AddTrackAlbum : Failed to import faker data...", err)
 		}
 
-		fmt.Print("track_album ", i, "\n")
+		fmt.Println("track_album ", i)
 	}
 }
 
@@ -289,10 +289,10 @@ func AddTrackArtist(db *sql.DB) {
 			`
 		_, err = db.Exec(query, &ta.TrackId, &ta.ArtistId, &ta.PromoId)
 		if err != nil {
-			fmt.Print("AddTrackArtist : Failed to import faker data...", err)
+			fmt.Println("AddTrackArtist : Failed to import faker data...", err)
 		}
 
-		fmt.Print("track_artist ", i, "\n")
+		fmt.Println("track_artist ", i)
 	}
 }
 
@@ -317,10 +317,10 @@ func AddTrackGenre(db *sql.DB) {
 			`
 		_, err = db.Exec(query, &tg.TrackId, &tg.GenreId)
 		if err != nil {
-			fmt.Print("AddTrackGenre : Failed to import faker data...", err)
+			fmt.Println("AddTrackGenre : Failed to import faker data...", err)
 		}
 
-		fmt.Print("track_genre ", i, "\n")
+		fmt.Println("track_genre ", i)
 	}
 }
 
@@ -345,10 +345,10 @@ func AddTrackPlaylist(db *sql.DB) {
 			`
 		_, err = db.Exec(query, &tp.TrackId, &tp.PlaylistId)
 		if err != nil {
-			fmt.Print("AddTrackPlaylist : Failed to import faker data...", err)
+			fmt.Println("AddTrackPlaylist : Failed to import faker data...", err)
 		}
 
-		fmt.Print("track_playlist ", i, "\n")
+		fmt.Println("track_playlist ", i)
 	}
 }
 

@@ -24,54 +24,26 @@
 
 #### API
 
-- [ ] add live reload via air (https://github.com/air-verse/air)
 - [ ] create multistage prod build
 - [ ] setup obsvr for sys, log, err, and gin logs
+- [x] add live reload via air (https://github.com/air-verse/air)
 - [x] seed db
 - [x] serve from docker container
 - [x] add api design patterns (https://gin-gonic.com/en/docs/routing/api-design/)
 
-/playist ------- GET playlists
-/playlist/:id -- GET playlist by id
+<!-- 
+  /artist
+  /artist/111/chemical-toilet
 
-```
-select * from playlist as pl
-join playlisttrack as plt
-on plt.playlistid = pl.playlistid
-join track
-on track.trackid = plt.trackid
-join album
-on album.albumid = track.albumid
-join artist
-on artist.artistid = album.artistid
-join genre
-on track.genreid = genre.genreid
-where pl.playlistid = 1
-```
+  /albums
+  /albums/222/chemical-toilet
+  /album/222/chemical-toilet/morning-glory
+  /album/222/chemical-toilet/morning-glory/i-love-her
 
-/albums -------- GET albums
-/albums/:id ---- GET album by id
+  /playist/333/chemical-toilet
+  /playist/333/chemical-toilet/i-love-her
 
-```
-select * from album
-join track
-on track.albumid = album.albumid
-join artist
-on artist.artistid = album.artistid
-join genre
-on track.genreid = genre.genreid
-where album.albumid = 1
-```
+  
 
-/track/:id ----- GET track by id
-
-```
-select * from track
-join album
-on album.albumid = track.albumid
-join artist
-on artist.artistid = album.artistid
-join genre
-on track.genreid = genre.genreid
-where track.trackid = 1
-```
+  https://chinook.com/album/543542/chemical-toilet/morning-glory/i-love-her
+  -->
