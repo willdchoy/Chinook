@@ -1,13 +1,10 @@
 <script lang="ts">
   const { title } = $props();
   const tmpAblumCover = $derived(title.split(' ').map((word: string) => word[0]?.toUpperCase())?.join('') || '')
-
 </script>
 
 <div class="album-cover">
-  <span>
-    {tmpAblumCover}
-  </span>
+  <img src="https://picsum.photos/325/325" alt="">  
 </div>
 
 <style>
@@ -24,14 +21,6 @@
 
     &:hover {
       background-color: var(--vinyl-50);
-    }
-    
-    span {
-      width: 50%;
-      text-align: center;
-      font-size: var(--font-size-lg);
-      line-height: 1;
-      word-wrap: break-word;  
     }
   }
 </style>

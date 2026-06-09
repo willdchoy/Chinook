@@ -27,7 +27,7 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	
 	query := `
 		select
-			p.id, p.title, p.cover_image_url, p.is_album, p.is_public,
+			p.id, p.title, p.cover_image_url, p.is_album, p.is_public, p.year,
 			a.id, a.name
 		from playlist p
 		join artist a on p.artist_id = a.id
@@ -47,7 +47,7 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	for rows.Next() {
 		var playlist Playlist
 
-		if err := rows.Scan(&playlist.Id, &playlist.Title, &playlist.CoverImageUrl, &playlist.IsAlbum, &playlist.IsPublic,
+		if err := rows.Scan(&playlist.Id, &playlist.Title, &playlist.CoverImageUrl, &playlist.IsAlbum, &playlist.IsPublic, &playlist.Year,
 			&playlist.Artist.Id, &playlist.Artist.Name); err != nil {
 			log.Print("ListPlaylists : error scanning rows.Next() ", err)
 		}
