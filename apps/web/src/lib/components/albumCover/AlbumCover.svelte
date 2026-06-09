@@ -1,6 +1,6 @@
 <script lang="ts">
   const { title } = $props();
-  const tmpAblumCover = $derived(title.split(' ').map((word: string) => word[0].toUpperCase()).join(''))
+  const tmpAblumCover = $derived(title.split(' ').map((word: string) => word[0]?.toUpperCase())?.join('') || '')
 
 </script>
 

@@ -26,8 +26,12 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	var playlists = Playlists{}
 	
 	query := `
-		select * from playlist
-		limit 10
+		select
+			p.id, p.title, p.cover_image_url, p.is_album, p.is_public,
+			a.id, a.name
+		from playlist p
+		join artist a on p.artist_id = a.id
+		where p.id in (1,2,3,4,5,6,7,8,9,10)
 	`
 	rows, err := r.db.Query(query)
 	if err == sql.ErrNoRows {
@@ -43,9 +47,9 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	for rows.Next() {
 		var playlist Playlist
 
-		if err := rows.Scan(&playlist.Id, &playlist.Title,  &playlist.Artist.Id, &playlist.CoverImageUrl,
+		if err := rows.Scan(&playlist.Id, &playlist.Title, &playlist.CoverImageUrl, &playlist.IsAlbum, &playlist.IsPublic,
 			&playlist.Artist.Id, &playlist.Artist.Name); err != nil {
-			log.Print("ListPlaylists : error scanning rows.Next()", err)
+			log.Print("ListPlaylists : error scanning rows.Next() ", err)
 		}
 		playlists = append(playlists, playlist)
 	}
