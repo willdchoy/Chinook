@@ -5,6 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"log"
+	"math/rand"
 
 	database "ch-client-api/internal/platform/database"
 
@@ -15,13 +16,12 @@ import (
 
 const (
 	baseMod       = 1
-	maxArtistId   = 1000  * baseMod
-	maxAccountId  = 10000 * baseMod
-	maxAlbumId    = 600   * baseMod
-	maxTrackId    = 8000  * baseMod
-	maxPlaylistId = 1000  * baseMod
+	maxArtistId   = 1000   * baseMod
+	maxAccountId  = 10   * maxArtistId * baseMod
+	maxTrackId    = 8    * maxArtistId * baseMod
+	maxPlaylistId = 4    * maxArtistId * baseMod
 	maxGenreId    = 25
-	minYear       = 1977 
+	minYear       = 1977
 	maxYear       = 2026
 )
 
@@ -48,13 +48,11 @@ func SeedData(db *sql.DB) {
 	fmt.Println("seedDB : Adding seed data...")
 	AddAccounts(db)
 	AddArtists(db)
-	AddAlbums(db)
 	AddPlaylists(db)
 	AddTracks(db)
-	AddTrackAlbum(db)
+	AddTrackPlaylist(db)
 	AddTrackArtist(db)
 	AddTrackGenre(db)
-	AddTrackPlaylist(db)
 	fmt.Println("seedDB : Seed complete!")
 }
 
@@ -83,7 +81,7 @@ type Account struct {
 	Email        string `faker:"email"`
 	Password     string `faker:"password"`
 	AccountLevel int
-	CreatedAt    string `faker:"date"`
+	CreatedAt    string `faker:"timestamp"`
 }
 
 func AddAccounts(db *sql.DB) {
@@ -118,7 +116,7 @@ type Artist struct {
 	Email       string `faker:"email"`
 	Bio         string `faker:"paragraph"`
 	AccountId   int    `faker:"boundary_start=1,boundary_end=2500"`
-	CreatedAt   string `faker:"date"`
+	CreatedAt   string `faker:"timestamp"`
 }
 
 func AddArtists(db *sql.DB) {
@@ -143,49 +141,24 @@ func AddArtists(db *sql.DB) {
 	}
 }
 
-// album
-type Album struct {
-	Id            int
-	Title         string `faker:"sentence"`
-	ArtistId      int    `faker:"boundary_start=1, boundary_end=750"`
-	Year          int    `faker:"boundary_start=1967, boundary_end=2026"`
-	CoverImageUrl string `faker:"sentence"`
-	CreatedAt     string `faker:"date"`
-}
-
-func AddAlbums(db *sql.DB) {
-	for i := range maxAlbumId {
-		a := Album{}
-		err := faker.FakeData(&a)
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		query := `
-			INSERT INTO album 
-				(id, title, artist_id, year, cover_image_url, created_at)
-			VAlUES ($1, $2, $3, $4, $5, $6)
-			`
-		_, err = db.Exec(query, i, &a.Title, &a.ArtistId, &a.Year, &a.CoverImageUrl, &a.CreatedAt)
-		if err != nil {
-			fmt.Println("AddAlbums() : Failed to import faker data...", err)
-		}
-
-		fmt.Println("album ", i)
-	}
-}
-
 // playlist
 type Playlist struct {
-	Id            int
-	Title         string `faker:"sentence" validate:"max=50"`
-	Year          int    `faker:"boundary_start=1967, boundary_end=2026"`
-	CreatedAt     string `faker:"date"`
+	Id            int    `json:"id"`
+	Title         string `faker:"sentence" validate:"max=100"`
+	ArtistId      int    `faker:"boundary_start=1,boundary_end=2000"`
+	Year          int    `faker:"boundary_start=1979,boundary_end=2026"`
+	CoverImageUrl string `faker:"sentence" validate:"max=100"`
+	IsPublic      bool   
+	IsAlbum       bool   
+	CreatedAt     string `faker:"timestamp"`
 }
 
 func AddPlaylists(db *sql.DB) {
 	for i := range maxPlaylistId {
 		p := Playlist{}
+		p.IsAlbum = rand.Intn(2) == 1
+		p.IsPublic = rand.Intn(2) == 1
+
 		err := faker.FakeData(&p)
 		if err != nil {
 			fmt.Println(err)
@@ -193,10 +166,10 @@ func AddPlaylists(db *sql.DB) {
 
 		query := `
 			INSERT INTO playlist 
-				(id, title, year, created_at)
-			VAlUES ($1, $2, $3, $4)
+				(id, title, artist_id, year, cover_image_url, is_public, is_album, created_at)
+			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8)
 			`
-		_, err = db.Exec(query, i, &p.Title, &p.Year, &p.CreatedAt)
+		_, err = db.Exec(query, i, &p.Title, &p.ArtistId, &p.Year, &p.CoverImageUrl, &p.IsPublic, &p.IsAlbum, &p.CreatedAt)
 		if err != nil {
 			fmt.Println("AddPlaylists() : Failed to import faker data...", err)
 		}
@@ -206,14 +179,14 @@ func AddPlaylists(db *sql.DB) {
 }
 
 // track
+type Tracks = []Track
 type Track struct {
 	Id            int
 	Title         string `faker:"sentence" validate:"max=50"`
 	TrackNumber   int    `faker:"boundary_start=1,boundary_end=17"`
-	AlbumId       int    `faker:"boundary_start=1,boundary_end=275"`
 	Duration      int    `faker:"boundary_start=120000,boundary_end=600000"`
 	Composer      string `faker:"name" len:"3"` 
-	CreatedAt     string `faker:"date"`
+	CreatedAt     string `faker:"timestamp"`
 }
 
 func AddTracks(db *sql.DB) {
@@ -226,10 +199,10 @@ func AddTracks(db *sql.DB) {
 
 		query := `
 			INSERT INTO track
-				(id, title, track_number, album_id, duration, composer, created_at)
-			VAlUES ($1, $2, $3, $4, $5, $6, $7)
+				(id, title, track_number, duration, composer, created_at)
+			VAlUES ($1, $2, $3, $4, $5, $6)
 			`
-		_, err = db.Exec(query, i, &t.Title, &t.TrackNumber, &t.AlbumId, &t.Duration, &t.Composer, &t.CreatedAt)
+		_, err = db.Exec(query, i, &t.Title, &t.TrackNumber, &t.Duration, &t.Composer, &t.CreatedAt)
 		if err != nil {
 			fmt.Println("AddTracks() : Failed to import faker data...", err)
 		}
@@ -238,32 +211,32 @@ func AddTracks(db *sql.DB) {
 	}
 }
 
-// track_album
-type TrackAlbum struct {
-	TrackId int `faker:"boundary_start=1,boundary_end=6200"`
-	AlbumId int `faker:"boundary_start=1,boundary_end=250"`
-	PromoId int
+// track_playlist
+type TrackPlaylist struct {
+	TrackId    int `faker:"boundary_start=1,boundary_end=8000"`
+	PlaylistId int `faker:"boundary_start=1,boundary_end=1000"`
+	PromoId    int
 }
 
-func AddTrackAlbum(db *sql.DB) {
+func AddTrackPlaylist(db *sql.DB) {
 	for i := range maxTrackId {
-		ta := TrackAlbum{}
-		err := faker.FakeData(&ta)
+		tp := TrackPlaylist{}
+		err := faker.FakeData(&tp)
 		if err != nil {
 			fmt.Println(err)
 		}
 
 		query := `
-			INSERT INTO track_album
-				(track_id, album_id, promo_id)
+			INSERT INTO track_playlist
+				(track_id, playlist_id, promo_id)
 			VAlUES ($1, $2, $3)
 			`
-		_, err = db.Exec(query, &ta.TrackId, &ta.AlbumId, &ta.PromoId)
+		_, err = db.Exec(query, &tp.TrackId, &tp.PlaylistId, &tp.PromoId)
 		if err != nil {
-			fmt.Println("AddTrackAlbum : Failed to import faker data...", err)
+			fmt.Println("AddTrackPlaylist : Failed to import faker data...", err)
 		}
 
-		fmt.Println("track_album ", i)
+		fmt.Println("track_playlist ", i)
 	}
 }
 
@@ -321,34 +294,6 @@ func AddTrackGenre(db *sql.DB) {
 		}
 
 		fmt.Println("track_genre ", i)
-	}
-}
-
-// track_playlist
-type TrackPlaylist struct {
-	TrackId    int `faker:"boundary_start=1,boundary_end=7500"`
-	PlaylistId int `faker:"boundary_start=1,boundary_end=1000"`
-}
-
-func AddTrackPlaylist(db *sql.DB) {
-	for i := range maxTrackId {
-		tp := TrackPlaylist{}
-		err := faker.FakeData(&tp)
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		query := `
-			INSERT INTO track_playlist
-				(track_id, playlist_id)
-			VAlUES ($1, $2)
-			`
-		_, err = db.Exec(query, &tp.TrackId, &tp.PlaylistId)
-		if err != nil {
-			fmt.Println("AddTrackPlaylist : Failed to import faker data...", err)
-		}
-
-		fmt.Println("track_playlist ", i)
 	}
 }
 
