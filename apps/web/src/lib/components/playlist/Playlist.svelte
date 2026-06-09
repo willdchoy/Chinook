@@ -1,84 +1,94 @@
 <script lang="ts">
-  import { page} from '$app/state'
   import { formatDuration } from '$lib/utils'
 
   const { playlist = null} = $props()
   const playlistArtist = $derived(playlist?.data?.artist.name || 'Various Artists')
-  const isPlaylist = page.url.pathname.split('/')[1] === 'playlist'
 
 </script>
 
 <div class="playlist">
-
   {#if !playlist.data}
     Not found!
   {/if}
 
   {#if playlist.data}
     <div class="album-cover">
-      <img  src="https://picsum.photos/500/500" alt={playlist.title}>
-    </div>
-    
-    <div class="album-meta">
-      <span class="album-artist white-muted">{playlistArtist}</span>
-      <h1>
-        {playlist?.data?.title}
-        <span class="white-muted">{playlist?.data?.year}</span>
-      </h1>
+      <img  src="https://picsum.photos/725/725" alt={playlist.title}>
+      <div class="album-meta">  
+        <span class="album-artist white-muted">{playlistArtist}</span>
+        <h1>
+          {playlist?.data?.title}
+          <span class="white-muted">{playlist?.data?.year}</span>
+        </h1>
+      </div>
     </div>
 
+    <div>
     <table>
       <thead>
         <tr>
           <th>Track</th>
-          {#if isPlaylist}
-            <th>Album</th>
-            <th>Year</th>
-          {/if}
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Year</th>
           <th>Time</th>
-          <th>Composer</th>
-          <th></th>
+          <th class="show-tablet">Composer</th>
         </tr>
       </thead>
       <tbody>
         {#each playlist?.data?.tracks as track}
           <tr>
             <td>{track.title}</td>
-            {#if isPlaylist}
-              <td>{playlist?.data?. title}</td>
-              <td>{playlist?.data?.year}</td>
-            {/if}
+            <td>{playlist.data.artist.name}</td>
+            <td>{playlist?.data?.title}</td>
+            <td>{playlist?.data?.year}</td>
             <td>{formatDuration(track.duration)}</td>
-            <td>{track.composer}</td>
+            <td class="show-tablet">{track.composer}</td>
           </tr>
         {/each}
       </tbody>
     </table>
+    </div>
   {/if}
 </div>
 
 <style>
   .playlist {
-    h1 {
-      font-size: clamp(22px, 5cqi, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    border-bottom: 1px solid var(--vinyl-50);
+    margin-bottom: 30px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
     }
 
     .album-cover {
+      flex: 1;
+      text-align: center;
+      max-width: 725px;
       margin-bottom: 5px;
     }
+
     .album-cover img {
+      width: 100%;
+      min-width: 300px;
       border-radius: 2px;
     }
 
     .album-meta {
       display: flex;
       flex-direction: column;
-      margin-bottom: 10px;
+      margin: 15px 0 15px 0;
+    }
+
+    .album-meta h1 {
+      font-size: 22px;
     }
 
     .album-artist {
-      font-size: clamp(12px, 3cqi, 25px);
-      margin-bottom: 5px;
+      font-size: 18px;
     }
 
     table {
@@ -93,13 +103,22 @@
           color: var(--vinyl);
         }
       }
+      th {
+        color: var(--vinyl-50);
+        font-size: var(--font-size-xs);
+      }
       th, td {
-        font-size: var(--font-size-sm);
-        padding: 5px;
+        padding: 5PX 10px;
         text-align: left;
       }
       td {
+        font-size: var(--font-size-sm);
         cursor: pointer;
+        vertical-align: top;
+      }
+
+      td:nth-last-child(-n+3) {
+        color: var(--vinyl-50);
       }
     }
   }

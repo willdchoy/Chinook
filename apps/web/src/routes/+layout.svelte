@@ -17,8 +17,8 @@
     <main>
       {@render children()}
     </main>
-    <div class="layout-player">
+    <!-- <div class="layout-player">
       <Player />
-    </div>
+    </div> -->
   </div>
 </div>

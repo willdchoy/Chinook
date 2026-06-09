@@ -33,6 +33,10 @@
     li a {
       font-size: var(--font-size-xs);
       color: var(--white-muted);
+
+      @media (min-width: 768px) {
+        font-size: var(--font-size-sm);
+      }
     }
 
     li:after {

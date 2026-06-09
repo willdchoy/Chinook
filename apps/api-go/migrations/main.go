@@ -74,7 +74,6 @@ func SeedMigrations(db *sql.DB) {
 type Account struct {
 	Id           int
 	CountryCode  int    `faker:"boundary_start=1,boundary_end=248"`
-	PostalCode   int    `json:"postalCode"`
 	FirstName    string `faker:"first_name"`
 	LastName     string `faker:"last_name"`
 	UserName     string `faker:"username"`
@@ -94,10 +93,10 @@ func AddAccounts(db *sql.DB) {
 
 		query := `
 			INSERT INTO account
-				(id, country_id, postal_code, email, username, first_name, last_name, password, account_level, created_at)
-			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+				(id, country_id, email, username, first_name, last_name, password, account_level, created_at)
+			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 			`
-		_, err = db.Exec(query, i, a.PostalCode, a.CountryCode, a.Email, a.UserName, a.FirstName, a.LastName, a.Password, 2, a.CreatedAt)
+		_, err = db.Exec(query, i, a.CountryCode, a.Email, a.UserName, a.FirstName, a.LastName, a.Password, 2, a.CreatedAt)
 		if err != nil {
 			fmt.Print("AddAccounts() : Failed to import faker data...", err)
 		}
@@ -110,12 +109,11 @@ func AddAccounts(db *sql.DB) {
 type Artist struct {
 	Id          int
 	CountryCode int    `faker:"boundary_start=1,boundary_end=248"`
-	PostalCode  int    `json:"postalCode"`
-	Name        string `faker:"sentence" validate:"max=100"`
+	Name        string `faker:"maxlen=5"`
 	UserName    string `faker:"username"`
 	Email       string `faker:"email"`
 	Bio         string `faker:"paragraph"`
-	AccountId   int    `faker:"boundary_start=1,boundary_end=2500"`
+	AccountId   int    `faker:"boundary_start=1,boundary_end=10000"`
 	CreatedAt   string `faker:"timestamp"`
 }
 
@@ -129,10 +127,10 @@ func AddArtists(db *sql.DB) {
 
 		query := `
 			INSERT INTO artist 
-				(id, country_id, postal_code, name, username, email, bio, account_id, created_at)
-			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+				(id, country_id, name, username, email, bio, account_id, created_at)
+			VAlUES ($1, $2, $3, $4, $5, $6, $7, $8)
 			`
-		_, err = db.Exec(query, i, a.CountryCode, a.PostalCode, a.Name, a.UserName, a.Email, a.Bio, 2, a.CreatedAt)
+		_, err = db.Exec(query, i, a.CountryCode, a.Name, a.UserName, a.Email, a.Bio, 2, a.CreatedAt)
 		if err != nil {
 			fmt.Print("AddArtists() : Failed to import faker data...", err)
 		}
@@ -145,11 +143,11 @@ func AddArtists(db *sql.DB) {
 type Playlist struct {
 	Id            int    `json:"id"`
 	Title         string `faker:"sentence" validate:"max=100"`
-	ArtistId      int    `faker:"boundary_start=1,boundary_end=2000"`
+	ArtistId      int    `faker:"boundary_start=1,boundary_end=1000"`
 	Year          int    `faker:"boundary_start=1979,boundary_end=2026"`
-	CoverImageUrl string `faker:"sentence" validate:"max=100"`
-	IsPublic      bool   
-	IsAlbum       bool   
+	CoverImageUrl string `faker:"url" validate:"max=100"`
+	IsPublic      bool   `fake:"bool"`
+	IsAlbum       bool   `fake:"bool"`
 	CreatedAt     string `faker:"timestamp"`
 }
 
@@ -185,7 +183,7 @@ type Track struct {
 	Title         string `faker:"sentence" validate:"max=50"`
 	TrackNumber   int    `faker:"boundary_start=1,boundary_end=17"`
 	Duration      int    `faker:"boundary_start=120000,boundary_end=600000"`
-	Composer      string `faker:"name" len:"3"` 
+	Composer      string `faker:"name" len:"2"` 
 	CreatedAt     string `faker:"timestamp"`
 }
 
@@ -242,8 +240,8 @@ func AddTrackPlaylist(db *sql.DB) {
 
 // track_artist
 type TrackArtist struct {
-	TrackId  int `faker:"boundary_start=1,boundary_end=7500"`
-	ArtistId int `faker:"boundary_start=1,boundary_end=250"`
+	TrackId  int `faker:"boundary_start=1,boundary_end=8000"`
+	ArtistId int `faker:"boundary_start=1,boundary_end=1000"`
 	PromoId  int
 }
 
@@ -271,7 +269,7 @@ func AddTrackArtist(db *sql.DB) {
 
 // track_genre
 type TrackGenre struct {
-	TrackId  int `faker:"boundary_start=1,boundary_end=7500"`
+	TrackId  int `faker:"boundary_start=1,boundary_end=8000"`
 	GenreId int `faker:"boundary_start=1,boundary_end=25"`
 }
 

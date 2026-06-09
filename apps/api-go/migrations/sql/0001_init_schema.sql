@@ -40,7 +40,7 @@ create table artist (
   username TEXT NOT NULL,
   bio TEXT,
   country_id INT NOT NULL,
-  postal_code INT NOT NULL,
+  postal_code INT,
   email TEXT NOT NULL,
   account_id INT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
