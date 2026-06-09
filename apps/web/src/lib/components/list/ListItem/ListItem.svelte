@@ -17,7 +17,7 @@
       </span>
       <br />
       <span class="white-muted">
-        by {album.artist.name}
+        {album.artist.name}
       </span>
     </div>
   </a>

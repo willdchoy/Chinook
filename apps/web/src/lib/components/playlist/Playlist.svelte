@@ -8,8 +8,6 @@
 
 </script>
 
-<br />
-
 <div class="playlist">
 
   {#if !playlist.data}
@@ -17,17 +15,17 @@
   {/if}
 
   {#if playlist.data}
-    <div class="title">
-      <img src="https://picsum.photos/100/100" alt="">
+    <div class="album-cover">
+      <img  src="https://picsum.photos/500/500" alt={playlist.title}>
+    </div>
+    
+    <div class="album-meta">
+      <span class="album-artist white-muted">{playlistArtist}</span>
       <h1>
         {playlist?.data?.title}
         <span class="white-muted">{playlist?.data?.year}</span>
-        <br />
-        <span class="artist-name white-muted">by {playlistArtist}</span>
       </h1>
     </div>
-
-    <br />
 
     <table>
       <thead>
@@ -61,24 +59,26 @@
 
 <style>
   .playlist {
-    .title {
-      display: flex;
-      align-items: center;
-      height: 100px;
+    h1 {
+      font-size: clamp(22px, 5cqi, 40px);
     }
 
-    .title > img {
-      margin-right: 20px;
+    .album-cover {
+      margin-bottom: 5px;
+    }
+    .album-cover img {
       border-radius: 2px;
     }
 
-    .title > h1 {
-      min-height: 48px;
-      line-height: 1;
+    .album-meta {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
     }
 
-    .title > h1 > span.artist-name {
-      font-size: var(--font-size-base);
+    .album-artist {
+      font-size: clamp(12px, 3cqi, 25px);
+      margin-bottom: 5px;
     }
 
     table {
@@ -93,14 +93,13 @@
           color: var(--vinyl);
         }
       }
-      th {
-        text-align: left;
+      th, td {
+        font-size: var(--font-size-sm);
         padding: 5px;
+        text-align: left;
       }
       td {
         cursor: pointer;
-        padding: 5px;
-        font-size: var(--font-size-sm);
       }
     }
   }
