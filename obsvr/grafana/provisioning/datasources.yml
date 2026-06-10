@@ -1,0 +1,59 @@
+# obsvr/grafana/provisioning/datasources/datasources.yaml
+# Auto-provisioned on first Grafana start.
+
+apiVersion: 1
+
+datasources:
+  # ── Loki ────────────────────────────────────────────────────
+  # - name: Loki
+  #   uid: loki
+  #   type: loki
+  #   access: proxy
+  #   url: http://loki:3100
+  #   isDefault: false
+  #   jsonData:
+  #     maxLines: 5000
+  #     # Link Loki logs to Tempo traces via trace_id field
+  #     derivedFields:
+  #       - name: trace_id
+  #         matcherRegex: '"request_id"\s*:\s*"([a-f0-9\-]{32,})"'
+  #         url: "${__value.raw}"
+  #         datasourceUid: tempo
+  #         urlDisplayLabel: View Trace
+
+  # ── Tempo ────────────────────────────────────────────────────
+  # - name: Tempo
+  #   uid: tempo
+  #   type: tempo
+  #   access: proxy
+  #   url: http://tempo:3200
+  #   isDefault: false
+  #   jsonData:
+  #     httpMethod: GET
+  #     serviceMap:
+  #       datasourceUid: prometheus
+  #     nodeGraph:
+  #       enabled: true
+  #     traceQuery:
+  #       timeShiftEnabled: true
+  #       spanStartTimeShift: "1h"
+  #       spanEndTimeShift: "-1h"
+  #     search:
+  #       hide: false
+  #     lokiSearch:
+  #       datasourceUid: loki
+
+  # ── Prometheus (Alloy metrics endpoint) ─────────────────────
+  - name: Prometheus
+    uid: prometheus
+    type: prometheus
+    access: proxy
+    url: http://alloy:12345/api/v1/metrics # Alloy exposes Prometheus-compatible metrics
+    isDefault: true
+    jsonData:
+      timeInterval: 15s
+      queryTimeout: 60s
+      httpMethod: POST
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: tempo

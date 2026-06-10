@@ -3,8 +3,6 @@ name: ch
 networks:
   ch-client-network:
     name: ch-client-network
-  ch-obsvr-network:
-    name: ch-obsvr-network
 
 volumes:
   pg-data:
