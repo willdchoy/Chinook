@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# core --------------------------------------------------------
-
 function get_to_the_choppa() {
   echo
 cat << "EOF"
@@ -20,6 +18,11 @@ EOF
   echo
 }
 
+function handle_status() {
+  docker ps
+  echo ""
+}
+
 function handle_client() { 
   if [[ "$2" == "up" ]]; then
     docker-compose -f docker-compose-client.yml up -d
@@ -33,6 +36,9 @@ get_to_the_choppa
 case "$1" in
   client)
     handle_client "$@"
+    ;;
+  status)
+    handle_status
     ;;
   *)
     echo "Invalid option"

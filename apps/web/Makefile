@@ -4,4 +4,4 @@ dev:
 	pnpm dev
 
 test:
-# 	todo
+	pnpm test

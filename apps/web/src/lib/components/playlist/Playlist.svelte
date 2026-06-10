@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatDuration } from '$lib/utils'
+  import { formatDuration } from '$lib/utils/formatDuration'
 
   const { playlist = null} = $props()
   const playlistArtist = $derived(playlist?.data?.artist.name || 'Various Artists')
