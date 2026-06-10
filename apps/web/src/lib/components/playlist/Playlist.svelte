@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { formatDuration } from '$lib/utils/formatDuration'
+  import { formatDuration } from "$lib/utils/formatDuration"
 
-  const { playlist = null} = $props()
-  const playlistArtist = $derived(playlist?.data?.artist.name || 'Various Artists')
+  const { playlist = null } = $props()
+  const playlistArtist = $derived(
+    playlist?.data?.artist.name || "Various Artists"
+  )
 </script>
 
 <div class="playlist">
@@ -12,8 +14,8 @@
 
   {#if playlist.data.id}
     <div class="album-cover">
-      <img  src="https://picsum.photos/725/725" alt={playlist.title}>
-      <div class="album-meta">  
+      <img src="https://picsum.photos/725/725" alt={playlist.title} />
+      <div class="album-meta">
         <span class="album-artist white-muted">{playlistArtist}</span>
         <h1>
           {playlist?.data?.title}
@@ -23,30 +25,30 @@
     </div>
 
     <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Track</th>
-          <th>Artist</th>
-          <th>Album</th>
-          <th>Year</th>
-          <th>Time</th>
-          <th class="show-tablet">Composer</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each playlist?.data?.tracks as track}
+      <table>
+        <thead>
           <tr>
-            <td>{track.title}</td>
-            <td>{playlist.data.artist.name}</td>
-            <td>{playlist?.data?.title}</td>
-            <td>{playlist?.data?.year}</td>
-            <td>{formatDuration(track.duration)}</td>
-            <td class="show-tablet">{track.composer}</td>
+            <th>Track</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Year</th>
+            <th>Time</th>
+            <th class="show-tablet">Composer</th>
           </tr>
-        {/each}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {#each playlist?.data?.tracks as track}
+            <tr>
+              <td>{track.title}</td>
+              <td>{playlist.data.artist.name}</td>
+              <td>{playlist?.data?.title}</td>
+              <td>{playlist?.data?.year}</td>
+              <td>{formatDuration(track.duration)}</td>
+              <td class="show-tablet">{track.composer}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
     </div>
   {/if}
 </div>
@@ -103,7 +105,8 @@
           color: var(--vinyl);
         }
       }
-      th, td {
+      th,
+      td {
         text-align: left;
         cursor: pointer;
         vertical-align: top;
@@ -116,10 +119,9 @@
       td {
         padding: 5px 10px;
         font-size: var(--font-size-sm);
-        
       }
 
-      td:nth-last-child(-n+3) {
+      td:nth-last-child(-n + 3) {
         color: var(--vinyl-50);
       }
     }

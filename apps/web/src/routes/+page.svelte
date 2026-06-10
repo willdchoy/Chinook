@@ -1,7 +1,7 @@
 <script>
-  import List from "$lib/components/list/List.svelte";
+  import List from "$lib/components/list/List.svelte"
   import homepageBanner from "$lib/assets/img/homepage-banner.png"
-  const { data: albums } = $props();
+  const { data: albums } = $props()
 </script>
 
 <div class="home">

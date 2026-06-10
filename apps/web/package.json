@@ -17,8 +17,9 @@
     "build-storybook": "storybook build",
     "fmt": "oxfmt -c ./.oxfmtrc.json",
     "fmt:check": "pnpm fmt --check",
-    "lint": "oxlint -c ./.oxfmtrc.json",
-    "lint:fix": "pnpm lint --fix"
+    "lint": "oxlint -c ./.oxlintrc.json",
+    "lint:fix": "pnpm lint --fix",
+    "ox": "pnpm fmt && pnpm lint:fix"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",

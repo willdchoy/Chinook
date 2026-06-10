@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  
+  import { onMount } from "svelte"
+
   const { playlist } = $props()
-  let currentUrl: string = $state('')
+  let currentUrl: string = $state("")
 
   onMount(() => {
     currentUrl = window.location.href
@@ -13,7 +13,9 @@
   <ol>
     <li><a href="/">Home</a></li>
     <li><a href="/">Albums</a></li>
-    <li><a href={currentUrl} aria-current="page">{playlist?.data?.title}</a></li>
+    <li>
+      <a href={currentUrl} aria-current="page">{playlist?.data?.title}</a>
+    </li>
   </ol>
 </nav>
 

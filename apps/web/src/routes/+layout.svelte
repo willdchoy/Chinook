@@ -2,7 +2,7 @@
   import "../styles/base.css"
   import Header from "$lib/components/header/Header.svelte"
   import favicon from "$lib/assets/favicon.svg"
-  import Player from "$lib/components/player/Player.svelte";
+  import Player from "$lib/components/player/Player.svelte"
 
   let { children } = $props()
 </script>

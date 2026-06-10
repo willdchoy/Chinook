@@ -15,9 +15,7 @@
         {/if}
       {/each}
     {:else}
-      <div class="white-muted">
-        No items are available
-      </div>
+      <div class="white-muted">No items are available</div>
     {/if}
   </div>
 </div>

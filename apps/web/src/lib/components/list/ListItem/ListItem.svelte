@@ -1,17 +1,18 @@
 <script lang="ts">
-  import AlbumCover from "$lib/components/albumCover/AlbumCover.svelte";
+  import AlbumCover from "$lib/components/albumCover/AlbumCover.svelte"
   let { album } = $props()
 
-  const albumLink = () => `/albums/${album.id}/${album.artist.name}/${album.title}`
-    .replace(/ /g, '-')
-    .replace(/\./g, '')   
+  const albumLink = () =>
+    `/albums/${album.id}/${album.artist.name}/${album.title}`
+      .replace(/ /g, "-")
+      .replace(/\./g, "")
 </script>
 
 <div class="list-item">
-  <a href="{albumLink()}">
+  <a href={albumLink()}>
     <AlbumCover title={album.title} />
     <div class="details">
-      {album.title} 
+      {album.title}
       <span class="white-muted">
         {album.year}
       </span>

@@ -40,7 +40,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./apps/api-go:/var/www/ch-client-api
+      - ./apps/api:/var/www/ch-client-api
     networks:
       - ch-client-network
     depends_on:
