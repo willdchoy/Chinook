@@ -31,7 +31,7 @@ services:
       - "5432:5432"
     volumes:
       - ./_data/pg-data:/var/lib/postgresql
-      - ./_logs/pg-logs:/var/logs/postgresql
+      - ./_logs/pg-logs:/var/log/postgresql
     networks:
       - ch-client-network
     healthcheck:

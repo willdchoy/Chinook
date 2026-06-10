@@ -16,7 +16,6 @@ services:
       - "4317:4317"
       - "4318:4318"
     volumes:
-      - ./_data/api-logs:/var/log/ch-client-api:ro
       - ./_logs/pg-logs:/var/log/postgresql:ro
       - ./obsvr/alloy/config.alloy:/etc/alloy/config.alloy:ro
     healthcheck:
@@ -35,8 +34,8 @@ services:
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
       GF_FEATURE_TOGGLES_ENABLE: traceqlEditor
     volumes:
-      - ./data/grafana-data:/var/lib/grafana
-      - ./obsvr/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./_data/grafana-data:/var/lib/grafana
+      - ./obsvr/grafana/provisioning:/etc/grafana/provisioning/datasources:ro
       - ./obsvr/grafana/dashboards:/var/lib/grafana/dashboards:ro
     # depends_on:
     #   loki:
@@ -55,7 +54,7 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./data/loki-data:/loki
+      - ./_data/loki-data:/loki
       - ./obsvr/loki/config.yaml:/etc/loki/config.yaml:ro
     command: -config.file=/etc/loki/config.yaml
     healthcheck:
@@ -71,7 +70,7 @@ services:
       - "3200:3200"
       - "9095:9095"
     volumes:
-      - ./data/tempo-data:/var/tempo
+      - ./_data/tempo-data:/var/tempo
       - ./obsvr/tempo/config.yaml:/etc/tempo/config.yaml:ro
     command: -config.file=/etc/tempo/config.yaml
     healthcheck:
@@ -79,3 +78,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./obsvr/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./_data/prometheus-data:/prometheus
+
+volumes:
+  prometheus-data:
