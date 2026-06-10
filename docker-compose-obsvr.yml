@@ -1,0 +1,17 @@
+ch: name
+
+services:
+  alloy:
+    image: grafana/alloy:latest
+    networks: [obsvr]
+    ports:
+      - "12345:12345"
+      - "4317:4317"
+      - "4318:4318"
+    volumes:
+      - ./data/api-logs:/var/log/ch-client-api:ro
+      - ./data/pg-logs:/var/log/postgresql:ro
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:12345/-/ready"]
+      interval: 10s
+      timeout: 5s
