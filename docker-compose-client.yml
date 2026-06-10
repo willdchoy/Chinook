@@ -16,11 +16,22 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: chinook
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    command:
+      - postgres
+      - -c
+      - logging_collector=on
+      - -c
+      - log_destination=csvlog
+      - -c
+      - log_directory=/var/log/postgresql
+      - -c
+      - log_filename=postgresql.log
     ports:
       - "5432:5432"
     volumes:
-      - ./data/pg-data:/var/lib/postgresql
-      - ./data/pg-logs:/var/logs/postgresql
+      - ./_data/pg-data:/var/lib/postgresql
+      - ./_logs/pg-logs:/var/logs/postgresql
     networks:
       - ch-client-network
     healthcheck:

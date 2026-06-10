@@ -16,8 +16,8 @@ services:
       - "4317:4317"
       - "4318:4318"
     volumes:
-      - ./data/api-logs:/var/log/ch-client-api:ro
-      - ./data/pg-logs:/var/log/postgresql:ro
+      - ./_data/api-logs:/var/log/ch-client-api:ro
+      - ./_logs/pg-logs:/var/log/postgresql:ro
       - ./obsvr/alloy/config.alloy:/etc/alloy/config.alloy:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:12345/-/ready"]
@@ -38,11 +38,11 @@ services:
       - ./data/grafana-data:/var/lib/grafana
       - ./obsvr/grafana/provisioning:/etc/grafana/provisioning:ro
       - ./obsvr/grafana/dashboards:/var/lib/grafana/dashboards:ro
-    depends_on:
-      loki:
-        condition: service_healthy
-      tempo:
-        condition: service_healthy
+    # depends_on:
+    #   loki:
+    #     condition: service_healthy
+    #   tempo:
+    #     condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 10s

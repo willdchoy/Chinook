@@ -61,6 +61,3 @@ overrides:
     metrics_generator:
       processors: [service-graphs, span-metrics]
       generate_native_histograms: both
-
-analytics:
-  reporting_enabled: false

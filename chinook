@@ -38,6 +38,12 @@ function handle() {
 get_to_the_choppa
 
 case "$1" in
+  up)
+    handle client up && handle obsvr up
+    ;;
+  down)
+    handle client down && handle obsvr down
+    ;;
   client)
     handle "$@"
     ;;

@@ -34,4 +34,5 @@ apps/db/pg-data
 
 coverage/**/**
 
-data
+_data
+_logs
