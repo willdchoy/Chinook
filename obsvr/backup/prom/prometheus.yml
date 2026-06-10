@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'ch-obsvr'
+
+# scrape_configs:
+#   - job_name: 'ch-prom'
+#     static_configs: 
+#       - targets: ['localhost:9090']
+#   - job_name: 'ch-client-api'
+#     static_configs: 
+#       - targets: ['ch-client-api:9090']
+#   - job_name: 'ch-client-db'
+#     static_configs: 
+#       - targets: ['ch-client-db:9090']
+      

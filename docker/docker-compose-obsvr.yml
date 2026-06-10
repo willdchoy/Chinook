@@ -1,12 +1,11 @@
 name: ch
 
 services:
-
   obsvr-prom:
     image: prom/prometheus:latest
     container_name: ch-prom
     restart: unless-stopped
-    ports: 
+    ports:
       - 9090:9090
     volumes:
       - ../apps/obsvr/prom/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -14,9 +13,9 @@ services:
         source: ../apps/obsvr/prom/prometheus-data
         target: /prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.enable-remote-write-receiver'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-remote-write-receiver"
     networks:
       - shared-ch-client-network
       - shared-ch-obsvr-network
@@ -30,12 +29,12 @@ services:
     volumes:
       - ../apps/obsvr/loki/local-config.yaml:/etc/loki/local-config.yaml
     command:
-      - '-target=all'
-      - '-config.file=/etc/loki/local-config.yaml'
+      - "-target=all"
+      - "-config.file=/etc/loki/local-config.yaml"
     networks:
       - shared-ch-client-network
       - shared-ch-obsvr-network
-  
+
   obsvr-graf:
     image: grafana/grafana:latest
     container_name: ch-graf

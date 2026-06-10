@@ -3,15 +3,14 @@
 
   const { playlist = null} = $props()
   const playlistArtist = $derived(playlist?.data?.artist.name || 'Various Artists')
-
 </script>
 
 <div class="playlist">
-  {#if !playlist.data}
+  {#if !playlist.data.id}
     Not found!
   {/if}
 
-  {#if playlist.data}
+  {#if playlist.data.id}
     <div class="album-cover">
       <img  src="https://picsum.photos/725/725" alt={playlist.title}>
       <div class="album-meta">  
@@ -59,6 +58,7 @@
     gap: 2vw;
     border-bottom: 1px solid var(--vinyl-50);
     margin-bottom: 30px;
+    padding-bottom: 32px;
 
     @media (min-width: 768px) {
       flex-direction: row;
@@ -103,18 +103,20 @@
           color: var(--vinyl);
         }
       }
+      th, td {
+        text-align: left;
+        cursor: pointer;
+        vertical-align: top;
+      }
       th {
         color: var(--vinyl-50);
         font-size: var(--font-size-xs);
-      }
-      th, td {
-        padding: 5PX 10px;
-        text-align: left;
+        padding: 0 10px;
       }
       td {
+        padding: 5px 10px;
         font-size: var(--font-size-sm);
-        cursor: pointer;
-        vertical-align: top;
+        
       }
 
       td:nth-last-child(-n+3) {

@@ -1,16 +1,13 @@
 name: ch
 
-services:
+networks:
+  obsvr:
+    name: obsvr
 
+services:
   regi:
     image: registry:3
     container_name: ch-regi
     ports:
       - 5000:5000
-    networks:
-      - shared-ch-client-network
-
-networks:
-  shared-ch-client-network:
-    external: true
-    name: ch-client-network
+    networks: [obsvr]

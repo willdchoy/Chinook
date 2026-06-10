@@ -1,0 +1,53 @@
+name: ch
+
+networks:
+  ch-client-network:
+    name: ch-client-network
+  ch-obsvr-network:
+    name: ch-obsvr-network
+
+volumes:
+  pg-data:
+
+services:
+  client-db:
+    image: postgres:18
+    container_name: ch-client-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chinook
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/pg-data:/var/lib/postgresql
+      - ./data/pg-logs:/var/logs/postgresql
+    networks:
+      - ch-client-network
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d chinook'"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  client-api:
+    image: golang:latest
+    container_name: ch-client-api
+    working_dir: /var/www/ch-client-api
+    restart: unless-stopped
+    command: make start
+    ports:
+      - 8000:8000
+    volumes:
+      - ./apps/api-go:/var/www/ch-client-api
+    networks:
+      - ch-client-network
+    depends_on:
+      client-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'curl -k https://localhost:8000/api/v1/health'"]
+      interval: 30s
+      timeout: 3s
+      retries: 30

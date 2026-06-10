@@ -1,10 +1,5 @@
 #!/bin/bash
 
-obsvr_network=ch-obsvr-network
-obsvr_network_cidr=172.18.1.0/24
-client_network=ch-client-network
-client_network_cidr=172.18.0.0/24
-
 # core --------------------------------------------------------
 
 function get_to_the_choppa() {
@@ -25,161 +20,22 @@ EOF
   echo
 }
 
-function destroy_network() {
-  echo -e "\033[1;32mChinook - Destroying network $1... \033[0m"
-  if [[ $(docker network ls | grep -w $1) ]]; then
-    docker network rm $1
-  fi
-  echo
-}
-
-function create_network() {
-  echo -e "\033[1;32mChinook - Creating network $1... \033[0m"
-  if [[ $(docker network ls | grep -w $1) ]]; then
-    echo "$1 network already exits."
-    echo ""   
+function handle_client() { 
+  if [[ "$2" == "up" ]]; then
+    docker-compose -f docker-compose-client.yml up -d
   else 
-    docker network create $1 \
-      --attachable \
-      -d bridge \
-      --subnet $2 || true
-    echo
+    docker-compose -f docker-compose-client.yml down 
   fi
 }
 
- function destroy_images() {
-  echo -e "\033[1;32mChinook - Removing images... \033[0m"
-  docker rmi $1
-  echo
-}
-
-function destroy_containers() {
-  echo -e "\033[1;32mChinook - Stopping and removing containers... \033[0m"
-  docker rm -f $1
-  echo
-}
-
-# client --------------------------------------------------------
-
-function start_docker_registry() {
-  echo -e "\033[1;32mChinook - Creating docker registry... \033[0m"
-  docker compose -v -f ./docker/docker-compose-regi.yml up -d
-  echo
-}
-
-function create_client_images() {
-  echo -e "\033[1;32mChinook - Building and deploy images to docker registry... \033[0m"
-  make -C ./docker/ch-base docker-build
-  make -C ./apps/api-go docker-build
-  make -C ./apps/db docker-build
-  echo
-}
-
-function create_client_containers() {
-  echo -e "\033[1;32mChinook - Composing client containers... \033[0m"
-  docker compose -f ./docker/docker-compose-client.yml up -d
-  echo 
-}
-
-function client_seed() {
-  echo -e "\033[1;32mChinook - Seeding database... \033[0m"
-  make -C ./apps/db docker-seed
-  echo
-}
-
-# obsvr --------------------------------------------------------
-
-function create_obsvr_containers() {
-  echo -e "\033[1;32mChinook - Composing Obsvr containers... \033[0m"
-  docker compose -f ./docker/docker-compose-obsvr.yml up -d
-  echo
-}
-
-function destory_obsvr_containers() {
-  echo -e "\033[1;32mChinook - Stopping and removing obsvr containers... \033[0m"
-  docker rm -f -v ch-graf ch-loki ch-prom
-  echo
-}
-
-# case handlers --------------------------------------------------------
-
-function destroy() {
-  destroy_containers "ch-graf ch-loki ch-prom"
-  destroy_network "${obsvr_network}"
-  destroy_containers "ch-regi"
-  destroy_images "registry:3" 
-  destroy_containers "ch-client-api ch-client-db"
-  destroy_images "localhost:5000/ch/base:latest localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
-  destroy_network "${client_network}"
-}
-
-function destroy_client() {
-  destroy_containers "ch-client-api ch-client-db"
-  destroy_images "localhost:5000/ch/base:latest localhost:5000/ch/client-api:latest localhost:5000/ch/client-db:latest"
-}
-
-function start_client() {
-  destroy_client
-  create_client_images
-  create_client_containers
-  client_seed
-}
-
-function destroy_obsvr() {
-  destroy_containers "ch-graf ch-loki ch-prom"
-  destroy_network "${obsvr_network}"
-}
-
-function start_obsvr() {
-  destory_obsvr
-  create_network $obsvr_network $obsvr_network_cidr
-  create_obsvr_containers
-}
-
-# handle init --------------------------------------------------------
-
-args=("destroy destroy_client destory_obsvr client obsvr regi restart start")
-error_message="\033[1;31mChinook - Argument of < ${args} > is required! \033[0m"
-
-# vaidate argument
-if [[ ! $(echo ${args[@]} | fgrep -w $1) ]]; then
-    echo -e ${error_message}
-    exit 1
-fi
-
-if [[ ! $1 == 'destroy' ]]; then
-  create_network ${client_network} ${client_network_cidr}
-fi
+get_to_the_choppa
 
 case "$1" in
-  destroy)
-    destroy
-    ;;
-  destroy_client)
-    destroy_client
-    ;;
-  destory_obsvr)
-    destory_obsvr
-    ;;
   client)
-    start_client
-    ;;
-  obsvr)
-    start_obsvr
-    ;;
-  regi)
-    start_docker_registry
-    ;;
-  restart)
-    chinook destroy && chinook start
-    ;;
-  start)
-    get_to_the_choppa
-    start_docker_registry
-    start_client
-    start_obsvr
+    handle_client "$@"
     ;;
   *)
+    echo "Invalid option"
     echo -e "${error_message}"
     exit 1
 esac
