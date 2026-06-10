@@ -32,11 +32,13 @@ services:
       retries: 30
 
   client-api:
-    image: golang:latest
+    build: ./apps/api
     container_name: ch-client-api
     working_dir: /var/www/ch-client-api
     restart: unless-stopped
-    command: make start
+    command: make air-docker
+    environment:
+      - GO_ENV=development
     ports:
       - 8000:8000
     volumes:

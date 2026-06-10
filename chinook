@@ -24,9 +24,12 @@ function handle_status() {
 }
 
 function handle_client() { 
-  if [[ "$2" == "up" ]]; then
+  if [[ "$2" == "restart" ]]; then
+      docker-compose -f docker-compose-client.yml down 
+      docker-compose -f docker-compose-client.yml up -d
+  elif [[ "$2" == "up" ]]; then
     docker-compose -f docker-compose-client.yml up -d
-  else 
+  elif [[ "$2" == "down" ]]; then  
     docker-compose -f docker-compose-client.yml down 
   fi
 }
