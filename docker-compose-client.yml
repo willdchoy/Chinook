@@ -1,9 +1,13 @@
+name: ch
+
 networks:
   ch-client-network:
     name: ch-client-network
+  ch-obsvr-network:
+    name: ch-obsvr-network
 
 services:
-  ch-client-db:
+  client-db:
     image: postgres:18
     container_name: ch-client-db
     restart: unless-stopped
@@ -33,7 +37,20 @@ services:
       timeout: 3s
       retries: 30
 
-  ch-client-api:
+  client-db-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    networks: [ch-client-network, ch-obsvr-network]
+    ports:
+      - "9187:9187"
+    volumes:
+      - ./obsvr/postgres_exporter/postgres_exporter.yml:/postgres_exporter.yml
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:postgres@ch-client-db:5432/chinook?sslmode=disable"
+    depends_on:
+      client-db:
+        condition: service_healthy
+
+  client-api:
     build: ./apps/api
     container_name: ch-client-api
     working_dir: /var/www/ch-client-api
@@ -50,7 +67,7 @@ services:
     networks:
       - ch-client-network
     depends_on:
-      ch-client-db:
+      client-db:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'curl -k https://localhost:8000/api/v1/health'"]

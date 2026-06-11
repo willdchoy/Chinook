@@ -53,7 +53,7 @@ metrics_generator:
     remote_write:
       # Write span-derived metrics back to Alloy's remote_write receiver
       # so they appear in Grafana alongside app metrics.
-      - url: http://alloy:12345/api/prom/push
+      - url: http://ch-alloy-1:12345/api/prom/push
         send_exemplars: true
 
 overrides:

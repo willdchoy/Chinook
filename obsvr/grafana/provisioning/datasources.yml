@@ -47,7 +47,7 @@ datasources:
     uid: ch-prometheus-1
     type: prometheus
     access: proxy
-    url: http://alloy:12345/api/v1/metrics # Alloy exposes Prometheus-compatible metrics
+    url: http://ch-prometheus-1:9090
     isDefault: true
     jsonData:
       timeInterval: 15s
