@@ -4,9 +4,6 @@ networks:
   ch-client-network:
     name: ch-client-network
 
-volumes:
-  pg-data:
-
 services:
   client-db:
     image: postgres:18

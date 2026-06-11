@@ -16,8 +16,8 @@ services:
       - "4317:4317"
       - "4318:4318"
     volumes:
-      - ./_logs/pg-logs:/var/log/postgresql:ro
       - ./obsvr/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - ./_logs/pg-logs:/var/log/postgresql:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:12345/-/ready"]
       interval: 10s
