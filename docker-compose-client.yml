@@ -8,7 +8,7 @@ networks:
 
 services:
   client-db:
-    image: postgres:18
+    build: ./apps/db
     container_name: ch-client-db
     restart: unless-stopped
     environment:
@@ -40,6 +40,9 @@ services:
   client-db-exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
     networks: [ch-client-network, ch-obsvr-network]
+    enviornment:
+      PG_COLLECTOR_DATABASE_ENABLED: false
+      PG_COLLECTOR_REPLICATION_ENABLED: false
     ports:
       - "9187:9187"
     volumes:
