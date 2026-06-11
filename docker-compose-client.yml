@@ -40,15 +40,14 @@ services:
   client-db-exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
     networks: [ch-client-network, ch-obsvr-network]
-    enviornment:
+    environment:
       PG_COLLECTOR_DATABASE_ENABLED: false
       PG_COLLECTOR_REPLICATION_ENABLED: false
+      DATA_SOURCE_NAME: "postgresql://postgres:postgres@ch-client-db:5432/chinook?sslmode=disable"
     ports:
       - "9187:9187"
     volumes:
       - ./obsvr/postgres_exporter/postgres_exporter.yml:/postgres_exporter.yml
-    environment:
-      DATA_SOURCE_NAME: "postgresql://postgres:postgres@ch-client-db:5432/chinook?sslmode=disable"
     depends_on:
       client-db:
         condition: service_healthy
