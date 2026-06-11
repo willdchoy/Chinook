@@ -1,0 +1,23 @@
+logging {
+  level    = "info"
+  format   = "json"
+  write_to = [loki.write.ch_client_db.receiver]
+}
+
+local.file_match "ch_client_db" {
+  path_targets = [
+    {"__path__" = "/var/log/postgresql/*.log", service_name = "ch-client-db-logs"},
+    {"__path__" = "/var/log/ch-client-api/*.log", service_name = "ch-client-api-logs"},
+  ]
+}
+
+loki.source.file "local_logs" {
+    targets    = local.file_match.ch_client_db.targets
+    forward_to = [loki.write.ch_client_db.receiver]
+}
+
+loki.write "ch_client_db" {
+  endpoint {
+    url = "http://ch-loki-1:3100/loki/api/v1/push"
+  }
+}

@@ -1,11 +1,9 @@
-name: ch
-
 networks:
   ch-client-network:
     name: ch-client-network
 
 services:
-  client-db:
+  ch-client-db:
     image: postgres:18
     container_name: ch-client-db
     restart: unless-stopped
@@ -18,8 +16,6 @@ services:
       - postgres
       - -c
       - logging_collector=on
-      - -c
-      - log_destination=csvlog
       - -c
       - log_directory=/var/log/postgresql
       - -c
@@ -37,22 +33,24 @@ services:
       timeout: 3s
       retries: 30
 
-  client-api:
+  ch-client-api:
     build: ./apps/api
     container_name: ch-client-api
     working_dir: /var/www/ch-client-api
     restart: unless-stopped
     command: make air-docker
     environment:
-      - GO_ENV=development
+      API_LOG_DIR: /var/log/ch-client-api
+      GO_ENV: development
     ports:
       - 8000:8000
     volumes:
       - ./apps/api:/var/www/ch-client-api
+      - ./_logs/api-logs:/var/log/ch-client-api
     networks:
       - ch-client-network
     depends_on:
-      client-db:
+      ch-client-db:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'curl -k https://localhost:8000/api/v1/health'"]

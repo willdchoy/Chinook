@@ -10,11 +10,13 @@ import (
 )
 
 func SetupRouter(db *sql.DB) *gin.Engine {
+	
+	// init
 	r := gin.Default()
+	gin.DisableConsoleColor()
 	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.134", "localhost", "::1"})
-	// r.Use(apperror.ErrorHandlerMiddle())
-	// r.Use(globalheaders.GlobalHeadersMiddleware())
 
+	// handle routes
 	v1 := r.Group(("/api/v1"))
 	playlist.RegisterPlaylistRoutes(v1, db)
 	registerHealth(v1)
@@ -25,7 +27,6 @@ func SetupRouter(db *sql.DB) *gin.Engine {
 // health
 func registerHealth(rg *gin.RouterGroup) {
 	health := rg.Group("/health")
-
 	health.GET("", func(c *gin.Context) {
 		c.Header("Cache-Control", "no-cache")
 
