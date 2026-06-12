@@ -7,7 +7,7 @@ import (
 	"ch-client-api/internal/catalog/playlist"
 
 	"github.com/gin-gonic/gin"
-	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func SetupRouter(db *sql.DB) *gin.Engine {
@@ -16,7 +16,11 @@ func SetupRouter(db *sql.DB) *gin.Engine {
 	r := gin.Default()
 
 	// init otel
-	r.Use(otelgin.Middleware("ch-client-api"))
+	go func() {
+    metrics := http.NewServeMux()
+    metrics.Handle("/metrics", promhttp.Handler())
+    http.ListenAndServe(":9090", metrics)
+  }()
 
 	gin.DisableConsoleColor()
 	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.134", "localhost", "::1"})

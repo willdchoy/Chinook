@@ -36,7 +36,6 @@ func main() {
 	}
 	defer db.Close()
 
-
 	// init routes
 	r := router.SetupRouter(db)
 
