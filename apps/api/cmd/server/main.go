@@ -21,10 +21,14 @@ func main() {
 	}
 
 	// init logging
-	apiLogDir := os.Getenv(("API_LOG_DIR"))
-	file, err := os.Create(apiLogDir + "/ch-client-api.log")
+	logPath := "log"
+	err = os.MkdirAll(logPath, 0755)
 	if err != nil {
-		fmt.Print("Unable to write logger to", apiLogDir)
+		log.Fatal(err)
+	}
+	file, err := os.Create(logPath + "/ch-client-api.log")
+	if err != nil {
+		fmt.Print("Unable to write logger to ", err)
 	}
 	defer file.Close()
 	gin.DefaultWriter = file
@@ -41,5 +45,8 @@ func main() {
 	r.Use(otelgin.Middleware("ch-client-api"))
 	router.SetupRouter(r, db)
 
-	r.RunTLS(":8000", "./cmd/server/certs/localhost+4.pem", "./cmd/server/certs/localhost+4-key.pem")
+	tlsPem := "./certs/localhost+4.pem"
+	tlsKey := "./certs/localhost+4-key.pem"
+
+	r.RunTLS(":8000", tlsPem, tlsKey)
 }
