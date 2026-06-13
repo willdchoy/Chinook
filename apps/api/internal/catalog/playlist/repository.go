@@ -24,7 +24,7 @@ func NewPlaylistRepository(db *sql.DB) PlaylistRepository {
 
 func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 	var playlists = Playlists{}
-	
+
 	query := `
 		select
 			p.id, p.title, p.cover_image_url, p.is_album, p.is_public, p.year,

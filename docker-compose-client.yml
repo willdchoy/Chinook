@@ -58,20 +58,19 @@ services:
 
   client-api:
     build: ./apps/api
-    hostname: ch-client-api
+    hostname: app
     container_name: ch-client-api
-    working_dir: /var/www/ch-client-api
+    working_dir: /var/www/app
     restart: unless-stopped
-    command: make air-docker
+    command: ./main
     environment:
-      API_LOG_DIR: /var/log/ch-client-api
+      API_LOG_DIR: /var/log/app
       GO_ENV: development
     ports:
       - 8000:8000
       - 9092:9092
     volumes:
-      - ./apps/api:/var/www/ch-client-api
-      - ./_logs/api-logs:/var/log/ch-client-api
+      - ./apps/api/bin:/var/www/app
     networks:
       - ch-client-network
     depends_on:
@@ -82,3 +81,8 @@ services:
       interval: 30s
       timeout: 3s
       retries: 30
+    develop:
+      watch:
+        - path: ./apps/api/bin
+          target: /var/www/app/bin
+          action: sync+restart

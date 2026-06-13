@@ -7,7 +7,7 @@ logging {
 local.file_match "ch_client" {
   path_targets = [
     {"__path__" = "/var/log/postgresql/*.log", service_name = "ch-client-db-logs"},
-    {"__path__" = "/var/log/ch-client-api/*.log", service_name = "ch-client-api-logs"},
+    {"__path__" = "/var/log/app/*.log", service_name = "ch-client-api-logs"},
   ]
 }
 
