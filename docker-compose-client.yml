@@ -9,6 +9,7 @@ networks:
 services:
   client-db:
     build: ./apps/db
+    hostname: ch-client-db
     container_name: ch-client-db
     restart: unless-stopped
     environment:
@@ -39,6 +40,7 @@ services:
 
   client-db-exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
+    hostname: ch-client-db-exporter
     networks: [ch-client-network, ch-obsvr-network]
     command:
       - "--no-collector.stat_bgwriter"
@@ -56,6 +58,7 @@ services:
 
   client-api:
     build: ./apps/api
+    hostname: ch-client-api
     container_name: ch-client-api
     working_dir: /var/www/ch-client-api
     restart: unless-stopped
@@ -65,6 +68,7 @@ services:
       GO_ENV: development
     ports:
       - 8000:8000
+      - 9092:9092
     volumes:
       - ./apps/api:/var/www/ch-client-api
       - ./_logs/api-logs:/var/log/ch-client-api

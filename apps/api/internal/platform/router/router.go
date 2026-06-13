@@ -10,20 +10,18 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-func SetupRouter(db *sql.DB) *gin.Engine {
+func SetupRouter(r *gin.Engine,db *sql.DB) *gin.Engine {
 	
 	// init
-	r := gin.Default()
+	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.134", "localhost", "::1"})
+	gin.DisableConsoleColor()
 
-	// init otel
+	// register prometheus metrics
 	go func() {
     metrics := http.NewServeMux()
     metrics.Handle("/metrics", promhttp.Handler())
-    http.ListenAndServe(":9090", metrics)
+    http.ListenAndServe(":9092", metrics)
   }()
-
-	gin.DisableConsoleColor()
-	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.134", "localhost", "::1"})
 
 	// handle routes
 	v1 := r.Group(("/api/v1"))

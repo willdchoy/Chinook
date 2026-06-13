@@ -1,25 +1,31 @@
-.PHONY: dev air-install air air-docker build seed start test
+.PHONY: air-install air air-docker build seed start test
 
-db-local-client = localhost
-db-docker-client = ch-client-db
-
+DB_LOCAL_CLIENT = localhost
+DB_DOCKER_CLIENT = ch-client-db
+BUILD_PATH = ./dist/api-go
 air-install:
 	go install github.com/air-verse/air@latest
 
 air: air-install
-	DB_HOST=$(db-local-client) air
+	DB_HOST=$(DB_LOCAL_CLIENT) air
 
 air-docker: air-install
-	DB_HOST=$(db-docker-client) air
+	DB_HOST=$(DB_DOCKER_CLIENT) air
 
 build:
-	DB_HOST=$(db-local-client) go build -o dist/api.go ./cmd/server/main.go
+	rm -f "${BUILD_PATH}"
+	@START_TIME=$$(date +%s); \
+	echo "Build started at $$(date)"; \
+	go build -o "${BUILD_PATH}" ./cmd/server/main.go; \
+	END_TIME=$$(date +%s); \
+	DURATION=$$((END_TIME - START_TIME)); \
+	echo "Build completed in $$DURATION seconds" | tee -a build.log
 
 seed:
-	DB_HOST=$(db-local-client) go run ./migrations/main.go
+	DB_HOST=$(DB_LOCAL_CLIENT) go run ./migrations/main.go
 
 start:
-	DB_HOST=$(db-docker-client) go run ./cmd/server/main.go
+	DB_HOST=$(DB_DOCKER_CLIENT) go run /api.go
 
 test:
-	DB_HOST=$(db-local-client) go test ./...
+	DB_HOST=$(DB_LOCAL_CLIENT) go test ./...

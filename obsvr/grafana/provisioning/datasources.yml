@@ -1,6 +1,3 @@
-# obsvr/grafana/provisioning/datasources/datasources.yaml
-# Auto-provisioned on first Grafana start.
-
 apiVersion: 1
 
 datasources:

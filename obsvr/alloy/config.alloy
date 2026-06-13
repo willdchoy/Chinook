@@ -1,10 +1,10 @@
 logging {
   level    = "info"
   format   = "json"
-  write_to = [loki.write.ch_client_db.receiver]
+  write_to = [loki.write.ch_client.receiver]
 }
 
-local.file_match "ch_client_db" {
+local.file_match "ch_client" {
   path_targets = [
     {"__path__" = "/var/log/postgresql/*.log", service_name = "ch-client-db-logs"},
     {"__path__" = "/var/log/ch-client-api/*.log", service_name = "ch-client-api-logs"},
@@ -12,12 +12,38 @@ local.file_match "ch_client_db" {
 }
 
 loki.source.file "local_logs" {
-    targets    = local.file_match.ch_client_db.targets
-    forward_to = [loki.write.ch_client_db.receiver]
+    targets    = local.file_match.ch_client.targets
+    forward_to = [loki.write.ch_client.receiver]
 }
 
-loki.write "ch_client_db" {
+loki.write "ch_client" {
   endpoint {
     url = "http://ch-loki-1:3100/loki/api/v1/push"
+  }
+}
+
+//
+// tempo
+//
+
+otelcol.receiver.otlp "otlp_receiver" {
+  grpc {
+    endpoint = "0.0.0.0:4317"
+  }
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    traces = [otelcol.exporter.otlp.grafanacloud.input,]
+  }
+}
+
+otelcol.exporter.otlp "grafanacloud" {
+  client {
+    endpoint = env("ALLOY_OTLP_UPSTREAM")
+    tls {
+			insecure = true
+		}
   }
 }
