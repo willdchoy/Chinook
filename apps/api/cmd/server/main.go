@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"ch-client-api/internal/platform/database"
 	"ch-client-api/internal/platform/router"
@@ -18,17 +20,17 @@ func main() {
 	}
 
 	// init logging
-	// logPath := "/var/log/app"
-	// err = os.MkdirAll(logPath, 0755)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// file, err := os.Create(logPath + "/ch-client-api.log")
-	// if err != nil {
-	// 	fmt.Print("Unable to write logger to ", err)
-	// }
-	// defer file.Close()
-	// gin.DefaultWriter = file
+	logPath := "/var/log/app"
+	err = os.MkdirAll(logPath, 0755)
+	if err != nil {
+		log.Fatal(err)
+	}
+	file, err := os.Create(logPath + "/ch-client-api.log")
+	if err != nil {
+		fmt.Print("Unable to write logger to ", err)
+	}
+	defer file.Close()
+	gin.DefaultWriter = file
 
 	// init db
 	db, err := database.SetupDB()
@@ -38,7 +40,7 @@ func main() {
 	defer db.Close()
 
 	// init routes
-	r := gin.New()
+	r := gin.Default()
 
 	router.SetupRouter(r, db)
 
