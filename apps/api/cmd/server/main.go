@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"ch-client-api/internal/platform/database"
 	"ch-client-api/internal/platform/router"
@@ -20,12 +21,14 @@ func main() {
 	}
 
 	// init logging
-	logPath := "/var/log/app"
+	logPath := "/var/log/ch-client-api/"
 	err = os.MkdirAll(logPath, 0755)
 	if err != nil {
 		log.Fatal(err)
 	}
-	file, err := os.Create(logPath + "/ch-client-api.log")
+
+	logFilename := fmt.Sprintf("ch-client-api-%s.log", time.Now().Format("2006-01-02"))
+	file, err := os.Create(logPath + logFilename)
 	if err != nil {
 		fmt.Print("Unable to write logger to ", err)
 	}

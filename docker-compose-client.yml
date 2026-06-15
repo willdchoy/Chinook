@@ -71,7 +71,7 @@ services:
       - 9092:9092
     volumes:
       - ./apps/api/bin:/var/www/app
-      - ./_logs/api-logs:/var/log/app
+      - ./_logs/ch-client-api:/var/log/ch-client-api
     networks:
       - ch-client-network
     depends_on:
