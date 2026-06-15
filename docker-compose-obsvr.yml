@@ -21,7 +21,7 @@ services:
       - ./obsvr/alloy/config.alloy:/etc/alloy/config.alloy:ro
       - ./_data/alloy-data:/var/lib/alloy/data
       - ./_logs/pg-logs:/var/log/postgresql:ro
-      - ./_logs/ch-client-api:/var/log/ch-client-api:ro
+      - ./_logs/api-logs:/var/log/ch-client-api:ro
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:12345/-/ready"]
       interval: 10s

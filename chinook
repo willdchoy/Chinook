@@ -26,9 +26,9 @@ function handle() {
   filename=$1
   if [[ "$2" == "restart" ]]; then
       docker-compose -f docker-compose-${filename}.yml down $3
-      docker-compose -f docker-compose-${filename}.yml up -d --remove-orphans $3
+      docker-compose -f docker-compose-${filename}.yml up -d $3
   elif [[ "$2" == "up" ]]; then
-    docker-compose -f docker-compose-${filename}.yml up -d --remove-orphans $3
+    docker-compose -f docker-compose-${filename}.yml up -d $3
   elif [[ "$2" == "down" ]]; then  
     docker-compose -f docker-compose-${filename}.yml down $3
   fi
