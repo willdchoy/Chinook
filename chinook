@@ -18,18 +18,17 @@ EOF
   echo
 }
 
-function handle_status() {
-  docker ps
-  echo ""
+function handle_stats() {
+  docker stats
 }
 
 function handle() {
   filename=$1
   if [[ "$2" == "restart" ]]; then
       docker-compose -f docker-compose-${filename}.yml down $3
-      docker-compose -f docker-compose-${filename}.yml up -d $3
+      docker-compose -f docker-compose-${filename}.yml up -d --remove-orphans $3
   elif [[ "$2" == "up" ]]; then
-    docker-compose -f docker-compose-${filename}.yml up -d $3
+    docker-compose -f docker-compose-${filename}.yml up -d --remove-orphans $3
   elif [[ "$2" == "down" ]]; then  
     docker-compose -f docker-compose-${filename}.yml down $3
   fi
@@ -50,8 +49,8 @@ case "$1" in
   obsvr)
     handle "$@"
     ;;
-  status)
-    handle_status
+  stats)
+    handle_stats
     ;;
   *)
     echo "Invalid option"

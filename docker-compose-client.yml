@@ -60,18 +60,18 @@ services:
     build: ./apps/api
     hostname: ch-client-api
     container_name: ch-client-api
-    working_dir: /var/www/ch-client-api
+    working_dir: /var/www/app
     restart: unless-stopped
-    command: make air-docker
+    command: make start
     environment:
-      API_LOG_DIR: /var/log/ch-client-api
+      API_LOG_DIR: /var/log/app
       GO_ENV: development
     ports:
       - 8000:8000
       - 9092:9092
     volumes:
-      - ./apps/api:/var/www/ch-client-api
-      - ./_logs/api-logs:/var/log/ch-client-api
+      - ./apps/api/bin:/var/www/app
+      - ./_logs/api-logs:/var/log/app
     networks:
       - ch-client-network
     depends_on:
