@@ -14,7 +14,8 @@ services:
     command: run --server.http.listen-addr=0.0.0.0:12345 --stability.level=experimental  --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     ports:
       - "12345:12345"
-      - "4319:4317"
+      - "4317:4317" # Tempo OTLP GRPC
+      - "4318:4318" # Tempo OTLP HTTP
     environment:
       - ALLOY_OTLP_UPSTREAM=ch-tempo-1:4317
     volumes:
@@ -22,6 +23,13 @@ services:
       - ./_data/alloy-data:/var/lib/alloy/data
       - ./_logs/pg-logs:/var/log/postgresql:ro
       - ./_logs/ch-client-api:/var/log/ch-client-api:ro
+    depends_on:
+      grafana:
+        condition: service_healthy
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:12345/-/ready"]
       interval: 10s
@@ -45,8 +53,8 @@ services:
     depends_on:
       loki:
         condition: service_healthy
-      # tempo:
-      #   condition: service_healthy
+      tempo:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 10s
@@ -76,8 +84,6 @@ services:
     command: -config.file=/etc/tempo/config.yaml
     ports:
       - "3200:3200" # tempo
-      - "4317:4317" # Tempo OTLP GRPC
-      - "4318:4318" # Tempo OTLP HTTP
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://ch-alloy-1:4318
     volumes:

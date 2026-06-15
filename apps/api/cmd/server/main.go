@@ -44,7 +44,6 @@ func main() {
 
 	// init routes
 	r := gin.Default()
-
 	router.SetupRouter(r, db)
 
 	tlsPem := "./certs/localhost+4.pem"

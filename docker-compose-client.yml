@@ -64,7 +64,6 @@ services:
     restart: unless-stopped
     command: make start
     environment:
-      API_LOG_DIR: /var/log/app
       GO_ENV: development
     ports:
       - 8000:8000

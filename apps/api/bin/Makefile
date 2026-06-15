@@ -37,7 +37,7 @@ build-osx: remove-build copy-app-files
 	DURATION=$$((END_TIME - START_TIME)); \
 	echo "Build completed in $$DURATION seconds"
 
-build-linux: remove-build copy-app-files
+build: remove-build copy-app-files
 	@START_TIME=$$(date +%s); \
 	echo "Build started at $$(date)"...; \
 	GOOS=linux GOARCH=arm64 go build -o "${FILE_PATH}" ./cmd/server/main.go; \
