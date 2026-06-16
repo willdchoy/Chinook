@@ -13,11 +13,18 @@
 
 <style>
   .home {
-    .home-banner img {
-      height: 400px;
-      margin: -10px;
-      margin-bottom: 25px;
-      border-bottom: 1px solid var(--vinyl-50);
+
+    .home-banner {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+     
+      img {
+        max-height: 600px;
+        margin: -10px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--vinyl-50);
+      }
     }
   }
 </style>

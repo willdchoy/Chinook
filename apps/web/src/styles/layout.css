@@ -45,17 +45,4 @@ body {
       border-right: 1px solid var(--vinyl-50);
     }
   }
-
-  .player {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    max-width: var(--site-max-width);
-    min-height: 100px;
-    padding: 10px;
-    background-color: var(--vinyl);
-  }
 }

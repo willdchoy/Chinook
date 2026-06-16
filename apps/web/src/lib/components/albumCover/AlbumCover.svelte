@@ -1,30 +1,40 @@
 <script lang="ts">
-  const { title } = $props()
-  const tmpAblumCover = $derived(
-    title
-      .split(" ")
-      .map((word: string) => word[0]?.toUpperCase())
-      ?.join("") || ""
-  )
+  const album = $props()
 </script>
 
 <div class="album-cover">
-  <img src="https://picsum.photos/325/325" alt="" />
+  <img src="https://picsum.photos/725/725" alt={album.title} />
+  <div class="meta">
+    <span class="artist white-muted">{album.artist}</span>
+    <h1>
+      {album?.data?.title}
+      <span class="white-muted">{album?.year}</span>
+    </h1>
+  </div>
 </div>
 
 <style>
   .album-cover {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border: 1px solid var(--vinyl-50);
-    background-color: transparent;
+    max-width: 725px;
+    min-width: 50px;
 
-    &:hover {
-      background-color: var(--vinyl-50);
+    img {
+      width: 100%;
+      border-radius: 2px;
+    }
+
+    .meta {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 0 15px 0;
+    }
+
+    .meta h1 {
+      font-size: 22px;
+    }
+
+    .artist {
+      font-size: 18px;
     }
   }
 </style>
