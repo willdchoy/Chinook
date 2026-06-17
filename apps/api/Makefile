@@ -18,6 +18,9 @@ air: air-install
 air-docker: air-install
 	DB_HOST=$(DB_DOCKER_CLIENT) air
 
+create-cert:
+	mkcert localhost 127.0.0.1 0.0.0.0 ::1 192.168.1.134
+
 remove-build:
 	@echo "Removing build at ${BUILD_DIR}..."; \
 	rm -rf ${BUILD_DIR}; \

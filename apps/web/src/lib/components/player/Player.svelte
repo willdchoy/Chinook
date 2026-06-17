@@ -1,36 +1,47 @@
 <footer>
   <div class="player">
     <div class="track">
-      <img src="https://picsum.photos/725/725" alt="" />
-      <div>
-        <b>Nihil magnam quia ducimus mollitia voluptatum</b> <br />
-        Hic quia magni fugit sunt qui <span class="white-muted">2026</span>
-      </div>
+      <img src="https://picsum.photos/50/50" alt="" />
+      Quia magni fugit sunt qui quia magni fugit sunt qui
+        <!-- Hic quia magni fugit sunt qui <span class="muted">2026</span> -->
     </div>
     <div class="controls">
-       <div class="control">
-        <i class="fa-solid fa-backward"></i>
-        <i class="fa-solid fa-play"></i>
-        <i class="fa-solid fa-forward"></i>
+        <!-- <i class="fa-solid fa-shuffle muted"></i>
+        <i class="fa-solid fa-backward muted"></i> -->
+        <!-- <i class="fa-solid fa-play"></i> -->
+         <!-- <i class="fa-solid fa-backward muted"></i> -->
+        <i class="fa-solid fa-pause"></i>
+        <i class="fa-solid fa-forward muted"></i>
+        <!-- <i class="fa-solid fa-mobile-screen-button muted"></i> -->
        </div>
-       <div class="timeline"></div>
+       <!-- <div class="timeline">
+        <div class="meta muted">
+          <span>0:01</span>
+          <span class="current">3:46</span>
+          <span>5:23</span>
+        </div>
+       </div> -->
     </div>
-  </div>
 </footer>
 
 <style>
   footer {
-    --height: 100px;
+    --height: 100%;
 
     position: sticky;
     bottom: 0;
-    background-color: var(--vinyl);
-    border: 1px solid var(--vinyl-50);
+    background-color: oklch(from var(--vinyl) calc(l - 0.04) c h);
+    border-top: 1px solid var(--vinyl-50);
+
+    @media (min-width: 768px) {
+      border: 1px solid var(--vinyl-50);
+    }
 
     & .player {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
 
       @media(min-width: 768px) {
         flex-direction: row;
@@ -45,48 +56,26 @@
         width: 100%;
 
         & img {
-          height: 100px;
-          max-height: calc(var(--height) - 2px);
+          height: 50px;
+          max-height: calc(100px - 2px);
           margin-right: 10px;
         }
       }
 
       & .controls {
-        width: 100%;
-        
-        @media(min-width: 768px) {
-          padding-right: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        margin-left: 10px;
+
+        & [class*="fa-"] {
+          cursor: pointer;
+          margin: 0 10px;
+          font-size: var(--font-size-md);
         }
 
-        .timeline {
-
-        }
-
-        .control {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 50px;
-          width: 100%;
-          background-color: var(--vinyl-50);
-        
-          @media(min-width: 768px) {
-            height: 80px;
-            border-radius: 5px;
-            margin-left: 10px;
-          }
-          
-          & .fa-play {
-            font-size: var(--font-size-xl);
-            margin: 0 20px;
-          }
-
-          .fa-forward, .fa-backward {
-            font-size: var(--font-size-md);
-          }
-        }
       }
-
     }
   }
 </style>

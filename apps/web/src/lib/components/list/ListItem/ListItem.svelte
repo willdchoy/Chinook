@@ -10,14 +10,14 @@
 
 <div class="list-item">
   <a href={albumLink()}>
-    <AlbumCover title={album.title} />
+    <AlbumCover playlist={album} />
     <div class="details">
       {album.title}
-      <span class="white-muted">
+      <span class="muted">
         {album.year}
       </span>
       <br />
-      <span class="white-muted">
+      <span class="muted">
         {album.artist.name}
       </span>
     </div>

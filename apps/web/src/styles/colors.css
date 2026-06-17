@@ -45,7 +45,7 @@
   --yellow-900: #382903;
 
   --white: #ecf3f4;
-  --white-muted: oklch(from var(--white) calc(l - 0.3) c h);
+  --muted: oklch(from currentcolor calc(l - 0.3) c h);
 
   --blue: #52b5ff;
   --blue-50: #e8f5ff;
@@ -58,4 +58,6 @@
   --blue-700: #004875;
   --blue-800: #00304f;
   --blue-900: #001927;
+
+  --black: red;
 }

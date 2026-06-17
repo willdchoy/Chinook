@@ -30,11 +30,15 @@
       list-style-type: none;
       padding: 0;
     }
-
-    li,
+    
+    li {
+      color: white;
+      line-height: 0;
+    }
+    
     li a {
       font-size: var(--font-size-xs);
-      color: var(--white-muted);
+      color: var(--muted);
 
       @media (min-width: 768px) {
         font-size: var(--font-size-sm);
@@ -43,6 +47,7 @@
 
     li:after {
       content: ">";
+      color: var(--muted);
       padding: 0 3px;
     }
 

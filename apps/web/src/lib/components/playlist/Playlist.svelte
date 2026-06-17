@@ -3,14 +3,11 @@
   import AlbumCover from "../albumCover/AlbumCover.svelte";
 
   const { playlist = null } = $props()
-  const playlistArtist = $derived(
-    playlist?.data?.artist.name || "Various Artists"
-  )
 </script>
 
 <div class="playlist">
   {#if playlist?.data?.id}
-    <AlbumCover album={playlist} />
+    <AlbumCover playlist={playlist} showMeta />
     <div>
       <table>
         <thead>
@@ -45,10 +42,7 @@
     display: flex;
     flex-direction: column;
     gap: 2vw;
-    border-bottom: 1px solid var(--vinyl-50);
-    margin-bottom: 30px;
-    padding-bottom: 32px;
-
+    
     @media (min-width: 768px) {
       flex-direction: row;
     }
@@ -72,7 +66,7 @@
         vertical-align: top;
       }
       th {
-        color: var(--vinyl-50);
+        color: var(--muted);
         font-size: var(--font-size-xs);
         padding: 0 10px;
       }
@@ -82,8 +76,10 @@
       }
 
       td:nth-last-child(-n + 3) {
-        color: var(--vinyl-50);
+        color: var(--muted);
       }
+
+      
     }
   }
 </style>

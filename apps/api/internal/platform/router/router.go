@@ -13,7 +13,7 @@ import (
 func SetupRouter(r *gin.Engine,db *sql.DB) *gin.Engine {
 	
 	// init
-	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.134", "localhost", "::1"})
+	r.SetTrustedProxies([]string{"*"})
 	gin.DisableConsoleColor()
 
 	// register prometheus metrics

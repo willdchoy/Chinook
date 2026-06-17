@@ -12,7 +12,7 @@
     <img src={album.albumCoverUrl} alt="For Those About To Rock" />
     <div class="details">
       {album.title}<br />
-      <span class="white-muted">
+      <span class="muted">
         by {album.name}
       </span>
     </div>
