@@ -58,6 +58,10 @@
           background-color: var(--blue);
           color: var(--vinyl);
         }
+
+        &:last-child:not(:has(th)) {
+          border: none;
+        }
       }
       th,
       td {

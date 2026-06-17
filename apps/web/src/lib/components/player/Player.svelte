@@ -1,9 +1,11 @@
-<footer>
+<footer class="player-wrapper">
   <div class="player">
     <div class="track">
-      <img src="https://picsum.photos/50/50" alt="" />
-      Quia magni fugit sunt qui quia magni fugit sunt qui
-        <!-- Hic quia magni fugit sunt qui <span class="muted">2026</span> -->
+      <img src="https://picsum.photos/100/100" alt="" />
+      <div class="meta">
+        <span class="artist muted">Lital</span>
+        Corrupti quo consequatur reprehenderit accusantium et <span class="muted">2017</span>
+      </div>
     </div>
     <div class="controls">
         <!-- <i class="fa-solid fa-shuffle muted"></i>
@@ -25,8 +27,9 @@
 </footer>
 
 <style>
-  footer {
-    --height: 100%;
+  footer.player-wrapper {
+    --mobilePlayerHeight: 50px;
+    --playerHeight: 100px;
 
     position: sticky;
     bottom: 0;
@@ -37,30 +40,43 @@
       border: 1px solid var(--vinyl-50);
     }
 
-    & .player {
+    & > div.player {
       display: flex;
       flex-direction: row;
       align-items: center;
-      height: 100%;
+      height: var(--mobilePlayerHeight);
 
       @media(min-width: 768px) {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        height: var(--playerHeight);
       }
 
-      & .track {
+      .track {
         display: flex;
         align-items: center;
         font-size: var(--font-size-sm);
         width: 100%;
-
-        & img {
-          height: 50px;
-          max-height: calc(100px - 2px);
-          margin-right: 10px;
-        }
+        height: 100%;
       }
+
+      .track img {
+          max-height: calc(var(--mobilePlayerHeight) - 2px);
+          margin-right: 10px;
+
+          @media (min-width: 768px) {  
+            max-height: calc(var(--playerHeight) - 2px);
+          }
+        }     
+
+      .artist {
+          display: none;
+
+          @media(min-width: 768px) {
+            display: block;
+          }
+        }
 
       & .controls {
         display: flex;
@@ -74,7 +90,6 @@
           margin: 0 10px;
           font-size: var(--font-size-md);
         }
-
       }
     }
   }
