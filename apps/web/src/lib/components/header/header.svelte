@@ -21,7 +21,7 @@
         <a href="/">Discover</a>
       </li>
       <li>
-        <a href="/">Account</a>
+        <a href="/d/1111/profile" aria-label="account"><i class="fa-solid fa-user"></i></a>
       </li>
     </ul>
   </nav>
