@@ -20,8 +20,12 @@
 
 <style>
   .playlist-cover {
-    max-width: 725px;
+    max-width:100%;
     min-width: 50px;
+
+    @media(min-width: 768px) {
+      max-width: 350px;
+    }
   
     img {
       width: 100%;

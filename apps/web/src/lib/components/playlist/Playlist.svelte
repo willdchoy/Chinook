@@ -15,20 +15,20 @@
             <th>Track</th>
             <th>Artist</th>
             <th>Album</th>
-            <th>Year</th>
-            <th>Time</th>
-            <th class="show-tablet">Composer</th>
+            <th class="hide-mobile">Year</th>
+            <th class="hide-mobile">Time</th>
+            <th class="hide-mobile">Composer</th>
           </tr>
         </thead>
         <tbody>
           {#each playlist?.data?.tracks as track}
             <tr>
               <td>{track.title}</td>
-              <td>{playlist.data.artist.name}</td>
+              <td>{playlist.data.artist.name} {playlist.data.artist.name}</td>
               <td>{playlist?.data?.title}</td>
-              <td>{playlist?.data?.year}</td>
-              <td>{formatDuration(track.duration)}</td>
-              <td class="show-tablet">{track.composer}</td>
+              <td class="hide-mobile">{playlist?.data?.year}</td>
+              <td class="hide-mobile">{formatDuration(track.duration)}</td>
+              <td class="hide-mobile">{track.composer}</td>
             </tr>
           {/each}
         </tbody>
@@ -67,7 +67,6 @@
       td {
         text-align: left;
         cursor: pointer;
-        vertical-align: top;
       }
       th {
         color: var(--muted);
@@ -78,12 +77,16 @@
         padding: 5px 10px;
         font-size: var(--font-size-sm);
       }
-
       td:nth-last-child(-n + 3) {
         color: var(--muted);
       }
+      th.hide-mobile, td.hide-mobile {
+        display: none;
 
-      
+        @media (min-width: 1050px) {
+          display: table-cell;
+        }
+      }
     }
   }
 </style>

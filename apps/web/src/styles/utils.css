@@ -5,11 +5,3 @@
 .hide {
   display: none;
 }
-
-.show-tablet {
-  display: none;
-
-  @media (min-width: 992px) {
-    display: block;
-  }
-}
