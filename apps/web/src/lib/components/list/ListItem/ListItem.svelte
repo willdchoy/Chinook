@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AlbumCover from "$lib/components/albumCover/AlbumCover.svelte"
+  import AlbumCover from "$lib/components/playlist/albumCover/AlbumCover.svelte"
   let { album } = $props()
 
   const albumLink = () =>

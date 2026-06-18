@@ -1,6 +1,6 @@
 <script lang="ts">
   import { formatDuration } from "$lib/utils/formatDuration"
-  import AlbumCover from "../albumCover/AlbumCover.svelte";
+  import AlbumCover from "./albumCover/AlbumCover.svelte";
 
   const { playlist = null } = $props()
 </script>
@@ -24,7 +24,7 @@
           {#each playlist?.data?.tracks as track}
             <tr>
               <td>{track.title}</td>
-              <td>{playlist.data.artist.name} {playlist.data.artist.name}</td>
+              <td>{playlist.data.artist.name}</td>
               <td>{playlist?.data?.title}</td>
               <td class="hide-mobile">{playlist?.data?.year}</td>
               <td class="hide-mobile">{formatDuration(track.duration)}</td>

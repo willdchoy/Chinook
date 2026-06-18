@@ -72,8 +72,11 @@
     }
 
     article {
-      margin-left: 10px;
-      padding: 10px;
+      padding: 10px 10px;
+
+      @media (min-width: 768px) {
+        margin: 0 0 0 20px;
+      }
     }
   }
 </style>

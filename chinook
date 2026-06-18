@@ -23,14 +23,13 @@ function handle_stats() {
 }
 
 function handle() {
-  filename=$1
   if [[ "$2" == "restart" ]]; then
-      docker-compose -f docker-compose-${filename}.yml down $3
-      docker-compose -f docker-compose-${filename}.yml up -d $3
+      docker-compose -f docker-compose-${1}.yml down $3
+      docker-compose -f docker-compose-${1}.yml up -d $3
   elif [[ "$2" == "up" ]]; then
-    docker-compose -f docker-compose-${filename}.yml up -d $3
+    docker-compose -f docker-compose-${1}.yml up -d $3
   elif [[ "$2" == "down" ]]; then  
-    docker-compose -f docker-compose-${filename}.yml down $3
+    docker-compose -f docker-compose-${1}.yml down $3
   fi
 }
 

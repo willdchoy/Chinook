@@ -115,6 +115,7 @@
         display: none;        
         justify-self: flex-end;
         margin-right: 10px;
+        font-size: var(--font-size-sm);
         
         @media(min-width: 768px) {
           display: flex;
