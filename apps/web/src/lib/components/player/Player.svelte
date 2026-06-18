@@ -57,10 +57,6 @@
         font-size: var(--font-size-sm);
         height: 100%;
 
-        @media(min-widht: 768px) {
-          flex: 1;
-        }
-
         img {
           max-height: calc(var(--mobilePlayerHeight) - 2px);
           margin-right: 10px;
@@ -79,7 +75,6 @@
       }
 
       .controls {
-        /* flex: 1; */
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -115,7 +110,7 @@
         display: none;        
         justify-self: flex-end;
         margin-right: 10px;
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-base);
         
         @media(min-width: 768px) {
           display: flex;

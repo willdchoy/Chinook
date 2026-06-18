@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AlbumCover from "$lib/components/playlist/albumCover/AlbumCover.svelte"
+  import Cover from "$lib/components/playlist/cover/Cover.svelte"
   let { album } = $props()
 
   const albumLink = () =>
@@ -10,7 +10,7 @@
 
 <div class="list-item">
   <a href={albumLink()}>
-    <AlbumCover playlist={album} />
+    <Cover playlist={album} />
     <div class="details">
       {album.title}
       <span class="muted">

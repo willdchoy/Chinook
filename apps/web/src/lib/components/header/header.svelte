@@ -10,6 +10,11 @@
     <ul>
       <li>
         <a href="/">
+          Charts
+        </a>
+      </li>
+      <li>
+        <a href="/">
           Latest
           <span>(23)</span>
         </a>

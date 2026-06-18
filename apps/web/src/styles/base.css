@@ -23,3 +23,14 @@ a {
     color: var(--blue-300);
   }
 }
+
+button {
+  padding: 10px 20px;
+  outline: none;
+  border-radius: 5px;
+  background-color: var(--blue);
+  border: 1px solid var(--vinyl);
+  color: var(--vinyl);
+  font-weight: 700;
+  cursor: pointer;
+}

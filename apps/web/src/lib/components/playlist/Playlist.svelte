@@ -1,39 +1,37 @@
 <script lang="ts">
   import { formatDuration } from "$lib/utils/formatDuration"
-  import AlbumCover from "./albumCover/AlbumCover.svelte";
+  import Cover from "./cover/Cover.svelte";
 
   const { playlist = null } = $props()
 </script>
 
 <div class="playlist">
   {#if playlist?.data?.id}
-    <AlbumCover playlist={playlist} showMeta />
-    <div>
-      <table>
-        <thead>
+    <Cover {playlist} />
+    <table>
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th class="hide-mobile">Year</th>
+          <th class="hide-mobile">Time</th>
+          <th class="hide-mobile">Composer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each playlist?.data?.tracks as track}
           <tr>
-            <th>Track</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th class="hide-mobile">Year</th>
-            <th class="hide-mobile">Time</th>
-            <th class="hide-mobile">Composer</th>
+            <td>{track.title}</td>
+            <td>{playlist.data.artist.name}</td>
+            <td>{playlist?.data?.title}</td>
+            <td class="hide-mobile">{playlist?.data?.year}</td>
+            <td class="hide-mobile">{formatDuration(track.duration)}</td>
+            <td class="hide-mobile">{track.composer}</td>
           </tr>
-        </thead>
-        <tbody>
-          {#each playlist?.data?.tracks as track}
-            <tr>
-              <td>{track.title}</td>
-              <td>{playlist.data.artist.name}</td>
-              <td>{playlist?.data?.title}</td>
-              <td class="hide-mobile">{playlist?.data?.year}</td>
-              <td class="hide-mobile">{formatDuration(track.duration)}</td>
-              <td class="hide-mobile">{track.composer}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
+        {/each}
+      </tbody>
+    </table>
   {/if}
 </div>
 
@@ -42,10 +40,6 @@
     display: flex;
     flex-direction: column;
     gap: 2vw;
-    
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
 
     table {
       width: 100%;
