@@ -38,3 +38,4 @@ _data
 _logs
 apps/api/_log
 apps/api/tmp
+apps/api/crash_errors.txt

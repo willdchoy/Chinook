@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald&display=swap");
 @import "reset.css";
 @import "colors.css";
+@import "media.css";
+@import "header.css";
 @import "vars.css";
 @import "utils";
 @import "layout.css";
@@ -13,7 +15,6 @@ h4,
 h5,
 h6 {
   color: var(--white);
-  line-height: 1.2;
 }
 
 a {
@@ -25,11 +26,11 @@ a {
 }
 
 button {
-  padding: 10px 20px;
+  padding: var(--p-md) var(--p-xl);
   outline: none;
-  border-radius: 5px;
+  border-radius: var(--p-sm);
   background-color: var(--blue);
-  border: 1px solid var(--vinyl);
+  border: var(--border);
   color: var(--vinyl);
   font-weight: 700;
   cursor: pointer;

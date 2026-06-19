@@ -5,23 +5,23 @@
 
 {#if data}
   <div class="playlist-cover">
-    <img src="https://picsum.photos/725/725" alt={data.title} />
+    <img src="https://picsum.photos/500/500" alt={data.title} />
     <div class="meta">
-      <div>
+      <p>
         <span class="artist muted">{data.artist.name}</span> <br />
         <span class="title">
           {data.title}
           <span class="muted">{data.year}</span>
         </span>
-      </div>
-      <div class="options muted">
+      </p>
+      <span class="options muted">
         <i class="fa-solid fa-plus"></i>
         <i class="fa-solid fa-heart"></i>
         <span>
           <i class="fa-solid fa-message"></i>
           <span>(243)</span>
-        </span>
-      </div>
+        </span> <br />
+      </span>
     </div>
   </div>
 {/if}
@@ -31,25 +31,25 @@
     display: flex;
     width: 100%;
     height: 100%;
-    margin-bottom: 10px;
+    margin-bottom: var(--m-xl);
 
     img {
-      width: 100px;
-      height: 100px;
-      border-radius: 2px;
-      margin-right: 20px;
+      --image-size: 100px;
+
+      width: var(--image-size);
+      height: var(--image-size);
+      border-radius: var(--border-radius);
+      margin-right: var(--m-xl);
     }
 
     .meta {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+      .options {
+        margin-top: var(--m-md);
 
-    .options {
-      & > *:nth-child(n + 2) {
-        cursor: pointer;
-        margin-left: 10px;
+        & > *:nth-child(n + 2) {
+          cursor: pointer;
+          margin-left: var(--m-md);
+        }
       }
     }
   }

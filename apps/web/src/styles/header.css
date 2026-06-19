@@ -1,0 +1,46 @@
+:root {
+  --heading-margin-top: calc(var(--rhythm) * 2);
+  --heading-margin-bottom: var(--rhythm);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: var(--heading-margin-top);
+  margin-bottom: var(--heading-margin-bottom);
+  font-weight: 700;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+}
+
+h3 {
+  font-size: var(--font-size-l);
+  line-height: var(--line-height-l);
+}
+
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+}

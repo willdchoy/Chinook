@@ -4,7 +4,8 @@
       <img src="https://picsum.photos/100/100" alt="" />
       <div class="meta">
         <span class="artist muted">Lital</span>
-        Corrupti quo consequatur reprehenderit accusantium et <span class="muted">2017</span>
+        Corrupti quo consequatur reprehenderit accusantium et
+        <span class="muted">2017</span>
       </div>
     </div>
     <div class="controls">
@@ -31,10 +32,10 @@
     position: sticky;
     bottom: 0;
     background-color: oklch(from var(--vinyl) calc(l - 0.04) c h);
-    border-top: 1px solid var(--vinyl-50);
+    border-top: var(--border);
 
-    @media (min-width: 768px) {
-      border: 1px solid var(--vinyl-50);
+    @media (--cm-md) {
+      border: var(--border);
     }
 
     & > .player {
@@ -43,7 +44,7 @@
       align-items: center;
       height: var(--mobilePlayerHeight);
 
-      @media(min-width: 768px) {
+      @media (--cm-md) {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -59,17 +60,17 @@
 
         img {
           max-height: calc(var(--mobilePlayerHeight) - 2px);
-          margin-right: 10px;
-          @media (min-width: 768px) {  
+          margin-right: var(--m-md);
+          @media (--cm-md) {
             max-height: calc(var(--playerHeight) - 2px);
           }
         }
-      }      
+      }
 
       .artist {
         display: none;
 
-        @media(min-width: 768px) {
+        @media (--cm-md) {
           display: block;
         }
       }
@@ -79,9 +80,9 @@
         justify-content: flex-end;
         align-items: center;
         height: 100%;
-        margin-left: 10px;
+        margin-left: var(--m-md);
 
-        @media(min-width: 768px) {
+        @media (--cm-md) {
           flex: 1;
           justify-content: center;
         }
@@ -92,14 +93,14 @@
 
         & [class*="fa-"] {
           cursor: pointer;
-          margin: 0 10px;
+          margin: 0 var(--m-md);
           font-size: var(--font-size-md);
         }
 
         .additional {
           display: none;
 
-          @media(min-width: 768px) {
+          @media (--cm-md) {
             display: block;
           }
         }
@@ -107,17 +108,17 @@
 
       .options {
         flex: 1;
-        display: none;        
+        display: none;
         justify-self: flex-end;
-        margin-right: 10px;
+        margin-right: var(--m-md);
         font-size: var(--font-size-base);
-        
-        @media(min-width: 768px) {
+
+        @media (--cm-md) {
           display: flex;
           justify-content: flex-end;
-          
+
           & > * {
-            margin-right: 10px;
+            margin-right: var(--m-md);
             cursor: pointer;
           }
         }

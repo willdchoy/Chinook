@@ -7,10 +7,9 @@
     <nav>
       <ul>
         <a href="/d/1111/profile">
-        <li>  
-          <i class="fa-solid fa-tv"> 
-          </i>Profile
-        </li>
+          <li>
+            <i class="fa-solid fa-tv"> </i>Profile
+          </li>
         </a>
         <a href="/d/1111/music">
           <li>
@@ -29,7 +28,6 @@
   </aside>
   <article>
     {@render children()}
-    
   </article>
 </div>
 
@@ -38,17 +36,18 @@
     display: flex;
     flex-direction: column;
 
-    @media(min-width: 768px) {
+    @media (--cm-md) {
       flex-direction: row;
     }
 
     aside {
-      margin: -10px -10px 0 -10px;
+      margin: calc(var(--m-md) * -1);
+      margin-bottom: 0;
 
-      @media(min-width: 768px) {
+      @media (--cm-md) {
         width: 150px;
         height: calc(100vh - 151px);
-        border-right: 1px solid var(--vinyl-50);
+        border-right: var(--border);
       }
 
       nav ul {
@@ -56,26 +55,26 @@
         list-style-type: none;
 
         li {
-          padding: 15px 10px;
-          border-bottom: 1px solid var(--vinyl-50);
+          padding: var(--p-lg) var(--p-md);
+          border-bottom: var(--border);
 
           &:hover {
             background-color: var(--blue);
-            color: black;
+            color: var(--black);
           }
 
           & * {
-            margin-right: 10px;
+            margin-right: var(--m-lg);
           }
         }
       }
     }
 
     article {
-      padding: 10px 10px;
+      padding: var(--p-md);
 
-      @media (min-width: 768px) {
-        margin: 0 0 0 20px;
+      @media (--cm-md) {
+        margin: 0 0 0 var(--p-xl);
       }
     }
   }

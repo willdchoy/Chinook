@@ -1,6 +1,6 @@
 <script>
-  import Playlist from "$lib/components/playlist/Playlist.svelte";
-  const { data: playlist } = $props();
+  import Playlist from "$lib/components/playlist/Playlist.svelte"
+  const { data: playlist } = $props()
 </script>
 
 <div class="home">
@@ -10,8 +10,8 @@
         Discover. <br />
         Get Discovered.
       </h1>
-      <p>Find your next favorite artist.</p>
-      <button>I'm a listener</button> 
+      <p>Find your next favorite artist</p>
+      <button>I'm a listener</button>
       <button>I'm an artist</button>
     </div>
   </div>
@@ -20,17 +20,17 @@
 
 <style>
   .home {
-
     .home-banner {
       width: 100%;
       height: 100%;
-      min-height: 255px;
+      min-height: 100%;
       max-height: 500px;
-      margin-bottom: 30px;
-      padding: 30px 0;
-      border-bottom: 1px solid var(--vinyl-50);
+      padding: 10px 0 25px 0;
+      border-bottom: var(--border);
 
-      @media (min-width: 768px) {
+      @media (--cm-md) {
+        margin-bottom: 30px;
+        padding: 30px 0;
         background: url("https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg");
         background-repeat: no-repeat;
         background-position: right;
@@ -39,15 +39,9 @@
       .meta {
         padding-left: 10px;
 
-        @media (min-width: 768px) {
+        @media (--cm-md) {
           padding-left: 40px;
         }
-      }
-
-      h1 {
-        margin-bottom: 10px;
-        font-size: var(--font-size-xxl);
-        line-height: 1;
       }
 
       p {

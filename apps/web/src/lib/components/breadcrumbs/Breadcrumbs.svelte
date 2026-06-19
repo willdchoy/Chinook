@@ -30,17 +30,17 @@
       list-style-type: none;
       padding: 0;
     }
-    
+
     li {
       color: white;
       line-height: 0;
     }
-    
+
     li a {
       font-size: var(--font-size-xs);
       color: var(--muted);
 
-      @media (min-width: 768px) {
+      @media (--cm-md) {
         font-size: var(--font-size-sm);
       }
     }

@@ -21,7 +21,7 @@ body {
     "header"
     "content";
 
-  @media (min-width: 700px) {
+  @media (--cm-md) {
     max-width: var(--site-max-width);
   }
 }
@@ -38,11 +38,11 @@ body {
   main {
     flex: 1;
     width: 100%;
-    padding: 10px;
+    padding: var(--p-md);
 
-    @media (min-width: 1440px) {
-      border-left: 1px solid var(--vinyl-50);
-      border-right: 1px solid var(--vinyl-50);
+    @media (--cm-xl) {
+      border-left: var(--border);
+      border-right: var(--border);
     }
   }
 }

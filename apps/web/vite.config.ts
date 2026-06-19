@@ -1,12 +1,16 @@
-import { defineConfig } from "vitest/config";
-import { playwright } from "@vitest/browser-playwright";
-import adapter from "@sveltejs/adapter-auto";
-import { sveltekit } from "@sveltejs/kit/vite";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { defineConfig } from "vitest/config"
+import { playwright } from "@vitest/browser-playwright"
+import adapter from "@sveltejs/adapter-auto"
+import { sveltekit } from "@sveltejs/kit/vite"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import { storybookTest } from "@storybook/addon-vitest/vitest-plugin"
+import postcssGlobalData from "@csstools/postcss-global-data"
+import postcssCustomMedia from "postcss-custom-media"
 const dirname =
-  typeof __dirname !== "undefined" ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+  typeof __dirname !== "undefined"
+    ? __dirname
+    : path.dirname(fileURLToPath(import.meta.url))
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
@@ -15,17 +19,28 @@ export default defineConfig({
       compilerOptions: {
         // Force runes mode for the project, except for libraries. Can be removed in svelte 6.
         runes: ({ filename }) =>
-          filename.split(/[/\\]/).includes("node_modules") ? undefined : true,
+          filename.split(/[/\\]/).includes("node_modules") ? undefined : true
       },
       // adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
       // If your environment is not supported, or you settled on a specific environment, switch out the adapter.
       // See https://svelte.dev/docs/kit/adapters for more information about adapters.
-      adapter: adapter(),
-    }),
+      adapter: adapter()
+    })
   ],
+  css: {
+    postcss: {
+      plugins: [
+        // hande svelte scoping issue withe @media-custom
+        postcssGlobalData({
+          files: ["src/styles/media.css"]
+        }),
+        postcssCustomMedia()
+      ]
+    }
+  },
   test: {
     expect: {
-      requireAssertions: true,
+      requireAssertions: true
     },
     projects: [
       {
@@ -38,13 +53,13 @@ export default defineConfig({
             instances: [
               {
                 browser: "chromium",
-                headless: true,
-              },
-            ],
+                headless: true
+              }
+            ]
           },
           include: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-          exclude: ["src/lib/server/**"],
-        },
+          exclude: ["src/lib/server/**"]
+        }
       },
       {
         extends: "./vite.config.ts",
@@ -52,8 +67,8 @@ export default defineConfig({
           name: "server",
           environment: "node",
           include: ["src/**/*.{test,spec}.{js,ts}"],
-          exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-        },
+          exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"]
+        }
       },
       {
         extends: true,
@@ -61,8 +76,8 @@ export default defineConfig({
           // The plugin will run tests for the stories defined in your Storybook config
           // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({
-            configDir: path.join(dirname, ".storybook"),
-          }),
+            configDir: path.join(dirname, ".storybook")
+          })
         ],
         test: {
           name: "storybook",
@@ -72,12 +87,12 @@ export default defineConfig({
             provider: playwright({}),
             instances: [
               {
-                browser: "chromium",
-              },
-            ],
-          },
-        },
-      },
-    ],
-  },
-});
+                browser: "chromium"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+})

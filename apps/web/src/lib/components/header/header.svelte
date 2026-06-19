@@ -1,17 +1,15 @@
 <header class="main-header">
   <div>
-    <h1 class="logo">
+    <div class="logo">
       <div class="record"></div>
-      <a href="/"> Chinook </a>
-    </h1>
+      <h1><a href="/">Chinook</a></h1>
+    </div>
   </div>
   <div class="hamburger">&#9776;</div>
   <nav>
     <ul>
       <li>
-        <a href="/">
-          Charts
-        </a>
+        <a href="/">Charts</a>
       </li>
       <li>
         <a href="/">
@@ -26,7 +24,9 @@
         <a href="/">Discover</a>
       </li>
       <li>
-        <a href="/d/1111/profile" aria-label="account"><i class="fa-solid fa-user"></i></a>
+        <a href="/d/1111/profile" aria-label="account">
+          <i class="fa-solid fa-user"></i>
+        </a>
       </li>
     </ul>
   </nav>
@@ -40,13 +40,19 @@
     justify-content: space-between;
     width: 100%;
     height: 50px;
-    padding: 0 15px;
-    border-bottom: 1px solid var(--vinyl-50);
+    padding: 0 var(--p-lg);
+    border-bottom: var(--border);
   }
 
   .logo {
     display: flex;
     align-items: center;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: var(--font-size-xl);
+    }
 
     a {
       text-transform: uppercase;
@@ -60,7 +66,7 @@
     display: inline-block;
     width: 32px;
     height: 32px;
-    margin-right: 5px;
+    margin-right: var(--m-sm);
     border: 12px solid var(--blue);
     border-radius: 50%;
     background-color: transparent;
@@ -68,18 +74,18 @@
 
   .hamburger {
     margin-top: -9px;
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
 
-    @media (min-width: 768px) {
+    @media (--cm-md) {
       display: none;
     }
   }
 
   nav {
     display: none;
-    margin-right: 10px;
+    margin-right: var(--m-md);
 
-    @media (min-width: 768px) {
+    @media (--cm-md) {
       display: block;
     }
 
@@ -92,11 +98,11 @@
 
       li a {
         cursor: pointer;
-        margin-right: 20px;
+        margin-right: var(--m-xl);
       }
 
       li:first-child a span {
-        margin-left: 5px;
+        margin-left: var(--m-sm);
         color: var(--blue);
       }
     }

@@ -3,72 +3,77 @@
   --body-font-family: "Inter", sans-serif;
   --heading-font-family: "Oswald", sans-serif;
 
-  /* Rhythm unit — the heartbeat of the layout */
+  /* sizes */
+  --site-max-width: 1440px;
+  --site-min-vh: 100vh;
+
+  /* vertical rhytm */
   --rhythm: 1.5rem; /* 24px — base line height */
   --rhythm-half: 0.75rem; /* 12px */
   --rhythm-quarter: 0.375rem; /* 6px */
 
-  /* ── Font sizes (fluid, modular scale × 1.25) ──
-     Each step is prev × 1.25, clamped to snap to rhythm.
-     min → base viewport (~320px), max → wide viewport (~1280px) */
   --font-size-xs: clamp(0.64rem, 0.1vw + 0.61rem, 0.75rem); /* ×0.512  */
   --font-size-sm: clamp(0.8rem, 0.15vw + 0.76rem, 0.875rem); /* ×0.640  */
   --font-size-base: clamp(1rem, 0.25vw + 0.94rem, 1.125rem); /* ×1.000  */
   --font-size-md: clamp(1.25rem, 0.4vw + 1.15rem, 1.5rem); /* ×1.250  */
   --font-size-lg: clamp(1.563rem, 0.6vw + 1.41rem, 1.875rem); /* ×1.563  */
   --font-size-xl: clamp(1.953rem, 0.9vw + 1.73rem, 2.25rem); /* ×1.953  */
-  --font-size-xxl: clamp(2.441rem, 1.3vw + 2.12rem, 3rem); /* ×2.441  */
-  --font-size-kilo: clamp(3.052rem, 2vw + 2.55rem, 4.5rem); /* ×3.052  */
-  --font-size-mega: clamp(3.815rem, 2.8vw + 3.11rem, 5.625rem); /* ×3.815  */
-  --font-size-giga: clamp(4.768rem, 3.8vw + 3.82rem, 7.031rem); /* ×4.768  */
+  --font-size-2xl: clamp(2.441rem, 1.3vw + 2.12rem, 3rem); /* ×2.441  */
+  --font-size-3xl: clamp(3.052rem, 2vw + 2.55rem, 4.5rem); /* ×3.052  */
+  --font-size-4xl: clamp(3.815rem, 2.8vw + 3.11rem, 5.625rem); /* ×3.815  */
+  --font-size-5xl: clamp(4.768rem, 3.8vw + 3.82rem, 7.031rem); /* ×4.768  */
 
-  /* ── Line heights (each snaps to nearest rhythm multiple) ──
-     Target: font-size × 1.5, rounded to rhythm grid             */
   --line-height-xs: var(--rhythm); /* 1.5rem  */
   --line-height-sm: var(--rhythm); /* 1.5rem  */
   --line-height-base: var(--rhythm); /* 1.5rem  */
   --line-height-md: calc(var(--rhythm) * 1.25); /* 1.875rem */
   --line-height-lg: calc(var(--rhythm) * 1.5); /* 2.25rem  */
   --line-height-xl: calc(var(--rhythm) * 2); /* 3.00rem  */
-  --line-height-xxl: calc(var(--rhythm) * 2.5); /* 3.75rem  */
-  --line-height-xxxl: calc(var(--rhythm) * 3); /* 4.50rem  */
+  --line-height-2xl: calc(var(--rhythm) * 2.5); /* 3.75rem  */
+  --line-height-3xl: calc(var(--rhythm) * 3); /* 4.50rem  */
+  --line-height-4xl: calc(var(--rhythm) * 3.75); /* 4.50rem  */
+  --line-height-5xl: calc(var(--rhythm) * 4.5); /* 4.50rem  */
 
   /* backgrounds */
-  --bg: var(--black);
+  /* --bg: var(--black);
   --bg-1: var(--black-1);
   --bg-2: var(--black-2);
-  --bg-sheet: var(--white);
+  --bg-sheet: var(--white); */
 
   /* foreground */
-  --fg: var(--white);
+  /* --fg: var(--white);
   --fg-1: var(--white);
   --fg-2: var(--black-9);
-  --fg-sheet: var(--black);
+  --fg-sheet: var(--black); */
 
   /* interface colors */
-  --primary: var(--yellow);
+  /* --primary: var(--yellow);
   --accent: var(--teal);
   --subtle-accent: var(--purple);
   --warning: var(--red);
   --success: var(--green);
   --line: var(--black-2);
-  --tint-or-shade: color-mix(in oklab, var(--fg), transparent 75%);
+  --tint-or-shade: color-mix(in oklab, var(--fg), transparent 75%); */
 
   /* borders */
-  --brad: 5px;
-  --border-size: 1.5px;
-  --border: solid var(--border-size) var(--fg-sheet);
+  --border-radius: 5px;
+  --border-size: 1px;
+  --border-color: var(--vinyl-50);
+  --border: var(--border-size) solid var(--border-color);
 
-  /* breakpoints / sizes */
-  --site-max-width: 1440px;
-  --site-min-vh: 100vh;
+  /* margin / padding */
+  --space-sm: 5px;
+  --space-md: 10px;
+  --space-lg: 15px;
+  --space-xl: 20px;
 
-  @custom-media --below-sm (width < 400px);
-  @custom-media --below-md (width < 700px);
-  @custom-media --below-lg (width < 900px);
-  @custom-media --below-xl (width < 1200px);
-  @custom-media --above-sm (width > 400px);
-  @custom-media --above-md (width > 700px);
-  @custom-media --above-lg (width > 900px);
-  @custom-media --above-xl (width > 1200px);
+  --m-sm: var(--space-sm);
+  --m-md: var(--space-md);
+  --m-lg: var(--space-lg);
+  --m-xl: var(--space-xl);
+
+  --p-sm: var(--space-sm);
+  --p-md: var(--space-md);
+  --p-lg: var(--space-lg);
+  --p-xl: var(--space-xl);
 }
