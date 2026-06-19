@@ -12,6 +12,14 @@ services:
     hostname: ch-client-db
     container_name: ch-client-db
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 256M
+        reservations:
+          cpus: "0.50"
+          memory: 128M
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -42,6 +50,14 @@ services:
     image: prometheuscommunity/postgres-exporter:v0.15.0
     hostname: ch-client-db-exporter
     networks: [ch-client-network, ch-obsvr-network]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     command:
       - "--no-collector.stat_bgwriter"
     environment:
@@ -63,6 +79,14 @@ services:
     working_dir: /var/www/app
     restart: unless-stopped
     command: make start
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 256M
+        reservations:
+          cpus: "0.50"
+          memory: 128M
     environment:
       GO_ENV: development
     ports:
@@ -77,7 +101,8 @@ services:
       client-db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "sh -c 'curl -k https://localhost:8000/api/v1/health'"]
+      test:
+        ["CMD-SHELL", "sh -c 'curl -k https://localhost:8000/api/v1/health'"]
       interval: 30s
       timeout: 3s
       retries: 30

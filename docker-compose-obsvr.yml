@@ -12,6 +12,14 @@ services:
     hostname: ch-alloy
     networks: [ch-client-network, ch-obsvr-network]
     command: run --server.http.listen-addr=0.0.0.0:12345 --stability.level=experimental  --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     ports:
       - "12345:12345"
     environment:
@@ -37,6 +45,14 @@ services:
     image: grafana/grafana:11.4.0
     hostname: ch-grafana
     networks: [ch-obsvr-network]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     ports:
       - "3000:3000"
     environment:
@@ -54,7 +70,8 @@ services:
       tempo:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      test:
+        ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -63,6 +80,14 @@ services:
     image: grafana/loki:3.3.2
     hostname: ch-loki
     networks: [ch-obsvr-network]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     ports:
       - "3100:3100"
     volumes:
@@ -80,6 +105,14 @@ services:
     hostname: ch-tempo
     networks: [ch-obsvr-network]
     command: -config.file=/etc/tempo/config.yaml
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     ports:
       - "3200:3200" # tempo
     environment:
@@ -98,6 +131,14 @@ services:
     hostname: ch-prometheus
     restart: unless-stopped
     networks: [ch-client-network, ch-obsvr-network]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
     ports:
       - "9090:9090"
     volumes:

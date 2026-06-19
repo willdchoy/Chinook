@@ -31,7 +31,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    margin-bottom: var(--m-xl);
+    margin: var(--m-xl) 0;
 
     img {
       --image-size: 100px;

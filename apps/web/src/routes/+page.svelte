@@ -1,54 +1,25 @@
 <script>
+  import Banner from "$lib/components/banners/Banner.svelte"
   import Playlist from "$lib/components/playlist/Playlist.svelte"
   const { data: playlist } = $props()
+
+  const banner = {
+    title: " Discover. Get Discovered.",
+    subtitle: "Find your next favorite artist",
+    background:
+      "https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg"
+  }
 </script>
 
 <div class="home">
-  <div class="home-banner">
-    <div class="meta">
-      <h1>
-        Discover. <br />
-        Get Discovered.
-      </h1>
-      <p>Find your next favorite artist</p>
-      <button>I'm a listener</button>
-      <button>I'm an artist</button>
-    </div>
-  </div>
+  <Banner {banner}>
+    <button>I'm a listener</button>
+    <button>I'm an artist</button>
+  </Banner>
   <Playlist {playlist} />
 </div>
 
 <style>
   .home {
-    .home-banner {
-      width: 100%;
-      height: 100%;
-      min-height: 100%;
-      max-height: 500px;
-      padding: 10px 0 25px 0;
-      border-bottom: var(--border);
-
-      @media (--cm-md) {
-        margin-bottom: 30px;
-        padding: 30px 0;
-        background: url("https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg");
-        background-repeat: no-repeat;
-        background-position: right;
-      }
-
-      .meta {
-        padding-left: 10px;
-
-        @media (--cm-md) {
-          padding-left: 40px;
-        }
-      }
-
-      p {
-        margin-bottom: 1rem;
-        font-size: var(--font-size-l);
-        line-height: 1;
-      }
-    }
   }
 </style>

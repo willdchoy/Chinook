@@ -66,6 +66,7 @@
   --space-md: 10px;
   --space-lg: 15px;
   --space-xl: 20px;
+  --space-xxl: 25px;
 
   --m-sm: var(--space-sm);
   --m-md: var(--space-md);
@@ -76,4 +77,5 @@
   --p-md: var(--space-md);
   --p-lg: var(--space-lg);
   --p-xl: var(--space-xl);
+  --p-xxl: var(--space-xxl);
 }
