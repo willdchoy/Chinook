@@ -1,61 +1,35 @@
 <script>
   import Playlist from "../playlist/Playlist.svelte"
+  import List from "../list/List.svelte"
 
   const { playlist } = $props()
 </script>
 
-<div class="grid">
+<div class="tabs">
   <details name="alpha" style="--n: 1" open>
     <summary>Tracks</summary>
     <Playlist {playlist} />
   </details>
   <details name="alpha" style="--n: 2">
     <summary>Albums</summary>
-    <div>
-      <p>Tracks you loved:</p>
-      <ul>
-        <li>Marnie Stern - Believing Is Seeing</li>
-        <li>FKA twigs - Girl Feels Good</li>
-        <li>Fat Dog - Running</li>
-        <li>Parquet Courts - Tenderness</li>
-        <li>Sufjan Stevens - Will Anybody Ever Love Me?</li>
-      </ul>
-    </div>
+    <List albums={playlist} />
   </details>
   <details name="alpha" style="--n: 3">
-    <summary>About Us</summary>
-    <div>
-      <p>Artists you follow:</p>
-      <ul>
-        <li>Amyl and the Sniffers</li>
-        <li>Du Blonde</li>
-        <li>Magdalena Bay</li>
-        <li>Flying Lotus</li>
-        <li>Horsegirl</li>
-      </ul>
-    </div>
+    <summary>Media</summary>
+    <div>YouTubes and more...</div>
   </details>
-  <details name="alpha" style="--n: 3">
+  <details name="alpha" style="--n: 4">
     <summary>About Us</summary>
-    <div>
-      <p>Artists you follow:</p>
-      <ul>
-        <li>Amyl and the Sniffers</li>
-        <li>Du Blonde</li>
-        <li>Magdalena Bay</li>
-        <li>Flying Lotus</li>
-        <li>Horsegirl</li>
-      </ul>
-    </div>
+    <div>Us...</div>
   </details>
 </div>
 
 <style>
-  .grid {
+  .tabs {
     display: grid;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, minmax(5rem, 1fr));
     grid-template-rows: auto 1fr;
-    /* column-gap: 1rem; */
+    width: 100%;
   }
 
   details {
@@ -67,27 +41,31 @@
   }
 
   summary {
+    z-index: 0;
+    display: grid;
     grid-column: var(--n) / span 1;
     grid-row: 1;
-    display: grid;
     padding: 0.5rem;
-    border-bottom: 2px solid var(--blue);
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
+    text-align: center;
+    font-size: var(--font-size-sm);
+    border-bottom: 2px solid var(--vinyl-50);
     cursor: pointer;
-    z-index: 1;
+
+    @media (--cm-lg) {
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+    }
   }
 
   details[open] :is(summary, .summary) {
     font-weight: bold;
-    background-color: var(--blue);
+    background-color: var(--vinyl-50);
   }
 
   details::details-content {
     grid-row: 2;
     grid-column: 1 / -1;
     padding: 1rem;
-    border-bottom: 2px solid var;
   }
 
   details:not([open])::details-content {
@@ -95,9 +73,8 @@
   }
 
   @media screen and (width < 40em) {
-    .grid {
-      grid-template-columns: repeat(3, minmax(100px, 1fr));
-      column-gap: 0.5rem;
+    .tabs {
+      grid-template-columns: repeat(4, minmax(90px, 1fr));
     }
 
     summary,

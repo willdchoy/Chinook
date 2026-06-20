@@ -15,8 +15,8 @@
     }
 
     h1 {
-      line-height: 1.1;
       margin-block-end: var(--m-md);
+      line-height: 1.1;
     }
   }
 

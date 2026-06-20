@@ -7,7 +7,7 @@
     size: "lg",
     title: "Discover. Get Discovered.",
     subtitle: "Find your next favorite artist",
-    background:
+    bgUrl:
       "https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg"
   }
 </script>

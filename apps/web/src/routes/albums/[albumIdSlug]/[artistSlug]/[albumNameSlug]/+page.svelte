@@ -1,29 +1,39 @@
 <script lang="ts">
   import Banner from "$lib/components/banners/Banner.svelte"
-  import Playlist from "$lib/components/playlist/Playlist.svelte"
+  import Comments from "$lib/components/comments/Comments.svelte"
   import Tabs from "$lib/components/tabs/Tabs.svelte"
 
-  const { data: playlist } = $props()
+  const { data } = $props()
 
   const banner = {
     size: "sm",
-    title: "Chemical Toilet",
-    background:
-      "https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/6/12/1402582059892/c6d7df16-d2f9-44d6-8d9e-eabd9ba67111-2060x1236.jpeg"
+    title: "My Chemical Toilet",
+    bgUrl: "https://picsum.photos/1420/250"
   }
 </script>
 
-<Banner {banner}>
-  <button>+ Follow</button>
-</Banner>
-
-<br />
-
 <div class="artist">
-  <Tabs {playlist} />
+  <Banner {banner}>
+    <button>+ Follow</button>
+  </Banner>
+  <div class="artist-details">
+    <Tabs playlist={data.playlist} />
+    <Comments />
+  </div>
 </div>
 
 <style>
   .artist {
+    .artist-details {
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+
+      @media (--cm-md) {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 50px;
+      }
+    }
   }
 </style>

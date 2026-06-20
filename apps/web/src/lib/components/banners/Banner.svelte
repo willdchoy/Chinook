@@ -13,7 +13,7 @@
 <div
   class="banner"
   style:height={sizeMap.get(banner.size) || sizeMap.get("md")}
-  style:background={`url("${banner.background}")`}
+  style:background={`url("${banner.bgUrl}")`}
   style:background-repeat="no-repeat"
   style:background-position="right"
 >

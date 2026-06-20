@@ -3,34 +3,46 @@
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
 
   const { playlist = null } = $props()
+
+  function trim(text: string): string {
+    const numWords = Math.floor(Math.random() * 5 + 1) || 3
+    return text.split(" ").slice(1, numWords).join(" ")
+  }
 </script>
 
 <div class="playlist">
   {#if playlist?.data?.id}
     <div class="tracks">
-      <!-- <div class="meta">
-        <Cover url="https://picsum.photos/500/500" />
-      </div> -->
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>Track</th>
-            <th>Artist</th>
+            <th>Album</th>
+            <th>Year</th>
+            <th>Time</th>
+            <!-- <th>Artist</th>
             <th>Album</th>
             <th class="hide-mobile">Year</th>
             <th class="hide-mobile">Time</th>
-            <th class="hide-mobile">Composer</th>
+            <th class="hide-mobile">Composer</th> -->
           </tr>
         </thead>
         <tbody>
           {#each playlist?.data?.tracks as track}
             <tr>
-              <td>{track.title}</td>
-              <td>{playlist.data.artist.name}</td>
-              <td>{playlist?.data?.title}</td>
-              <td class="hide-mobile">{playlist?.data?.year}</td>
+              <td>
+                <Cover url="https://picsum.photos/50/50" /> <br />
+              </td>
+              <td>{trim(track.title)}</td>
+              <td>{trim(playlist?.data?.title)}</td>
+              <td>{playlist?.data?.year}</td>
+              <td>{formatDuration(track.duration)}</td>
+              <!-- <td>{playlist.data.artist.name}</td>
+              <td>{playlist?.data?.title}</td> -->
+              <!-- <td class="hide-mobile">{playlist?.data?.year}</td>
               <td class="hide-mobile">{formatDuration(track.duration)}</td>
-              <td class="hide-mobile">{track.composer}</td>
+              <td class="hide-mobile">{track.composer}</td> -->
             </tr>
           {/each}
         </tbody>
@@ -54,16 +66,6 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-
-      .meta {
-        display: flex;
-        width: 100%;
-
-        &:first-child {
-          max-width: 100px;
-          margin: 20px 0;
-        }
-      }
     }
 
     table {
@@ -78,6 +80,7 @@
           color: var(--vinyl);
         }
 
+        &:last-child:has(th),
         &:last-child:not(:has(th)) {
           border: none;
         }
@@ -92,15 +95,18 @@
       th {
         color: var(--muted);
         font-size: var(--font-size-xs);
-        padding: 0 var(--m-md);
       }
 
       td {
-        padding: var(--p-md) var(--m-md);
+        padding: var(--p-sm) var(--m-sm);
         font-size: var(--font-size-sm);
+
+        &:first-child {
+          display: flex;
+        }
       }
 
-      td:nth-last-child(-n + 3) {
+      td:nth-last-child(-n + 2) {
         color: var(--muted);
       }
 
