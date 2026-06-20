@@ -22,11 +22,14 @@
 
 <style>
   .list-view {
+    width: 100%;
+
     .list-items {
+      width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 10px;
-      margin-top: 5px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      column-gap: 10px;
+      row-gap: 20px;
     }
   }
 </style>

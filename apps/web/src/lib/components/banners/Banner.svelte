@@ -3,10 +3,16 @@
   import "./banner.css"
 
   const { children, banner = null } = $props()
+  const sizeMap = new Map([
+    ["sm", "250px"],
+    ["md", "350px"],
+    ["lg", "500px"]
+  ])
 </script>
 
 <div
   class="banner"
+  style:height={sizeMap.get(banner.size) || sizeMap.get("md")}
   style:background={`url("${banner.background}")`}
   style:background-repeat="no-repeat"
   style:background-position="right"

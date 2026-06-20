@@ -7,10 +7,6 @@
   padding-bottom: var(--p-xxl);
   border-bottom: var(--border);
 
-  @media (--cm-md) {
-    min-height: 350px;
-  }
-
   .meta {
     padding-left: var(--p-md);
 
@@ -25,7 +21,7 @@
   }
 
   p {
-    margin-bottom: var(--m-md);
+    margin-bottom: var(--m-lg);
     font-size: var(--font-size-l);
     line-height: 1;
   }

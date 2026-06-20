@@ -60,7 +60,7 @@
 
           &:hover {
             background-color: var(--blue);
-            color: var(--black);
+            color: black;
           }
 
           & * {

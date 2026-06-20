@@ -1,10 +1,11 @@
 <script>
   import Banner from "$lib/components/banners/Banner.svelte"
-  import Playlist from "$lib/components/playlist/Playlist.svelte"
-  const { data: playlist } = $props()
+  import List from "$lib/components/list/List.svelte"
+  const { data: albums } = $props()
 
   const banner = {
-    title: " Discover. Get Discovered.",
+    size: "lg",
+    title: "Discover. Get Discovered.",
     subtitle: "Find your next favorite artist",
     background:
       "https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg"
@@ -16,7 +17,8 @@
     <button>I'm a listener</button>
     <button>I'm an artist</button>
   </Banner>
-  <Playlist {playlist} />
+  <br />
+  <List {albums} />
 </div>
 
 <style>

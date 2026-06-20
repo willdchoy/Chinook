@@ -1,6 +1,6 @@
 <script lang="ts">
   import { formatDuration } from "$lib/utils/formatDuration"
-  import Cover from "./cover/Cover.svelte"
+  import Cover from "$lib/components/playlist/cover/Cover.svelte"
 
   const { playlist = null } = $props()
 </script>
@@ -8,7 +8,9 @@
 <div class="playlist">
   {#if playlist?.data?.id}
     <div class="tracks">
-      <Cover {playlist} />
+      <!-- <div class="meta">
+        <Cover url="https://picsum.photos/500/500" />
+      </div> -->
       <table>
         <thead>
           <tr>
@@ -34,7 +36,6 @@
         </tbody>
       </table>
     </div>
-    <div class="chat">View comments</div>
   {/if}
 </div>
 
@@ -50,19 +51,18 @@
     }
 
     .tracks {
+      width: 100%;
       display: flex;
       flex-direction: column;
-    }
 
-    .chat {
-      width: 100%;
-      padding: var(--p-md);
-      text-align: center;
-      border-bottom: var(--border);
+      .meta {
+        display: flex;
+        width: 100%;
 
-      @media (--cm-md) {
-        max-width: 25rem;
-        border: none;
+        &:first-child {
+          max-width: 100px;
+          margin: 20px 0;
+        }
       }
     }
 
