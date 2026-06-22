@@ -4,14 +4,12 @@
 
 <div class="comments">
   <span class="header">Comments (352)</span>
-
   <div class="create">
     <div class="text">
-      <input type="text" placeholder="What are your thoughts?" />
+      <input type="text" placeholder="Add a comment" />
       <div class="actions">
         <i class="fa-regular fa-heart muted"></i>
-        <i class="fa-regular fa-share muted"></i>
-        <span>reply</span>
+        <i class="fa-solid fa-share muted"></i>
       </div>
     </div>
   </div>
@@ -42,7 +40,6 @@
     @media (--cm-lg) {
       max-width: 25rem;
       min-width: 400px;
-      border: var(--border);
     }
 
     .header {
@@ -54,7 +51,6 @@
     .create {
       display: flex;
       margin-bottom: calc(var(--m-md) * 2);
-      /* border-bottom: var(--border); */
       padding: 0 5px 15px;
 
       .text {

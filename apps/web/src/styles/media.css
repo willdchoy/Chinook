@@ -1,3 +1,4 @@
+@custom-media --cm-sm (width > 29.688rem);
 @custom-media --cm-md (width > 48rem);
 @custom-media --cm-lg (width > 56.25rem);
 @custom-media --cm-xl (width > 75rem);

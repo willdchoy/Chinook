@@ -7,6 +7,10 @@
 @import "utils";
 @import "layout.css";
 
+body {
+  line-height: var(--line-height-base);
+}
+
 a,
 h1,
 h2,

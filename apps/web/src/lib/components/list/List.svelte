@@ -1,17 +1,20 @@
 <script lang="ts">
-  import ListItem from "./ListItem/ListItem.svelte"
+  import Card from "../card/Card.svelte"
 
   let { albums } = $props()
   const maxListItems = 10
+  const playlistTitle = "Top Albums of the Day"
 </script>
 
 <div class="list-view">
-  <h3 class="title">Top Albums of the Day (1983 - 1997)</h3>
+  <h3 class="title">
+    {playlistTitle} <span class="muted">(1983 - 1997)</span>
+  </h3>
   <div class="list-items">
     {#if albums?.data?.length > 0}
       {#each albums.data as album, i}
         {#if i < maxListItems}
-          <ListItem {album} />
+          <Card {album} />
         {/if}
       {/each}
     {:else}
@@ -25,11 +28,12 @@
     width: 100%;
 
     .list-items {
-      width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      column-gap: 10px;
-      row-gap: 20px;
+
+      @media (--cm-sm) {
+        gap: var(--p-md);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
     }
   }
 </style>

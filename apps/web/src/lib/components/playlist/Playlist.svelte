@@ -21,11 +21,6 @@
             <th>Album</th>
             <th>Year</th>
             <th>Time</th>
-            <!-- <th>Artist</th>
-            <th>Album</th>
-            <th class="hide-mobile">Year</th>
-            <th class="hide-mobile">Time</th>
-            <th class="hide-mobile">Composer</th> -->
           </tr>
         </thead>
         <tbody>
@@ -38,11 +33,6 @@
               <td>{trim(playlist?.data?.title)}</td>
               <td>{playlist?.data?.year}</td>
               <td>{formatDuration(track.duration)}</td>
-              <!-- <td>{playlist.data.artist.name}</td>
-              <td>{playlist?.data?.title}</td> -->
-              <!-- <td class="hide-mobile">{playlist?.data?.year}</td>
-              <td class="hide-mobile">{formatDuration(track.duration)}</td>
-              <td class="hide-mobile">{track.composer}</td> -->
             </tr>
           {/each}
         </tbody>

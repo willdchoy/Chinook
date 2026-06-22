@@ -1,7 +1,13 @@
+<script>
+  import Cover from "../playlist/cover/Cover.svelte"
+</script>
+
 <footer class="player-wrapper">
   <div class="player">
     <div class="track">
-      <img src="https://picsum.photos/100/100" alt="" />
+      <div class="track-image">
+        <Cover url="https://picsum.photos/100/100" />
+      </div>
       <div class="meta">
         <span class="artist muted">Lital</span>
         Corrupti quo consequatur reprehenderit accusantium et
@@ -45,9 +51,6 @@
       height: var(--mobilePlayerHeight);
 
       @media (--cm-md) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
         height: var(--playerHeight);
       }
 
@@ -55,14 +58,21 @@
         flex: 1;
         display: flex;
         align-items: center;
-        font-size: var(--font-size-sm);
         height: 100%;
+        font-size: var(--font-size-sm);
 
-        img {
-          max-height: calc(var(--mobilePlayerHeight) - 2px);
+        .track-image {
+          width: 100%;
+          max-width: 100px;
+          max-width: var(--mobilePlayerHeight);
           margin-right: var(--m-md);
+
           @media (--cm-md) {
-            max-height: calc(var(--playerHeight) - 2px);
+            max-width: var(--playerHeight);
+          }
+
+          @container style(--direction: column) {
+            max-width: 100%;
           }
         }
       }

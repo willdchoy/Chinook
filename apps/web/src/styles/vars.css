@@ -4,7 +4,7 @@
   --heading-font-family: "Oswald", sans-serif;
 
   /* sizes */
-  --site-max-width: 1440px;
+  --site-max-width: 90rem;
   --site-min-vh: 100vh;
 
   /* vertical rhytm */
@@ -62,11 +62,11 @@
   --border: var(--border-size) solid var(--border-color);
 
   /* margin / padding */
-  --space-sm: 5px;
-  --space-md: 10px;
-  --space-lg: 15px;
-  --space-xl: 20px;
-  --space-xxl: 25px;
+  --space-sm: 0.5em;
+  --space-md: 0.5em;
+  --space-lg: 0.5em;
+  --space-xl: 0.5em;
+  --space-xxl: 0.5em;
 
   --m-sm: var(--space-sm);
   --m-md: var(--space-md);

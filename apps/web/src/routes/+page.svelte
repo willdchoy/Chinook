@@ -4,7 +4,7 @@
   const { data: albums } = $props()
 
   const banner = {
-    size: "lg",
+    size: "md",
     title: "Discover. Get Discovered.",
     subtitle: "Find your next favorite artist",
     bgUrl:

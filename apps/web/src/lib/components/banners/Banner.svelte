@@ -6,7 +6,7 @@
   const sizeMap = new Map([
     ["sm", "250px"],
     ["md", "350px"],
-    ["lg", "500px"]
+    ["lg", "450px"]
   ])
 </script>
 

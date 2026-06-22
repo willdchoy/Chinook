@@ -39,7 +39,7 @@ body {
     flex: 1;
     width: 100%;
 
-    @media (--cm-xl) {
+    @media (--cm-sm) {
       padding: var(--p-md);
       border-left: var(--border);
       border-right: var(--border);
