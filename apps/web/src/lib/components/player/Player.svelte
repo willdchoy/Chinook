@@ -1,5 +1,5 @@
 <script>
-  import Cover from "../playlist/cover/Cover.svelte"
+  import Cover from "../../features/playlist/cover/Cover.svelte"
   import { createImgPlaceholder } from "$lib/utils"
 </script>
 

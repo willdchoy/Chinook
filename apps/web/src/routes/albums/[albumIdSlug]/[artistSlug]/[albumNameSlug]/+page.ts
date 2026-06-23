@@ -4,8 +4,8 @@ import { db } from "$lib/utils/db.js"
 export const load = async ({ params }) => {
   if (browser) {
     return {
-      playlists: await db.playlists.getAll(),
-      tracks: await db.playlists.getById(+params.albumIdSlug)
+      playlists: await db.playlist.getAll(),
+      tracks: await db.playlist.getById(+params.albumIdSlug)
     }
   }
 }

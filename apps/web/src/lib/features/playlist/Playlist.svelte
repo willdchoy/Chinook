@@ -1,11 +1,9 @@
 <script lang="ts">
   import { formatDuration } from "$lib/utils/formatDuration"
-  import Cover from "$lib/components/playlist/cover/Cover.svelte"
+  import Cover from "$lib/features/playlist/cover/Cover.svelte"
   import { createImgPlaceholder } from "$lib/utils"
 
   const { playlist = null } = $props()
-
-  console.log(playlist)
 
   function trim(text: string): string {
     const numWords = Math.floor(Math.random() * 5 + 1) || 3

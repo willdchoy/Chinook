@@ -1,5 +1,5 @@
 <script>
-  import Playlist from "../playlist/Playlist.svelte"
+  import Playlist from "../../features/playlist/Playlist.svelte"
   import List from "../list/List.svelte"
 
   const { playlists } = $props()
@@ -8,7 +8,7 @@
 <div class="tabs">
   <details name="alpha" style="--n: 1" open>
     <summary>Tracks</summary>
-    <!-- <Playlist {playlists} /> -->
+    <!-- <Playlist {tracks} /> -->
   </details>
   <details name="alpha" style="--n: 2">
     <summary>Albums</summary>

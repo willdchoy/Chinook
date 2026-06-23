@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../styles/base.css"
-  import Header from "$lib/components/header/Header.svelte"
+  import Header from "$lib/features/header/Header.svelte"
   import favicon from "$lib/assets/favicon.svg"
   import Player from "$lib/components/player/Player.svelte"
 

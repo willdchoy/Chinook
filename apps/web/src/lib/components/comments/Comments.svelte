@@ -66,6 +66,7 @@
           padding-left: var(--p-md);
           margin-bottom: var(--m-md);
           border-radius: var(--border-radius);
+          font-size: var(--font-size-sm);
 
           &::placeholder {
             color: oklch(from white calc(l - 0.3) c h);
@@ -73,7 +74,7 @@
         }
 
         .actions {
-          font-size: var(--font-size-sm);
+          font-size: var(--font-size-base);
         }
       }
     }

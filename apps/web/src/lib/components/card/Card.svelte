@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Cover from "$lib/components/playlist/cover/Cover.svelte"
+  import Cover from "$lib/features/playlist/cover/Cover.svelte"
   import { createImgPlaceholder } from "$lib/utils"
 
   let { album } = $props()

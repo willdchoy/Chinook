@@ -1,40 +1,23 @@
+import { artist } from "$lib/features/artist-profile/api"
+import { playlist } from "$lib/features/playlist/api"
+import type { ArtistApi } from "$lib/features/artist-profile/api"
+import type { PlaylistApi } from "$lib/features/playlist/api"
+
 type DB = {
-  playlists: {
-    getAll: () => void
-    getById: (playlistId: number) => void
-  }
-}
-
-type ApiOptions = {
-  method: "GET" | "POST"
-}
-
-const defaultApiOptions: ApiOptions = {
-  method: "GET"
-}
-
-const createApiRequest = async (
-  route: string,
-  options: ApiOptions = defaultApiOptions
-) => {
-  try {
-    const baseUrl = "https://192.168.1.134:8000"
-    const url = `${baseUrl}/${route}`
-    const res = await fetch(url, options)
-
-    if (!res.ok) {
-      throw new Error(`Response status: ${res.status}`)
-    }
-    return await res.json()
-  } catch (e) {
-    console.error(e)
-  }
+  playlist: PlaylistApi
+  artist: ArtistApi
+  // profile: {
+  //   getById: () => void
+  // },
+  // auth: {
+  //   login: () => void
+  //   register: () => void
+  //   logut: () => void
+  //   token: () => void
+  // }
 }
 
 export const db: DB = {
-  playlists: {
-    getAll: async () => await createApiRequest("api/v1/playlists"),
-    getById: async (playlistId) =>
-      await createApiRequest(`api/v1/playlists/${playlistId}`)
-  }
+  playlist,
+  artist
 }
