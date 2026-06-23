@@ -1,23 +1,28 @@
 <script lang="ts">
+  import createImgPlaceholder from "$lib/utils/createImgPlaceholder.js"
   import Banner from "$lib/components/banners/Banner.svelte"
   import Comments from "$lib/components/comments/Comments.svelte"
   import Tabs from "$lib/components/tabs/Tabs.svelte"
 
   const { data } = $props()
 
+  const artistName = () => data?.tracks?.data?.artist.name
+  const bgUrl = createImgPlaceholder(artistName(), 1420, 250)
+
   const banner = {
     size: "sm",
-    title: "My Chemical Toilet",
-    bgUrl: "https://picsum.photos/1420/250"
+    title: artistName(),
+    bgUrl
   }
 </script>
 
 <div class="artist">
   <Banner {banner}>
-    <button>+ Follow</button>
+    <a href="/">OurWebisite.com</a> <br />
+    +Follow (1,245 following)
   </Banner>
   <div class="artist-details">
-    <Tabs playlist={data.playlist} />
+    <Tabs playlists={data.playlists} />
     <Comments />
   </div>
 </div>

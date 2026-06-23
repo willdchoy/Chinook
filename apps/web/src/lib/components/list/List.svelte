@@ -28,11 +28,10 @@
     width: 100%;
 
     .list-items {
-      display: grid;
-
       @media (--cm-sm) {
-        gap: var(--p-md);
+        display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--p-md);
       }
     }
   }

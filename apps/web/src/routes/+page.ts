@@ -1,11 +1,9 @@
 import { browser } from "$app/environment"
+import { db } from "$lib/utils/db.js"
 
-export const load = async ({ fetch }) => {
+export const load = async () => {
   if (browser) {
-    const endpoint = `https://192.168.1.134:8000/api/v1/playlists`
-    const response = await fetch(endpoint)
-    const data = await response.json()
-
+    const data = await db.playlists.getAll()
     return { ...data }
   }
 }

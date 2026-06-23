@@ -1,7 +1,8 @@
 <script lang="ts">
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
-  let { album } = $props()
+  import { createImgPlaceholder } from "$lib/utils"
 
+  let { album } = $props()
   const playlistLink = () =>
     `/albums/${album.id}/${album.artist.name}/${album.title}`
       .replace(/ /g, "-")
@@ -9,7 +10,9 @@
 </script>
 
 <article class="card stack">
-  <Cover url="https://picsum.photos/500/500" />
+  <div class="card-image">
+    <Cover url={createImgPlaceholder(album.title, 500, 500)} />
+  </div>
   <div class="card-metadata">
     <p>
       <a href={playlistLink()}>
@@ -37,8 +40,18 @@
 
     @media (--cm-sm) {
       --direction: column;
+
       border: var(--border);
       border-radius: var(--border-radius);
+    }
+
+    .card-image {
+      width: 100%;
+      max-width: 60px;
+
+      @container style(--direction: column) {
+        max-width: 100%;
+      }
     }
 
     .card-metadata {

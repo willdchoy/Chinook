@@ -1,12 +1,13 @@
 <script>
   import Cover from "../playlist/cover/Cover.svelte"
+  import { createImgPlaceholder } from "$lib/utils"
 </script>
 
 <footer class="player-wrapper">
   <div class="player">
     <div class="track">
       <div class="track-image">
-        <Cover url="https://picsum.photos/100/100" />
+        <Cover url={createImgPlaceholder("track", 100, 100)} />
       </div>
       <div class="meta">
         <span class="artist muted">Lital</span>
@@ -32,8 +33,8 @@
 
 <style>
   footer.player-wrapper {
-    --mobilePlayerHeight: 60px;
-    --playerHeight: 100px;
+    --mobilePlayerSize: 60px;
+    --playerSize: 100px;
 
     position: sticky;
     bottom: 0;
@@ -48,14 +49,13 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      height: var(--mobilePlayerHeight);
+      height: var(--mobilePlayerSize);
 
       @media (--cm-md) {
-        height: var(--playerHeight);
+        height: var(--playerSoze);
       }
 
       .track {
-        flex: 1;
         display: flex;
         align-items: center;
         height: 100%;
@@ -63,16 +63,12 @@
 
         .track-image {
           width: 100%;
-          max-width: 100px;
-          max-width: var(--mobilePlayerHeight);
+          max-width: var(--mobilePlayerSize);
           margin-right: var(--m-md);
 
           @media (--cm-md) {
-            max-width: var(--playerHeight);
-          }
-
-          @container style(--direction: column) {
-            max-width: 100%;
+            width: 100%;
+            max-width: var(--playerSize);
           }
         }
       }

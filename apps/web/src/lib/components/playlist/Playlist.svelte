@@ -1,8 +1,11 @@
 <script lang="ts">
   import { formatDuration } from "$lib/utils/formatDuration"
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
+  import { createImgPlaceholder } from "$lib/utils"
 
   const { playlist = null } = $props()
+
+  console.log(playlist)
 
   function trim(text: string): string {
     const numWords = Math.floor(Math.random() * 5 + 1) || 3
@@ -27,7 +30,9 @@
           {#each playlist?.data?.tracks as track}
             <tr>
               <td>
-                <Cover url="https://picsum.photos/50/50" /> <br />
+                <Cover
+                  url={createImgPlaceholder(playlist?.data?.title, 50, 50)}
+                />
               </td>
               <td>{trim(track.title)}</td>
               <td>{trim(playlist?.data?.title)}</td>

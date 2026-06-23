@@ -1,5 +1,6 @@
 <script lang="ts">
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
+  import { createImgPlaceholder } from "$lib/utils"
   let { album } = $props()
 
   const playlistLink = () =>
@@ -9,8 +10,7 @@
 </script>
 
 <div class="list-item">
-  <Cover url="https://picsum.photos/500/500" />
-
+  <Cover url={createImgPlaceholder(album.title, 500, 500)} />
   <div class="details">
     <a href={playlistLink()}>
       {album.title}

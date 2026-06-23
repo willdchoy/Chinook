@@ -3,19 +3,14 @@
 </script>
 
 <div class="cover-image">
-  <div class="image"></div>
+  <img src={url} class="image" alt={url} />
 </div>
 
 <style>
   .cover-image {
-    width: 100%;
-    max-width: 60px;
-    background-color: limegreen;
+    min-width: 40px;
+    max-width: 100%;
     aspect-ratio: 1 / 1;
-
-    @container style(--direction: column) {
-      max-width: 100%;
-    }
 
     @container style(--direction: column) {
       border-top-left-radius: var(--border-radius);

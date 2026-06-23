@@ -2,17 +2,17 @@
   import Playlist from "../playlist/Playlist.svelte"
   import List from "../list/List.svelte"
 
-  const { playlist } = $props()
+  const { playlists } = $props()
 </script>
 
 <div class="tabs">
   <details name="alpha" style="--n: 1" open>
     <summary>Tracks</summary>
-    <Playlist {playlist} />
+    <!-- <Playlist {playlists} /> -->
   </details>
   <details name="alpha" style="--n: 2">
     <summary>Albums</summary>
-    <List albums={playlist} />
+    <List albums={playlists} />
   </details>
   <details name="alpha" style="--n: 3">
     <summary>Media</summary>
