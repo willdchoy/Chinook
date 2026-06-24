@@ -1,6 +1,6 @@
 <script>
   import Banner from "$lib/components/banners/Banner.svelte"
-  import List from "$lib/components/list/List.svelte"
+  import List from "@/features/list/ui/List.svelte"
   const { data } = $props()
 
   const banner = {

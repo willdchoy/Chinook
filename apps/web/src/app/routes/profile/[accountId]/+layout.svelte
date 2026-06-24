@@ -6,18 +6,18 @@
   <aside>
     <nav>
       <ul>
-        <a href="/d/1111/profile">
+        <a href="/profile/1111/bio">
           <li>
             <i class="fa-solid fa-tv"> </i>Profile
           </li>
         </a>
-        <a href="/d/1111/music">
+        <a href="/profile/1111/music">
           <li>
             <i class="fa-solid fa-compact-disc"></i>
             Music
           </li>
         </a>
-        <a href="/d/1111/account">
+        <a href="/profile/1111/account">
           <li>
             <i class="fa-solid fa-circle-user"></i>
             Account

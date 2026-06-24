@@ -3,10 +3,8 @@
   import { createImgPlaceholder } from "@/lib/utils"
 
   let { album } = $props()
-  const playlistLink = () =>
-    `/albums/${album.id}/${album.artist.name}/${album.title}`
-      .replace(/ /g, "-")
-      .replace(/\./g, "")
+  const link = () =>
+    `/artist/${album.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
 </script>
 
 <article class="card stack">
@@ -15,7 +13,7 @@
   </div>
   <div class="card-metadata">
     <p>
-      <a href={playlistLink()}>
+      <a href={link()}>
         {album.title}
       </a>
       <span class="muted">

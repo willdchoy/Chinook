@@ -1,1 +1,0 @@
-  <h1>Welcome, Alice in Chains</h1>
