@@ -1,14 +1,12 @@
 <script lang="ts">
   import { createImgPlaceholder } from "$lib/utils/"
   import Banner from "$lib/components/banners/Banner.svelte"
-  import Comments from "$lib/components/comments/Comments.svelte"
+  import Comments from "@/features/comments/Comments.svelte"
   import Tabs from "$lib/components/tabs/Tabs.svelte"
 
   const { data } = $props()
-
   const artistName = () => data?.tracks?.data?.artist.name
   const bgUrl = createImgPlaceholder(artistName(), 1420, 250)
-
   const banner = {
     size: "sm",
     title: artistName(),

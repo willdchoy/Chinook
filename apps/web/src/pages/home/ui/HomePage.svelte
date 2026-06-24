@@ -1,7 +1,7 @@
 <script>
   import Banner from "$lib/components/banners/Banner.svelte"
   import List from "$lib/components/list/List.svelte"
-  const { albums } = $props()
+  const { data } = $props()
 
   const banner = {
     size: "md",
@@ -12,16 +12,11 @@
   }
 </script>
 
-<div class="home">
+<div class="home-page">
   <Banner {banner}>
     <button>I'm a listener</button>
     <button>I'm an artist</button>
   </Banner>
   <br />
-  <List {albums} />
+  <List albums={data} />
 </div>
-
-<style>
-  .home {
-  }
-</style>

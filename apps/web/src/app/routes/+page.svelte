@@ -3,4 +3,4 @@
   const { data } = $props()
 </script>
 
-<HomePage albums={data} />
+<HomePage {data} />
