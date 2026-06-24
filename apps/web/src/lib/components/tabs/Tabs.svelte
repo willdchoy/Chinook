@@ -1,6 +1,6 @@
 <script>
-  import Playlist from "../../features/playlist/Playlist.svelte"
-  import List from "../list/List.svelte"
+  // import Playlist from "$lib/components/playlist/Playlist.svelte"
+  import List from "$lib/components/list/List.svelte"
 
   const { playlists } = $props()
 </script>

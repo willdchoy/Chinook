@@ -1,4 +1,4 @@
-import { createApiRequest } from "$lib/utils/createApiRequest"
+import { createApiRequest } from "$lib/shared/api/createApiRequest"
 
 export type ArtistApi = {
   getProfileById: (artistId: number) => void

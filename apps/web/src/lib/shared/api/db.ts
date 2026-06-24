@@ -1,7 +1,7 @@
-import { artist } from "$lib/features/artist-profile/api"
-import { playlist } from "$lib/features/playlist/api"
-import type { ArtistApi } from "$lib/features/artist-profile/api"
-import type { PlaylistApi } from "$lib/features/playlist/api"
+import { artist } from "@/lib/components/artist-profile/api"
+import { playlist } from "@/lib/components/playlist/api"
+import type { ArtistApi } from "@/lib/components/artist-profile/api"
+import type { PlaylistApi } from "@/lib/components/playlist/api"
 
 type DB = {
   playlist: PlaylistApi
