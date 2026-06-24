@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createImgPlaceholder } from "$lib/utils/"
   import Banner from "$lib/components/banners/Banner.svelte"
-  import Comments from "@/features/comments/Comments.svelte"
+  import Comments from "@/features/comments/ui/Comments.svelte"
   import Tabs from "$lib/components/tabs/Tabs.svelte"
 
   const { data } = $props()

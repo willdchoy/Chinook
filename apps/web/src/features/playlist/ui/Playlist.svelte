@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createImgPlaceholder, formatDuration } from "@/lib/utils/"
-  import Cover from "$lib/components/playlist/cover/Cover.svelte"
+  import Cover from "@/features/playlist/ui/cover/Cover.svelte"
 
   const { playlist = null } = $props()
 

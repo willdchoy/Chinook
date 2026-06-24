@@ -1,11 +1,11 @@
 import { browser } from "$app/environment"
-import { db } from "$lib/api/db.js"
+import { playlist } from "@/features/playlist/api/api"
 
 export const load = async ({ params }) => {
   if (browser) {
     return {
-      playlists: await db.playlist.getAll(),
-      tracks: await db.playlist.getById(+params.albumIdSlug)
+      playlists: await playlist.getAll(),
+      tracks: await playlist.getById(+params.albumIdSlug)
     }
   }
 }

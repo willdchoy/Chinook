@@ -1,13 +1,10 @@
 import { createApiRequest } from "@/lib/api/createApiRequest"
+import type { Playlists, Playlist, PlaylistId } from "../models/playlist"
 
 export type PlaylistApi = {
   getAll: () => Promise<Playlists>
   getById: (playlistId: PlaylistId) => Promise<Playlist>
 }
-
-export type PlaylistId = number
-export type Playlist = {}
-export type Playlists = Playlist[]
 
 export const playlist: PlaylistApi = {
   // TODO: update to QUERY
