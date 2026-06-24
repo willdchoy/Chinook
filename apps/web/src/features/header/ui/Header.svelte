@@ -1,5 +1,5 @@
 <script>
-  import MainNav from "./main-nav/MainNav.svelte"
+  import MainNav from "./MainNav.svelte"
 </script>
 
 <header class="main-header">
