@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "$lib/styles/base.css"
+  import "@/app/styles/base.css"
   import Header from "$lib/components/header/Header.svelte"
   import Player from "$lib/components/player/Player.svelte"
 

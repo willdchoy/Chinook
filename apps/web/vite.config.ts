@@ -41,7 +41,7 @@ export default defineConfig({
       plugins: [
         // hande svelte scoping issue withe @media-custom
         postcssGlobalData({
-          files: ["src/lib/styles/media.css"]
+          files: ["src/app/styles/media.css"]
         }),
         postcssCustomMedia()
       ]
