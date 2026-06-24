@@ -1,6 +1,6 @@
 <script>
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
-  import { createImgPlaceholder } from "$lib/shared"
+  import { createImgPlaceholder } from "@/lib/utils"
 </script>
 
 <footer class="player-wrapper">

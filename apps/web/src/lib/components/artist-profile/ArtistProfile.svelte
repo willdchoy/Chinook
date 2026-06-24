@@ -1,5 +1,5 @@
 <script lang="ts">
-  import createImgPlaceholder from "$lib/shared/utils/createImgPlaceholder.js"
+  import { createImgPlaceholder } from "$lib/utils/"
   import Banner from "$lib/components/banners/Banner.svelte"
   import Comments from "$lib/components/comments/Comments.svelte"
   import Tabs from "$lib/components/tabs/Tabs.svelte"

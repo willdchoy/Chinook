@@ -1,4 +1,4 @@
-import { createApiRequest } from "$lib/shared/api/createApiRequest"
+import { createApiRequest } from "@/lib/api/createApiRequest"
 
 export type PlaylistApi = {
   getAll: () => Promise<Playlists>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Cover from "$lib/components/playlist/cover/Cover.svelte"
-  import { createImgPlaceholder } from "$lib/shared"
+  import { createImgPlaceholder } from "@/lib/utils"
 
   let { album } = $props()
   const playlistLink = () =>

@@ -1,5 +1,5 @@
 import { browser } from "$app/environment"
-import { db } from "$lib/shared/api/db.js"
+import { db } from "$lib/api/db.js"
 
 export const load = async () => {
   if (browser) {

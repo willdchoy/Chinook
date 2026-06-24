@@ -1,15 +1,10 @@
 <script lang="ts">
   import "$lib/styles/base.css"
   import Header from "$lib/components/header/Header.svelte"
-  import favicon from "$lib/assets/favicon.svg"
   import Player from "$lib/components/player/Player.svelte"
 
   let { children } = $props()
 </script>
-
-<svelte:head>
-  <link rel="icon" href={favicon} />
-</svelte:head>
 
 <div class="layout-container">
   <Header />
