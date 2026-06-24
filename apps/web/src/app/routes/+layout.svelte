@@ -1,7 +1,7 @@
 <script lang="ts">
   import "@/app/styles/base.css"
   import Header from "@/features/header/ui/Header.svelte"
-  import Player from "$lib/components/player/Player.svelte"
+  import Player from "@/features/player/Player.svelte"
 
   let { children } = $props()
 </script>

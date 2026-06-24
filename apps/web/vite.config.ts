@@ -29,7 +29,7 @@ export default defineConfig({
         routes: "src/app/routes",
         appTemplate: "src/app/index.html",
         lib: "src/lib",
-        assets: "src/lib/assets"
+        assets: "src/app/assets"
       },
       alias: {
         "@/*": "src/*"
