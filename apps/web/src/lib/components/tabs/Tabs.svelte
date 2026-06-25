@@ -1,14 +1,14 @@
 <script>
-  // import Playlist from "$lib/components/playlist/Playlist.svelte"
+  import Playlist from "@/features/playlist/ui/Playlist.svelte"
   import List from "@/features/list/ui/List.svelte"
 
-  const { playlists } = $props()
+  const { playlists, playlist } = $props()
 </script>
 
 <div class="tabs">
   <details name="alpha" style="--n: 1" open>
     <summary>Tracks</summary>
-    <!-- <Playlist {tracks} /> -->
+    <Playlist {playlist} />
   </details>
   <details name="alpha" style="--n: 2">
     <summary>Albums</summary>

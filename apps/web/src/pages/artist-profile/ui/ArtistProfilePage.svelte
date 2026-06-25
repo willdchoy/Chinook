@@ -20,7 +20,7 @@
     +Follow (1,245 following)
   </Banner>
   <div class="artist-details">
-    <Tabs playlists={data.playlists} />
+    <Tabs playlists={data.playlists} playlist={data.playlist} />
     <Comments />
   </div>
 </div>
