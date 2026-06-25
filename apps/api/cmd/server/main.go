@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// init logging
-	logPath := "_log/" // "/var/log/ch-client-api/"
+	logPath := "/var/log/ch-client-api/"
 	err = os.MkdirAll(logPath, 0755)
 	if err != nil {
 		log.Fatal(err)

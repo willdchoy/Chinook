@@ -20,7 +20,7 @@
             <th>Track</th>
             <th>Album</th>
             <th>Year</th>
-            <th>Time</th>
+            <th><i class="fa-solid fa-clock"></i></th>
           </tr>
         </thead>
         <tbody>

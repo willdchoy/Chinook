@@ -1,10 +1,11 @@
 <script>
   import Comment from "./Comment.svelte"
+  import CreateComment from "./CreateComment.svelte"
 </script>
 
 <div class="comments">
   <span class="header">Comments (352)</span>
-
+  <CreateComment />
   <Comment />
   <div class="comment-indent">
     <Comment />
@@ -15,9 +16,6 @@
     <div class="comment-indent">
       <Comment />
     </div>
-  </div>
-  <div class="more-comments">
-    <a href="/">View 89 more replies</a>
   </div>
 </div>
 
@@ -38,11 +36,6 @@
       display: block;
       font-size: var(--font-size-sm);
       margin-bottom: var(--m-md);
-    }
-
-    .more-comments {
-      text-align: center;
-      font-size: var(--font-size-sm);
     }
 
     .comment-indent {

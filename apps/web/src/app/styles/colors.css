@@ -47,7 +47,8 @@
   --white: #ecf3f4;
   --muted: oklch(from currentcolor calc(l - 0.3) c h);
 
-  --blue: #52b5ff;
+  --blue: #52b5ff; /* original value */
+  --blue: rgb(116, 192, 252);
   --blue-50: #e8f5ff;
   --blue-100: #c8e7ff;
   --blue-200: #8ecfff;
