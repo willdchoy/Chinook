@@ -7,7 +7,7 @@
     `/artist/${listItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
 </script>
 
-<article class={`card stack ${cardType}`}>
+<article class={`card stack`} style:--card-type={cardType}>
   <div class="card-image">
     <Cover url={createImgPlaceholder(listItem.title, 500, 500)} />
   </div>
@@ -32,11 +32,20 @@
   }
 
   .card {
-    --direction: column;
-
+    max-width: 100%;
     display: flex;
     border: var(--border);
     border-radius: var(--border-radius);
+
+    @container style(--card-type: track) {
+      --direction: row;
+
+      align-items: center;
+    }
+
+    @container style(--card-type: album), style(--card-type: playlist) {
+      --direction: column;
+    }
 
     .card-image {
       width: 100%;
@@ -54,18 +63,6 @@
       @container style(--direction: column) {
         padding: var(--p-sm);
       }
-    }
-
-    &.track {
-      .card-image {
-        display: none;
-      }
-    }
-
-    &.album {
-    }
-
-    &.playlist {
     }
   }
 </style>

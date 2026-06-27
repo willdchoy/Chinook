@@ -1,23 +1,19 @@
 <script>
-  import Filter from "@/features/filter/Filter.svelte"
+  import Filter from "@/features/feed-options/FeedOptions.svelte"
   import Card from "@/lib/components/card/Card.svelte"
 
   const { data } = $props()
-  const randomCardType = () => {
-    const cardTypes = ["album", "playlist", "track"]
-    // return cardTypes[Math.floor(Math.random() * cardTypes.length)]
-    return "album"
-  }
+  const feedType = "album"
 </script>
 
-<div class="home-page">
+<div class="home-page" style:--card-type={feedType}>
   <div>
     <Filter />
   </div>
 
   <div class="feed">
     {#each data?.newAlbumList?.data as album}
-      <Card cardType={randomCardType()} listItem={album} />
+      <Card listItem={album} cardType={feedType} />
     {/each}
   </div>
 </div>
@@ -25,14 +21,28 @@
 <style>
   .home-page {
     .feed {
-      --card-size: 150px;
+      --min-card-size: 150px;
+      --max-card-size: 1fr;
 
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr));
+      grid-template-columns: repeat(
+        var(--max-per-line),
+        minmax(var(--min-card-size), var(--max-card-size))
+      );
       gap: 0.3em;
 
-      @media (--cm-md) {
-        --card-size: 200px;
+      @container style(--card-type: track) {
+        --max-per-line: 1;
+        --direction: row;
+      }
+
+      @container style(--card-type: album), style(--card-type: playlist) {
+        --max-per-line: auto-fill;
+        --direction: column;
+
+        @media (--cm-md) {
+          --min-card-size: 200px;
+        }
       }
     }
   }

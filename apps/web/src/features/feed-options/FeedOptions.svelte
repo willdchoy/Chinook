@@ -30,6 +30,7 @@
   .feed-options {
     display: flex;
     flex-direction: column;
+    font-size: var(--font-size-sm);
 
     @media (--cm-md) {
       flex-direction: row;
@@ -38,10 +39,12 @@
     }
 
     .feed-sort {
+      display: flex;
+      align-items: center;
       width: 100%;
 
       @media (--cm-md) {
-        width: 100px;
+        width: 160px;
       }
     }
 
@@ -55,8 +58,7 @@
 
       .filter-tag {
         cursor: pointer;
-        padding: var(--p-sm) 20px;
-        font-size: var(--font-size-sm);
+        padding: var(--p-sm) calc(var(--p-sm) * 4);
         background-color: var(--vinyl-50);
         border-radius: var(--border-radius);
 

@@ -2,6 +2,7 @@ select {
   &,
   &::picker(select) {
     appearance: base-select;
+    margin-top: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -21,12 +22,12 @@ select {
   option {
     display: flex;
     justify-content: flex-start;
-    gap: 10px;
+    /* gap: 10px; */
 
     border: var(--border);
     background: var(--vinyl);
     color: white;
-    padding: 10px;
+    padding: 5px;
     transition: 0.4s;
   }
 }
