@@ -8,7 +8,8 @@
       <ul>
         <a href="/profile/1111/bio">
           <li>
-            <i class="fa-solid fa-tv"> </i>Profile
+            <i class="fa-solid fa-tv"> </i>
+            Profile
           </li>
         </a>
         <a href="/profile/1111/music">

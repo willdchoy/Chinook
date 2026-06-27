@@ -20,10 +20,13 @@
 <style>
   .comment {
     display: flex;
-    margin-bottom: var(--m-lg);
+    margin-top: 0;
+
+    * + * {
+      margin-top: 0;
+    }
 
     p.message {
-      margin-bottom: var(--m-sm);
       font-size: var(--font-size-sm);
     }
 

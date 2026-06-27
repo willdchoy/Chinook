@@ -1,16 +1,13 @@
 <nav class="main-nav">
   <ul>
     <li>
-      <a href="/">Charts</a>
-    </li>
-    <li>
       <a href="/">
-        Latest
+        Feed
         <span>(23)</span>
       </a>
     </li>
     <li>
-      <a href="/">Playlist</a>
+      <a href="/">Charts</a>
     </li>
     <li>
       <a href="/">Discover</a>
@@ -41,11 +38,10 @@
 
       li a {
         cursor: pointer;
-        margin-right: var(--m-xl);
+        margin-right: 20px;
       }
 
       li:first-child a span {
-        margin-left: var(--m-sm);
         color: var(--blue);
       }
     }

@@ -32,7 +32,7 @@
 
     .details {
       .options {
-        margin-top: var(--m-md);
+        /* margin-top: var(--m-md); */
 
         & > *:nth-child(n + 2) {
           cursor: pointer;

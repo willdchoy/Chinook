@@ -1,22 +1,39 @@
 <script>
-  import Banner from "$lib/components/banners/Banner.svelte"
-  import List from "@/features/list/ui/List.svelte"
-  const { data } = $props()
+  import Filter from "@/features/filter/Filter.svelte"
+  import Card from "@/lib/components/card/Card.svelte"
 
-  const banner = {
-    size: "md",
-    title: "Discover. Get Discovered.",
-    subtitle: "Find your next favorite artist",
-    bgUrl:
-      "https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg"
+  const { data } = $props()
+  const randomCardType = () => {
+    const cardTypes = ["album", "playlist", "track"]
+    // return cardTypes[Math.floor(Math.random() * cardTypes.length)]
+    return "album"
   }
 </script>
 
 <div class="home-page">
-  <Banner {banner}>
-    <button>I'm a listener</button>
-    <button>I'm an artist</button>
-  </Banner>
-  <br />
-  <List albums={data} />
+  <div>
+    <Filter />
+  </div>
+
+  <div class="feed">
+    {#each data?.newAlbumList?.data as album}
+      <Card cardType={randomCardType()} listItem={album} />
+    {/each}
+  </div>
 </div>
+
+<style>
+  .home-page {
+    .feed {
+      --card-size: 150px;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr));
+      gap: 0.3em;
+
+      @media (--cm-md) {
+        --card-size: 200px;
+      }
+    }
+  }
+</style>

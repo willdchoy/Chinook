@@ -1,7 +1,4 @@
 <script lang="ts">
-  // TODO: Update to <style src="./banner.css"></style> by adding svelte-preprocess
-  import "./banner.css"
-
   const { children, banner = null } = $props()
   const sizeMap = new Map([
     ["sm", "250px"],
@@ -28,4 +25,33 @@
   </div>
 </div>
 
-<style src="./banner.css"></style>
+<style>
+  .banner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    padding-bottom: var(--p-xxl);
+    border-bottom: var(--border);
+
+    .meta {
+      padding-left: var(--p-md);
+
+      @media (--cm-md) {
+        padding-left: var(--p-xl);
+      }
+
+      h1 {
+        margin-block-end: var(--m-md);
+        line-height: 1.1;
+      }
+    }
+
+    p {
+      margin-bottom: var(--m-lg);
+      font-size: var(--font-size-l);
+      line-height: 1;
+    }
+  }
+</style>

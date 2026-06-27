@@ -6,7 +6,7 @@
   <div>
     <div class="logo">
       <div class="record"></div>
-      <h1><a href="/">Chinook</a></h1>
+      <h1><a href="/">BangerTracks</a></h1>
     </div>
   </div>
   <MainNav />
@@ -33,10 +33,10 @@
       margin: 0;
       padding: 0;
       font-size: var(--font-size-xl);
+      font-family: "Fjalla One", sans-serif;
     }
 
     a {
-      text-transform: uppercase;
       &:hover {
         text-decoration: none;
       }
@@ -45,10 +45,10 @@
 
   .record {
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     margin-right: var(--m-sm);
-    border: 12px solid var(--blue);
+    border: 15px solid var(--blue);
     border-radius: 50%;
     background-color: transparent;
   }

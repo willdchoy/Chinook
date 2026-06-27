@@ -23,7 +23,7 @@
   .breadcrumbs {
     display: flex;
     justify-self: flex-start;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 
     ol {
       display: flex;

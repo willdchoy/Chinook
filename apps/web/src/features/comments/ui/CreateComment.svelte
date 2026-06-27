@@ -11,11 +11,14 @@
 <style>
   .create-comment {
     display: flex;
-    margin-bottom: calc(var(--m-md) * 2);
-    padding: 0 5px 15px;
+    padding: var(--p-sm);
 
     .text {
       width: 100%;
+
+      & > * + * {
+        margin-top: 0.5em;
+      }
 
       input {
         display: block;
@@ -25,7 +28,6 @@
         border: none;
         padding: var(--p-sm);
         padding-left: var(--p-md);
-        margin-bottom: var(--m-md);
         border-radius: var(--border-radius);
         font-size: var(--font-size-sm);
 

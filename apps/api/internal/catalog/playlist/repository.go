@@ -31,7 +31,7 @@ func (r *PlaylistRepositoryImpl) ListPlaylists(ctx context.Context) []Playlist {
 			a.id, a.name
 		from playlist p
 		join artist a on p.artist_id = a.id
-		where p.id in (1,2,3,4,5,6,7,8,9,10)
+		where p.id >= 1 and p.id <= 150
 	`
 	rows, err := r.db.Query(query)
 	if err == sql.ErrNoRows {

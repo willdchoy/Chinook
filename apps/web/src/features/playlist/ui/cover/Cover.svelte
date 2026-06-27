@@ -10,7 +10,6 @@
   .cover-image {
     min-width: 40px;
     max-width: 100%;
-    aspect-ratio: 1 / 1;
 
     @container style(--direction: column) {
       border-top-left-radius: var(--border-radius);

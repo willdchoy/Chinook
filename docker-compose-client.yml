@@ -8,7 +8,7 @@ networks:
 
 services:
   client-db:
-    build: ./apps/db
+    image: postgres:18
     hostname: ch-client-db
     container_name: ch-client-db
     restart: unless-stopped

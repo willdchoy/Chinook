@@ -5,7 +5,8 @@
   import Tabs from "$lib/components/tabs/Tabs.svelte"
 
   const { data } = $props()
-  const artistName = () => data?.tracks?.data?.artist.name
+
+  const artistName = () => data?.playlist?.data?.artist.name
   const bgUrl = createImgPlaceholder(artistName(), 1420, 250)
   const banner = {
     size: "sm",
@@ -14,7 +15,7 @@
   }
 </script>
 
-<div class="artist">
+<div class="page artist-profile-page">
   <Banner {banner}>
     <a href="/">OurWebisite.com</a> <br />
     +Follow (1,245 following)
@@ -26,7 +27,7 @@
 </div>
 
 <style>
-  .artist {
+  .artist-profile-page {
     .artist-details {
       display: flex;
       flex-direction: column-reverse;

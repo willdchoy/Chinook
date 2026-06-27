@@ -1,5 +1,5 @@
 :root {
-  --heading-margin-top: calc(var(--rhythm) * 2);
+  --heading-margin-top: var(--rhythm);
   --heading-margin-bottom: var(--rhythm);
 }
 
@@ -9,18 +9,17 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: var(--heading-margin-top);
-  margin-bottom: var(--heading-margin-bottom);
-  font-weight: 700;
+  margin-top: 0;
 }
 
-h1:first-child,
-h2:first-child,
-h3:first-child,
-h4:first-child,
-h5:first-child,
-h6:first-child {
-  margin-top: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* margin-top: var(--heading-margin-top); */
+  font-weight: 700;
 }
 
 h1 {

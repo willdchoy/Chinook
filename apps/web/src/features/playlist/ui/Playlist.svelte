@@ -2,7 +2,7 @@
   import { createImgPlaceholder, formatDuration } from "@/lib/utils/"
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
 
-  const { playlist = null } = $props()
+  const { title, playlist } = $props()
 
   function trim(text: string): string {
     const numWords = Math.floor(Math.random() * 5 + 1) || 3
@@ -12,6 +12,7 @@
 
 <div class="playlist">
   {#if playlist?.data?.id}
+    <h6>{title}</h6>
     <div class="tracks">
       <table>
         <thead>
@@ -46,12 +47,11 @@
 <style>
   .playlist {
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100%;
 
     @media (--cm-md) {
-      flex-direction: row;
+      flex-direction: column;
     }
 
     .tracks {
@@ -64,17 +64,16 @@
       width: 100%;
       border-collapse: collapse;
 
+      th {
+        border-top: 1px solid var(--vinyl-100);
+      }
+
       tr {
         border-bottom: 1px solid var(--vinyl-100);
 
         &:not(:has(th)):hover {
           background-color: var(--blue);
           color: var(--vinyl);
-        }
-
-        &:last-child:has(th),
-        &:last-child:not(:has(th)) {
-          border: none;
         }
       }
 
@@ -90,25 +89,11 @@
       }
 
       td {
-        padding: var(--p-sm) var(--m-sm);
         font-size: var(--font-size-sm);
-
-        &:first-child {
-          display: flex;
-        }
       }
 
       td:nth-last-child(-n + 2) {
         color: var(--muted);
-      }
-
-      th.hide-mobile,
-      td.hide-mobile {
-        display: none;
-
-        @media (min-width: 1050px) {
-          display: table-cell;
-        }
       }
     }
   }

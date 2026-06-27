@@ -1,20 +1,20 @@
 <script lang="ts">
   import Card from "$lib/components/card/Card.svelte"
 
-  let { albums } = $props()
+  let { title, listItems } = $props()
   const maxListItems = 10
-  const playlistTitle = "Top Albums of the Day"
+  const playlistTitle = () => title || "Top Albums of the Day"
 </script>
 
 <div class="list-view">
-  <h3 class="title">
-    {playlistTitle} <span class="muted">(1983 - 1997)</span>
-  </h3>
+  <h6>
+    {playlistTitle()}
+  </h6>
   <div class="list-items">
-    {#if albums?.data?.length > 0}
-      {#each albums.data as album, i}
+    {#if listItems?.data?.length > 0}
+      {#each listItems.data as listItem, i}
         {#if i < maxListItems}
-          <Card {album} />
+          <Card cardType="album" {listItem} />
         {/if}
       {/each}
     {:else}
@@ -28,9 +28,14 @@
     width: 100%;
 
     .list-items {
+      --min-card-size: 160px margin-top: 0;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+
       @media (--cm-sm) {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        --min-card-size: 200px;
+
         gap: var(--p-md);
       }
     }

@@ -2,25 +2,24 @@
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
   import { createImgPlaceholder } from "@/lib/utils"
 
-  let { album } = $props()
+  let { listItem, cardType } = $props()
   const link = () =>
-    `/artist/${album.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
+    `/artist/${listItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
 </script>
 
-<article class="card stack">
+<article class={`card stack ${cardType}`}>
   <div class="card-image">
-    <Cover url={createImgPlaceholder(album.title, 500, 500)} />
+    <Cover url={createImgPlaceholder(listItem.title, 500, 500)} />
   </div>
   <div class="card-metadata">
     <p>
       <a href={link()}>
-        {album.title}
+        {listItem.title}
       </a>
+
       <span class="muted">
-        {album.year}
-      </span>
-      <span class="muted">
-        by {album.artist.name}
+        {listItem.year}
+        by {listItem.artist.name}
       </span>
     </p>
   </div>
@@ -33,15 +32,11 @@
   }
 
   .card {
+    --direction: column;
+
     display: flex;
-    border-top: var(--border);
-
-    @media (--cm-sm) {
-      --direction: column;
-
-      border: var(--border);
-      border-radius: var(--border-radius);
-    }
+    border: var(--border);
+    border-radius: var(--border-radius);
 
     .card-image {
       width: 100%;
@@ -59,6 +54,18 @@
       @container style(--direction: column) {
         padding: var(--p-sm);
       }
+    }
+
+    &.track {
+      .card-image {
+        display: none;
+      }
+    }
+
+    &.album {
+    }
+
+    &.playlist {
     }
   }
 </style>

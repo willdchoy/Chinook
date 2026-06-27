@@ -1,0 +1,48 @@
+// const banner = {
+  //   size: "md",
+  //   title: "Discover. Get Discovered.",
+  //   subtitle: "Find your next favorite artist",
+  //   bgUrl:
+  //     "https://checkout.sndcdn.com/checkout-hero-images/hero-background-image-speakers.svg"
+  // }
+
+<div class="page home-page">
+  <div>
+    <Banner {banner}>
+      <button>I'm a listener</button>
+      <button>I'm an artist</button>
+    </Banner>
+  </div>
+
+  <div class="playlist-wrapper">
+    <Playlist title="Latest Album" playlist={data.newPlaylist3} />
+    <Playlist title="Latest Rock Tracks" playlist={data.newPlaylist2} />
+    <Playlist title="Latest Rock Tracks" playlist={data.newPlaylist1} />
+    <List title="Top Albums of the Day" listItems={data.newAlbumList} />
+  </div>
+  <div>
+    <List title="Top Albums of the Day" listItems={data.newAlbumList} />
+  </div>
+</div>
+
+<style>
+  .playlist-wrapper {
+    --minGridColumnWidth: 160px;
+    --maxGridColumnWidth: 1fr;
+
+    display: grid-lanes;
+    grid-template-columns: repeat(
+      1,
+      minmax(var(--minGridColumnWidth), var(--maxGridColumnWidth))
+    );
+    gap: 20px;
+
+    @media (--cm-md) {
+      gap: 40px;
+      grid-template-columns: repeat(
+        2,
+        minmax(var(--minGridColumnWidth), var(--maxGridColumnWidth))
+      );
+    }
+  }
+</style>

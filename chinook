@@ -25,9 +25,9 @@ function handle_stats() {
 function handle() {
   if [[ "$2" == "restart" ]]; then
       docker-compose -f docker-compose-${1}.yml down $3
-      docker-compose -f docker-compose-${1}.yml up -d $3
+      docker-compose -f docker-compose-${1}.yml up -d $4 $3
   elif [[ "$2" == "up" ]]; then
-    docker-compose -f docker-compose-${1}.yml up -d $3
+    docker-compose -f docker-compose-${1}.yml up -d $4 $3
   elif [[ "$2" == "down" ]]; then  
     docker-compose -f docker-compose-${1}.yml down $3
   fi
