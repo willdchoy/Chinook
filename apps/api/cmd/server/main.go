@@ -46,8 +46,8 @@ func main() {
 	r := gin.Default()
 	router.SetupRouter(r, db)
 
-	tlsPem := "./certs/localhost+4.pem"
-	tlsKey := "./certs/localhost+4-key.pem"
+	// tlsPem := "./certs/localhost+4.pem"
+	// tlsKey := "./certs/localhost+4-key.pem"
 
-	r.RunTLS(":8000", tlsPem, tlsKey)
+	r.Run(":8000")
 }

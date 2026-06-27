@@ -9,7 +9,7 @@ export async function createApiRequest<T>(
   route: string,
   options: ApiOptions = defaultApiOptions
 ): Promise<T> {
-  const baseUrl = "https://192.168.1.134:8000"
+  const baseUrl = "http://192.168.1.134:8000"
   const url = `${baseUrl}/${route}`
 
   const response = await fetch(url, options)

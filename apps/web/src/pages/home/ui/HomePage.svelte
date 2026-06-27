@@ -3,23 +3,29 @@
   import Card from "@/lib/components/card/Card.svelte"
 
   const { data } = $props()
-  const feedType = "album"
+  let isGrid = $state(true)
+  let cardType = () => (isGrid ? "grid" : "list")
 </script>
 
-<div class="home-page" style:--card-type={feedType}>
+<div class="home-page" style:--card-type={cardType()}>
   <div>
-    <Filter />
+    <Filter bind:isGrid />
   </div>
 
+  <h1>Top tracks of the day</h1>
   <div class="feed">
     {#each data?.newAlbumList?.data as album}
-      <Card listItem={album} cardType={feedType} />
+      <Card listItem={album} />
     {/each}
   </div>
 </div>
 
 <style>
   .home-page {
+    & > * + * {
+      margin-top: 10px;
+    }
+
     .feed {
       --min-card-size: 150px;
       --max-card-size: 1fr;
@@ -31,12 +37,12 @@
       );
       gap: 0.3em;
 
-      @container style(--card-type: track) {
+      @container style(--card-type: list) {
         --max-per-line: 1;
         --direction: row;
       }
 
-      @container style(--card-type: album), style(--card-type: playlist) {
+      @container style(--card-type: grid) {
         --max-per-line: auto-fill;
         --direction: column;
 

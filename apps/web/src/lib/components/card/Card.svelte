@@ -2,12 +2,12 @@
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
   import { createImgPlaceholder } from "@/lib/utils"
 
-  let { listItem, cardType } = $props()
+  let { listItem } = $props()
   const link = () =>
     `/artist/${listItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
 </script>
 
-<article class={`card stack`} style:--card-type={cardType}>
+<article class={`card stack`}>
   <div class="card-image">
     <Cover url={createImgPlaceholder(listItem.title, 500, 500)} />
   </div>
