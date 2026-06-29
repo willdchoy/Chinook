@@ -23,23 +23,23 @@ h6 {
 }
 
 h1 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--fs-2xl);
   line-height: var(--line-height-2xl);
 }
 
 h2 {
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-xl);
   line-height: var(--line-height-xl);
 }
 
 h3 {
-  font-size: var(--font-size-l);
+  font-size: var(--fs-l);
   line-height: var(--line-height-l);
 }
 
 h4,
 h5,
 h6 {
-  font-size: var(--font-size-md);
+  font-size: var(--fs-md);
   line-height: var(--line-height-md);
 }

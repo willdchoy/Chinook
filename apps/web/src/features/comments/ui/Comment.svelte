@@ -27,11 +27,11 @@
     }
 
     p.message {
-      font-size: var(--font-size-sm);
+      font-size: var(--fs-sm);
     }
 
     .actions {
-      font-size: var(--font-size-sm);
+      font-size: var(--fs-sm);
 
       & > * {
         margin-right: var(--m-md);

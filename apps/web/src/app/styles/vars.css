@@ -12,16 +12,16 @@
   --rhythm-half: 0.75rem; /* 12px */
   --rhythm-quarter: 0.375rem; /* 6px */
 
-  --font-size-xs: clamp(0.64rem, 0.1vw + 0.61rem, 0.75rem); /* ×0.512  */
-  --font-size-sm: clamp(0.8rem, 0.15vw + 0.76rem, 0.875rem); /* ×0.640  */
-  --font-size-base: clamp(1rem, 0.25vw + 0.94rem, 1.125rem); /* ×1.000  */
-  --font-size-md: clamp(1.25rem, 0.4vw + 1.15rem, 1.5rem); /* ×1.250  */
-  --font-size-lg: clamp(1.563rem, 0.6vw + 1.41rem, 1.875rem); /* ×1.563  */
-  --font-size-xl: clamp(1.953rem, 0.9vw + 1.73rem, 2.25rem); /* ×1.953  */
-  --font-size-2xl: clamp(2.441rem, 1.3vw + 2.12rem, 3rem); /* ×2.441  */
-  --font-size-3xl: clamp(3.052rem, 2vw + 2.55rem, 4.5rem); /* ×3.052  */
-  --font-size-4xl: clamp(3.815rem, 2.8vw + 3.11rem, 5.625rem); /* ×3.815  */
-  --font-size-5xl: clamp(4.768rem, 3.8vw + 3.82rem, 7.031rem); /* ×4.768  */
+  --fs-xs: clamp(0.64rem, 0.1vw + 0.61rem, 0.75rem); /* ×0.512  */
+  --fs-sm: clamp(0.8rem, 0.15vw + 0.76rem, 0.875rem); /* ×0.640  */
+  --fs-base: clamp(1rem, 0.25vw + 0.94rem, 1.125rem); /* ×1.000  */
+  --fs-md: clamp(1.25rem, 0.4vw + 1.15rem, 1.5rem); /* ×1.250  */
+  --fs-lg: clamp(1.563rem, 0.6vw + 1.41rem, 1.875rem); /* ×1.563  */
+  --fs-xl: clamp(1.953rem, 0.9vw + 1.73rem, 2.25rem); /* ×1.953  */
+  --fs-2xl: clamp(2.441rem, 1.3vw + 2.12rem, 3rem); /* ×2.441  */
+  --fs-3xl: clamp(3.052rem, 2vw + 2.55rem, 4.5rem); /* ×3.052  */
+  --fs-4xl: clamp(3.815rem, 2.8vw + 3.11rem, 5.625rem); /* ×3.815  */
+  --fs-5xl: clamp(4.768rem, 3.8vw + 3.82rem, 7.031rem); /* ×4.768  */
 
   --line-height-xs: var(--rhythm); /* 1.5rem  */
   --line-height-sm: var(--rhythm); /* 1.5rem  */
@@ -61,12 +61,17 @@
   --border-color: var(--vinyl-50);
   --border: var(--border-size) solid var(--border-color);
 
-  /* margin / padding */
-  --space-sm: 0.5em;
-  --space-md: 0.5em;
-  --space-lg: 0.5em;
-  --space-xl: 0.5em;
-  --space-xxl: 0.5em;
+  /* margin / padding / gap */
+  --space-base: 0.5em;
+  --space-sm: var(--space-base);
+  --space-md: calc((var(--space-base)) * 2);
+  --space-lg: calc((var(--space-base)) * 3);
+  --space-xl: calc((var(--space-base)) * 4);
+
+  --g-sm: var(--space-sm);
+  --g-md: var(--space-md);
+  --g-lg: var(--space-lg);
+  --g-xl: var(--space-xl);
 
   --m-sm: var(--space-sm);
   --m-md: var(--space-md);
@@ -77,5 +82,4 @@
   --p-md: var(--space-md);
   --p-lg: var(--space-lg);
   --p-xl: var(--space-xl);
-  --p-xxl: var(--space-xxl);
 }

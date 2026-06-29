@@ -1,4 +1,9 @@
 select {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+
   &,
   &::picker(select) {
     appearance: base-select;
@@ -7,9 +12,6 @@ select {
     border-radius: 5px;
     cursor: pointer;
   }
-
-  width: 100%;
-  padding: 5px 10px;
 
   &::picker-icon {
     color: var(--vinyl-50);

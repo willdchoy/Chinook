@@ -2,66 +2,78 @@
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
   import { createImgPlaceholder } from "@/lib/utils"
 
-  let { listItem } = $props()
+  let { cardItem, cardType } = $props()
   const link = () =>
-    `/artist/${listItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
+    `/artist/${cardItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
 </script>
 
-<article class={`card stack`}>
-  <div class="card-image">
-    <Cover url={createImgPlaceholder(listItem.title, 500, 500)} />
-  </div>
-  <div class="card-metadata">
-    <p>
-      <a href={link()}>
-        {listItem.title}
-      </a>
-
-      <span class="muted">
-        {listItem.year}
-        by {listItem.artist.name}
-      </span>
-    </p>
-  </div>
-</article>
+<div class="card-wrapper" style:--card-type={cardType()}>
+  <article class="card">
+    <div class="card-image">
+      <Cover url={createImgPlaceholder(cardItem.title, 500, 500)} />
+    </div>
+    <div class="card-metadata">
+      <p>
+        <a href={link()}>
+          {cardItem.title}
+        </a>
+        <span class="muted">
+          {cardItem.year}
+          by {cardItem.artist.name}
+        </span>
+      </p>
+      <footer class="muted">
+        <span><i class="fa-solid fa-arrow-up"></i></span>
+        <span><i class="fa-solid fa-share"></i></span>
+        <span
+          ><i class="fa-solid fa-comment"></i>
+          <span>(523)</span></span
+        >
+      </footer>
+    </div>
+  </article>
+</div>
 
 <style>
-  .stack {
-    display: flex;
-    flex-direction: var(--direction, row);
-  }
+  .card-wrapper {
+    article.card {
+      --bg-color: hsl(from white h s calc(l * 0.3));
+      --bg-color-hover: hsl(from white h s calc(l * 0.2));
 
-  .card {
-    max-width: 100%;
-    display: flex;
-    border: var(--border);
-    border-radius: var(--border-radius);
+      display: flex;
+      flex-direction: var(--direction, row);
+      max-width: 100%;
+      height: 100%;
+      border-top: var(--border);
 
-    @container style(--card-type: track) {
-      --direction: row;
-
-      align-items: center;
-    }
-
-    @container style(--card-type: album), style(--card-type: playlist) {
-      --direction: column;
-    }
-
-    .card-image {
-      width: 100%;
-      max-width: 60px;
-
-      @container style(--direction: column) {
-        max-width: 100%;
+      @container style(--card-type: grid) {
+        --direction: column;
+        border: var(--border);
+        border-radius: var(--border-radius);
       }
-    }
 
-    .card-metadata {
-      font-size: var(--font-size-sm);
-      padding: 0 var(--p-sm);
+      .card-image {
+        width: 100%;
+        max-width: 85px;
 
-      @container style(--direction: column) {
-        padding: var(--p-sm);
+        @container style(--direction: column) {
+          max-width: 100%;
+        }
+      }
+
+      .card-metadata {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: var(--p-sm) var(--p-md) 0;
+        font-size: var(--fs-sm);
+
+        footer {
+          display: flex;
+          align-items: center;
+          gap: var(--g-md);
+        }
       }
     }
   }

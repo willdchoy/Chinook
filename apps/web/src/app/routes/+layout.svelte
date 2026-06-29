@@ -1,7 +1,6 @@
 <script lang="ts">
   import "@/app/styles/base.css"
   import Header from "@/features/header/ui/Header.svelte"
-  import Player from "@/features/player/Player.svelte"
 
   let { children } = $props()
 </script>
@@ -12,6 +11,5 @@
     <main>
       {@render children()}
     </main>
-    <Player />
   </div>
 </div>

@@ -47,7 +47,7 @@
     grid-row: 1;
     padding: 0.5rem;
     text-align: center;
-    font-size: var(--font-size-sm);
+    font-size: var(--fs-sm);
     border-bottom: 2px solid var(--vinyl-50);
     cursor: pointer;
 

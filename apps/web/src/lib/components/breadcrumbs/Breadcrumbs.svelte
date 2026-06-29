@@ -37,11 +37,11 @@
     }
 
     li a {
-      font-size: var(--font-size-xs);
+      font-size: var(--fs-xs);
       color: var(--muted);
 
       @media (--cm-md) {
-        font-size: var(--font-size-sm);
+        font-size: var(--fs-sm);
       }
     }
 

@@ -50,7 +50,7 @@
 
     p {
       margin-bottom: var(--m-lg);
-      font-size: var(--font-size-l);
+      font-size: var(--fs-l);
       line-height: 1;
     }
   }

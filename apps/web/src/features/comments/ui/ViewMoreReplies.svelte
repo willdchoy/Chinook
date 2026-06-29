@@ -5,6 +5,6 @@
 <style>
   .more-comments {
     text-align: center;
-    font-size: var(--font-size-sm);
+    font-size: var(--fs-sm);
   }
 </style>

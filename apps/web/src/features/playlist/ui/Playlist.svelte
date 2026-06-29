@@ -85,11 +85,11 @@
 
       th {
         color: var(--muted);
-        font-size: var(--font-size-xs);
+        font-size: var(--fs-xs);
       }
 
       td {
-        font-size: var(--font-size-sm);
+        font-size: var(--fs-sm);
       }
 
       td:nth-last-child(-n + 2) {

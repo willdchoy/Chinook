@@ -59,7 +59,7 @@
         display: flex;
         align-items: center;
         height: 100%;
-        font-size: var(--font-size-sm);
+        font-size: var(--fs-sm);
 
         .track-image {
           width: 100%;
@@ -100,7 +100,7 @@
         & [class*="fa-"] {
           cursor: pointer;
           margin: 0 var(--m-md);
-          font-size: var(--font-size-md);
+          font-size: var(--fs-md);
         }
 
         .additional {
@@ -117,7 +117,7 @@
         display: none;
         justify-self: flex-end;
         margin-right: var(--m-md);
-        font-size: var(--font-size-base);
+        font-size: var(--fs-base);
 
         @media (--cm-md) {
           display: flex;

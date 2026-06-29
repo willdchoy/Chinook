@@ -1,21 +1,21 @@
 <script lang="ts">
-  const tags = [
-    "Rock",
-    "Hip-hop",
-    "Soul",
-    "Blues",
-    "Pop",
-    "R&B",
-    "Classic Rock",
-    "More Tags"
-  ]
+  // const tags = [
+  //   "Rock",
+  //   "Hip-hop",
+  //   "Soul",
+  //   "Blues",
+  //   "Pop",
+  //   "R&B",
+  //   "Classic Rock",
+  //   "More Tags"
+  // ]
 
   let { isGrid = $bindable() } = $props()
   const handleClick = () => (isGrid = !isGrid)
 </script>
 
 <div class="feed-options">
-  <div class="feed-filter-tags">
+  <!-- <div class="feed-filter-tags">
     {#each tags as tag}
       <div class="filter-tag">{tag}</div>
     {/each}
@@ -27,33 +27,26 @@
         <option value="year">Year</option>
         <option value="artist">Artist</option>
       </select>
-    </div>
-    <div class="feed-type">
-      {#if isGrid}
-        <button onclick={handleClick} aria-label="Show as list"
-          ><i class="fa-solid fa-list"></i></button
-        >
-      {:else}
-        <button onclick={handleClick} aria-label="Show as grid"
-          ><i class="fa-solid fa-grip"></i></button
-        >
-      {/if}
-    </div>
+    </div> -->
+  <div class="feed-type">
+    {#if isGrid}
+      <button onclick={handleClick} aria-label="Show as list"
+        ><i class="fa-solid fa-list"></i></button
+      >
+    {:else}
+      <button onclick={handleClick} aria-label="Show as grid"
+        ><i class="fa-solid fa-grip"></i></button
+      >
+    {/if}
   </div>
 </div>
 
 <style>
   .feed-options {
-    display: flex;
-    flex-direction: column;
-    font-size: var(--font-size-sm);
+    padding-top: 10px;
+    text-align: right;
 
-    @media (--cm-md) {
-      flex-direction: row;
-      gap: 20px;
-    }
-
-    .feed-block {
+    /* .feed-block {
       display: flex;
     }
 
@@ -64,9 +57,9 @@
       @media (--cm-md) {
         width: 160px;
       }
-    }
+    } */
 
-    .feed-filter-tags {
+    /* .feed-filter-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.2em;
@@ -89,20 +82,15 @@
           background-color: var(--blue);
         }
       }
-    }
+    } */
 
     .feed-type {
-      margin-right: (--m-lg);
-
       button {
-        font-size: var(--font-size-lg);
+        padding: 0;
+        font-size: var(--fs-base);
         background: none;
         border: none;
         color: white;
-
-        @media (--cm-md) {
-          font-size: var(--font-size-md);
-        }
       }
     }
   }

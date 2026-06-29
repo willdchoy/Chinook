@@ -32,7 +32,7 @@
     h1 {
       margin: 0;
       padding: 0;
-      font-size: var(--font-size-xl);
+      font-size: var(--fs-xl);
       font-family: "Fjalla One", sans-serif;
     }
 
@@ -55,7 +55,7 @@
 
   .hamburger {
     margin-top: -9px;
-    font-size: var(--font-size-2xl);
+    font-size: var(--fs-2xl);
 
     @media (--cm-md) {
       display: none;

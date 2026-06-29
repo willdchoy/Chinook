@@ -12,63 +12,56 @@
   }
 </script>
 
-<div class="comments">
-  <span class="comment-count">Comments (352)</span>
-  <div>
-    <Comment />
-  </div>
-  <div>
+<div class="comments-wrapper">
+  <header>
+    <span class="count">Comments (352)</span>
     <CreateComment />
-  </div>
-  <div class="view-more-comments hide">
-    <div class="comment-indent">
-      <Comment />
-    </div>
+  </header>
+
+  <main>
     <Comment />
-    <div class="comment-indent">
-      <Comment />
-      <div class="comment-indent">
-        <Comment />
-      </div>
-    </div>
-  </div>
-  <a href="_" onclick={handleViewMoreClick} class="view-more-cta"
-    >View {isMoreText ? "more" : "less"} comments</a
-  >
+    <Comment />
+    <Comment />
+    <Comment />
+  </main>
+
+  <footer>
+    <a href="_" onclick={handleViewMoreClick} class="view-more-cta"
+      >View {isMoreText ? "more" : "less"} comments</a
+    >
+  </footer>
 </div>
 
 <style>
-  .comments {
-    width: 100%;
-    max-width: 100%;
-    padding: 8px var(--p-md) var(--p-md);
-    border-left: var(--border);
-    margin-top: 0;
+  .comments-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--g-md);
+    padding: var(--p-md);
 
-    & > * + * {
-      margin-top: 0.5em;
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--g-sm);
+
+      .count {
+        display: block;
+        font-size: var(--fs-sm);
+      }
     }
 
-    @media (--cm-lg) {
-      max-width: 25rem;
-      min-width: 400px;
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--g-md);
     }
 
-    .comment-count {
-      display: block;
-      font-size: var(--font-size-sm);
-    }
-
-    .view-more-cta {
-      display: block;
+    footer {
+      display: flex;
+      justify-content: center;
+      gap: var(--g-sm);
       width: 100%;
-      text-align: center;
-      font-size: var(--font-size-sm);
-      cursor: pointer;
-    }
-
-    .comment-indent {
-      margin-left: var(--m-xl);
+      font-size: var(--fs-sm);
     }
   }
 </style>
