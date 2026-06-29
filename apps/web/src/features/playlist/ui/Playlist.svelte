@@ -2,7 +2,9 @@
   import { createImgPlaceholder, formatDuration } from "@/lib/utils/"
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
 
-  const { title, playlist } = $props()
+  const { title = null, playlist } = $props()
+
+  // console.log(title, playlist)
 
   function trim(text: string): string {
     const numWords = Math.floor(Math.random() * 5 + 1) || 3
@@ -63,10 +65,6 @@
     table {
       width: 100%;
       border-collapse: collapse;
-
-      th {
-        border-top: 1px solid var(--vinyl-100);
-      }
 
       tr {
         border-bottom: 1px solid var(--vinyl-100);

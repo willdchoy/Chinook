@@ -43,7 +43,7 @@
 
 <style>
   .feed-options {
-    padding-top: 10px;
+    padding: 10px;
     text-align: right;
 
     /* .feed-block {
@@ -65,13 +65,13 @@
       gap: 0.2em;
       width: 100%;
       padding: var(--p-md);
-      border-radius: var(--border-radius);
+      border-radius: var(--brad);
 
       .filter-tag {
         cursor: pointer;
         padding: var(--p-sm) calc(var(--p-sm) * 2);
         background-color: var(--vinyl-50);
-        border-radius: var(--border-radius);
+        border-radius: var(--brad);
 
         @media (--cm-md) {
           padding: var(--p-sm) calc(var(--p-sm) * 4);

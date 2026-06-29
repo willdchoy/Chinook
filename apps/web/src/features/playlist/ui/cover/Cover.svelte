@@ -12,8 +12,8 @@
     max-width: 100%;
 
     @container style(--direction: column) {
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
+      border-top-left-radius: var(--brad);
+      border-top-right-radius: var(--brad);
     }
   }
 </style>

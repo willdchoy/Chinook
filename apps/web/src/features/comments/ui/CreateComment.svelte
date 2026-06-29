@@ -22,7 +22,7 @@
       border: none;
       padding: var(--p-sm);
       padding-left: var(--p-md);
-      border-radius: var(--border-radius);
+      border-radius: var(--brad);
       font-size: var(--fs-sm);
 
       &::placeholder {

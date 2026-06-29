@@ -1,22 +1,22 @@
 <script lang="ts">
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
-  import { createImgPlaceholder } from "@/lib/utils"
+  import { createImgPlaceholder, createSiteLinks } from "@/lib/utils"
 
   let { cardItem, cardType } = $props()
-  const link = () =>
-    `/artist/${cardItem.artist.name}`.replace(/ /g, "-").replace(/\./g, "")
+  const links = () => createSiteLinks(cardItem)
 </script>
 
-<div class="card-wrapper" style:--card-type={cardType()}>
+<div class="card-container" style:--card-type={cardType}>
   <article class="card">
     <div class="card-image">
       <Cover url={createImgPlaceholder(cardItem.title, 500, 500)} />
     </div>
     <div class="card-metadata">
       <p>
-        <a href={link()}>
+        <a href={links().trackLink}>
           {cardItem.title}
         </a>
+        <a href={links().albumLink}> album </a>
         <span class="muted">
           {cardItem.year}
           by {cardItem.artist.name}
@@ -25,17 +25,17 @@
       <footer class="muted">
         <span><i class="fa-solid fa-arrow-up"></i></span>
         <span><i class="fa-solid fa-share"></i></span>
-        <span
-          ><i class="fa-solid fa-comment"></i>
-          <span>(523)</span></span
-        >
+        <a href={links().discussLink}>
+          <i class="fa-solid fa-comment"></i>
+          <span>(523)</span>
+        </a>
       </footer>
     </div>
   </article>
 </div>
 
 <style>
-  .card-wrapper {
+  .card-container {
     article.card {
       --bg-color: hsl(from white h s calc(l * 0.3));
       --bg-color-hover: hsl(from white h s calc(l * 0.2));
@@ -49,7 +49,7 @@
       @container style(--card-type: grid) {
         --direction: column;
         border: var(--border);
-        border-radius: var(--border-radius);
+        border-radius: var(--brad);
       }
 
       .card-image {

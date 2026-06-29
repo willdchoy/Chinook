@@ -1,10 +1,15 @@
 <script lang="ts">
   import { createImgPlaceholder } from "$lib/utils/"
   import Banner from "$lib/components/banners/Banner.svelte"
-  import Tabs from "$lib/components/tabs/Tabs.svelte"
+  import Tabs from "@/lib/components/tabs/Tabs.svelte"
+  import List from "@/features/list/ui/List.svelte"
+  import Playlist from "@/features/playlist/ui/Playlist.svelte"
+  import Comments from "@/features/comments/ui/Comments.svelte"
 
-  const { data } = $props()
+  const { data, activeTabId } = $props()
 
+  const playlist = () => data.playlist
+  const playlists = () => data.playlists
   const artistName = () => data?.playlist?.data?.artist.name
   const bgUrl = createImgPlaceholder(artistName(), 1420, 250)
   const banner = {
@@ -12,6 +17,25 @@
     title: artistName(),
     bgUrl
   }
+  const tabs = [
+    {
+      id: "tracks",
+      label: "Tracks",
+      component: Playlist,
+      props: { playlist: playlist() }
+    },
+    {
+      id: "albums",
+      label: "Albums",
+      component: List,
+      props: { listItems: playlists() }
+    },
+    {
+      id: "discuss",
+      label: "Discuss",
+      component: Comments
+    }
+  ]
 </script>
 
 <div class="page artist-profile-page">
@@ -20,7 +44,7 @@
     +Follow (1,245 following)
   </Banner>
   <div class="artist-details">
-    <Tabs playlists={data.playlists} playlist={data.playlist} />
+    <Tabs {activeTabId} {tabs} />
   </div>
 </div>
 

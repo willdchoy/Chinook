@@ -1,7 +1,7 @@
 <script lang="ts">
   const { children, banner = null } = $props()
   const sizeMap = new Map([
-    ["sm", "250px"],
+    ["sm", "150px"],
     ["md", "350px"],
     ["lg", "450px"]
   ])
@@ -31,7 +31,6 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    max-height: 500px;
     padding-bottom: var(--p-xxl);
     border-bottom: var(--border);
 

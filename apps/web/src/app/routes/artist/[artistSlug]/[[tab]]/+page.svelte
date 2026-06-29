@@ -3,4 +3,4 @@
   const { data } = $props()
 </script>
 
-<ArtistProfilePage {data} />
+<ArtistProfilePage {data} activeTabId={data.activeTab} />

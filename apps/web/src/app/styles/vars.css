@@ -56,30 +56,33 @@
   --tint-or-shade: color-mix(in oklab, var(--fg), transparent 75%); */
 
   /* borders */
-  --border-radius: 5px;
+  --brad: 5px;
   --border-size: 1px;
   --border-color: var(--vinyl-50);
   --border: var(--border-size) solid var(--border-color);
 
-  /* margin / padding / gap */
   --space-base: 0.5em;
-  --space-sm: var(--space-base);
-  --space-md: calc((var(--space-base)) * 2);
-  --space-lg: calc((var(--space-base)) * 3);
-  --space-xl: calc((var(--space-base)) * 4);
+  --space-sm: calc(var(--space-base) * 0.75);
+  --space-md: var(--space-base);
+  --space-lg: calc((var(--space-base)) * 1.25);
+  --space-xl: calc((var(--space-base)) * 1.5);
+  --space-2xl: calc((var(--space-base)) * 1.75);
 
   --g-sm: var(--space-sm);
   --g-md: var(--space-md);
   --g-lg: var(--space-lg);
   --g-xl: var(--space-xl);
+  --g-2xl: var(--space-2xl);
 
   --m-sm: var(--space-sm);
   --m-md: var(--space-md);
   --m-lg: var(--space-lg);
   --m-xl: var(--space-xl);
+  --m-2xl: var(--space-2xl);
 
   --p-sm: var(--space-sm);
   --p-md: var(--space-md);
   --p-lg: var(--space-lg);
   --p-xl: var(--space-xl);
+  --p-2xl: var(--space-2xl);
 }

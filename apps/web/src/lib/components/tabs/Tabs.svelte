@@ -1,85 +1,92 @@
-<script>
-  import Playlist from "@/features/playlist/ui/Playlist.svelte"
-  import List from "@/features/list/ui/List.svelte"
+<script lang="ts">
+  import type { Component } from "svelte"
 
-  const { playlists, playlist } = $props()
+  type Tab = {
+    id: string
+    label: string
+    component: Component
+    props: unknown
+  }
+  export type Tabs = Tab[]
+  type TabProps = {
+    tabs: Tabs
+    activeTabId: string
+  }
+
+  let { tabs = [], activeTabId = "album" }: TabProps = $props()
+  let activeTab = $derived(tabs.find((t) => t.id === activeTabId))
+
+  function selectTab(id: string) {
+    activeTabId = id
+  }
 </script>
 
-<div class="tabs">
-  <details name="alpha" style="--n: 1" open>
-    <summary>Tracks</summary>
-    <Playlist {playlist} />
-  </details>
-  <details name="alpha" style="--n: 2">
-    <summary>Albums</summary>
-    <List albums={playlists} />
-  </details>
-  <details name="alpha" style="--n: 3">
-    <summary>Media</summary>
-    <div>YouTubes and more...</div>
-  </details>
-  <details name="alpha" style="--n: 4">
-    <summary>About Us</summary>
-    <div>Us...</div>
-  </details>
+<div class="tabs-container">
+  <div class="tab-list" role="tablist">
+    {#each tabs as tab (tab.id)}
+      <button
+        class="tab-button"
+        class:active={tab.id === activeTabId}
+        role="tab"
+        aria-selected={tab.id === activeTabId}
+        onclick={() => selectTab(tab.id)}
+      >
+        {tab.label}
+      </button>
+    {/each}
+  </div>
+
+  <div class="tab-panel" role="tabpanel">
+    {#if activeTab}
+      {const Component = $derived(activeTab.component)}
+      <Component {...activeTab.props || {}} />
+    {:else}
+      <p class="empty">No tab selected.</p>
+    {/if}
+  </div>
 </div>
 
 <style>
-  .tabs {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(5rem, 1fr));
-    grid-template-rows: auto 1fr;
+  .tabs-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
   }
 
-  details {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-row: 1 / span 2;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
+  .tab-list {
+    display: flex;
+    border-bottom: var(--border);
   }
 
-  summary {
-    z-index: 0;
-    display: grid;
-    grid-column: var(--n) / span 1;
-    grid-row: 1;
-    padding: 0.5rem;
-    text-align: center;
-    font-size: var(--fs-sm);
-    border-bottom: 2px solid var(--vinyl-50);
+  .tab-button {
+    padding: var(--p-md);
+    border: none;
+    background: none;
     cursor: pointer;
-
-    @media (--cm-lg) {
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
-    }
+    font-size: var(--fs-base);
+    color: white;
+    padding: var(--p-sm) var(--p-2xl);
   }
 
-  details[open] :is(summary, .summary) {
-    font-weight: bold;
-    background-color: var(--vinyl-50);
+  .tab-button:hover {
+    color: var(--blue);
   }
 
-  details::details-content {
-    grid-row: 2;
-    grid-column: 1 / -1;
-    padding: 1rem;
+  .tab-button.active {
+    color: var(--vinyl);
+    background-color: var(--blue);
+    border-bottom-color: var(--blue);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-weight: 600;
   }
 
-  details:not([open])::details-content {
-    display: none;
+  .tab-panel {
+    padding: var(--p-lg) var(--p-md);
   }
 
-  @media screen and (width < 40em) {
-    .tabs {
-      grid-template-columns: repeat(4, minmax(90px, 1fr));
-    }
-
-    summary,
-    details::details-content {
-      padding: 0.5rem;
-    }
+  .empty {
+    color: #999;
+    font-style: italic;
   }
 </style>
