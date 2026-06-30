@@ -7,7 +7,7 @@
     margin-right: var(--m-md);
 
     img {
-      --size: 25px;
+      --size: 50px;
 
       min-width: var(--size);
       min-height: var(--size);
@@ -15,7 +15,7 @@
       height: var(--size);
       border-radius: 50%;
       object-fit: cover;
-      background-color: white;
+      background-color: var(--text1);
     }
   }
 </style>

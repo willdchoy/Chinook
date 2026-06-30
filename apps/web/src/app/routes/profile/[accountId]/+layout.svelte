@@ -60,7 +60,7 @@
           border-bottom: var(--border);
 
           &:hover {
-            background-color: var(--blue);
+            background-color: var(--brand);
             color: black;
           }
 

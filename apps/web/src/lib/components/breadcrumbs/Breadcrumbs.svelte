@@ -32,7 +32,7 @@
     }
 
     li {
-      color: white;
+      color: var(--text1);
       line-height: 0;
     }
 

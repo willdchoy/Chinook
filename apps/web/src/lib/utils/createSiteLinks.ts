@@ -3,7 +3,7 @@ export default function createSiteLinks(cardItem: unknown) {
     trackLink: `/artist/${cardItem.artist.name}`
       .replace(/ /g, "-")
       .replace(/\./g, ""),
-    albumLink: `/artist/${cardItem.artist.name}/albums`
+    albumLink: `/artist/${cardItem.artist.name}`
       .replace(/ /g, "-")
       .replace(/\./g, ""),
     discussLink: `/artist/${cardItem.artist.name}/discuss`

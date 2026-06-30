@@ -3,7 +3,7 @@
   import { createImgPlaceholder } from "@/lib/utils"
 </script>
 
-<footer class="player-wrapper">
+<footer class="player-wrapper surface-1">
   <div class="player">
     <div class="track">
       <div class="track-image">
@@ -38,7 +38,6 @@
 
     position: sticky;
     bottom: 0;
-    background-color: oklch(from var(--vinyl) calc(l - 0.04) c h);
     border-top: var(--border);
 
     @media (--cm-md) {

@@ -9,8 +9,12 @@
       <h1><a href="/">BangerTracks</a></h1>
     </div>
   </div>
-  <MainNav />
-  <div class="hamburger">&#9776;</div>
+  <div class="mobile">
+    <div class="hamburger">&#9776;</div>
+  </div>
+  <div class="desktop">
+    <MainNav />
+  </div>
 </header>
 
 <style>
@@ -32,11 +36,13 @@
     h1 {
       margin: 0;
       padding: 0;
-      font-size: var(--fs-xl);
+
       font-family: "Fjalla One", sans-serif;
     }
 
     a {
+      font-size: var(--fs-xl);
+
       &:hover {
         text-decoration: none;
       }
@@ -48,17 +54,25 @@
     width: 35px;
     height: 35px;
     margin-right: var(--m-sm);
-    border: 15px solid var(--blue);
+    border: 15px solid var(--brand);
     border-radius: 50%;
     background-color: transparent;
   }
 
-  .hamburger {
+  .mobile {
     margin-top: -9px;
     font-size: var(--fs-2xl);
 
     @media (--cm-md) {
       display: none;
+    }
+  }
+
+  .desktop {
+    display: none;
+
+    @media (--cm-md) {
+      display: block;
     }
   }
 </style>

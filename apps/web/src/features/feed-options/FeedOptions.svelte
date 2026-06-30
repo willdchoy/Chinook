@@ -79,7 +79,7 @@
 
         &:first-child {
           color: var(--vinyl);
-          background-color: var(--blue);
+          background-color: var(--brand);
         }
       }
     } */
@@ -90,7 +90,7 @@
         font-size: var(--fs-base);
         background: none;
         border: none;
-        color: white;
+        color: var(--text1);
       }
     }
   }

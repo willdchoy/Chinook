@@ -64,7 +64,7 @@
     background: none;
     cursor: pointer;
     font-size: var(--fs-base);
-    color: white;
+    color: var(--text1);
     padding: var(--p-sm) var(--p-2xl);
   }
 
@@ -73,9 +73,8 @@
   }
 
   .tab-button.active {
-    color: var(--vinyl);
-    background-color: var(--blue);
-    border-bottom-color: var(--blue);
+    color: var(--text1);
+    border-bottom: 3px solid var(--brand);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     font-weight: 600;

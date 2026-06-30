@@ -13,33 +13,33 @@
 </script>
 
 <div class="comments-wrapper">
-  <header>
+  <div class="comments-metadata">
     <span class="count">Comments (352)</span>
     <CreateComment />
-  </header>
+  </div>
 
-  <main>
+  <div class="comments-body">
     <Comment />
     <Comment />
     <Comment />
     <Comment />
-  </main>
+  </div>
 
-  <footer>
+  <div class="comments-view-more">
     <a href="_" onclick={handleViewMoreClick} class="view-more-cta"
       >View {isMoreText ? "more" : "less"} comments</a
     >
-  </footer>
+  </div>
 </div>
 
 <style>
   .comments-wrapper {
     display: flex;
     flex-direction: column;
-    gap: var(--g-md);
+    gap: var(--g-xl);
     padding: var(--p-md);
 
-    header {
+    .comments-metadata {
       display: flex;
       flex-direction: column;
       gap: var(--g-sm);
@@ -50,15 +50,14 @@
       }
     }
 
-    main {
+    .comments-body {
       display: flex;
       flex-direction: column;
       gap: var(--g-md);
     }
 
-    footer {
+    .comments-view-more {
       display: flex;
-      justify-content: center;
       gap: var(--g-sm);
       width: 100%;
       font-size: var(--fs-sm);

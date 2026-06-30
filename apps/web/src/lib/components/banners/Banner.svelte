@@ -1,18 +1,15 @@
 <script lang="ts">
   const { children, banner = null } = $props()
-  const sizeMap = new Map([
-    ["sm", "150px"],
-    ["md", "350px"],
-    ["lg", "450px"]
-  ])
 </script>
 
 <div
   class="banner"
-  style:height={sizeMap.get(banner.size) || sizeMap.get("md")}
-  style:background={`url("${banner.bgUrl}")`}
+  style:background={`
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%),
+    url("${banner.bgUrl}")
+  `}
   style:background-repeat="no-repeat"
-  style:background-position="right"
+  style:background-size="cover"
 >
   <div class="meta">
     <h1>
@@ -28,10 +25,11 @@
 <style>
   .banner {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
     height: 100%;
-    padding-bottom: var(--p-xxl);
+    aspect-ratio: 3 / 1;
+    padding-bottom: var(--p-2xl);
     border-bottom: var(--border);
 
     .meta {
@@ -40,17 +38,6 @@
       @media (--cm-md) {
         padding-left: var(--p-xl);
       }
-
-      h1 {
-        margin-block-end: var(--m-md);
-        line-height: 1.1;
-      }
-    }
-
-    p {
-      margin-bottom: var(--m-lg);
-      font-size: var(--fs-l);
-      line-height: 1;
     }
   }
 </style>

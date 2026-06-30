@@ -28,7 +28,6 @@ select {
 
     border: var(--border);
     background: var(--vinyl);
-    color: white;
     padding: 5px;
     transition: 0.4s;
   }

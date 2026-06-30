@@ -22,12 +22,7 @@
 
 <style>
   nav.main-nav {
-    display: none;
     margin-right: var(--m-md);
-
-    @media (--cm-md) {
-      display: block;
-    }
 
     ul {
       display: flex;
@@ -42,7 +37,7 @@
       }
 
       li:first-child a span {
-        color: var(--blue);
+        color: var(--brand);
       }
     }
   }

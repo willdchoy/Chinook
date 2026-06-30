@@ -6,11 +6,11 @@
   const links = () => createSiteLinks(cardItem)
 </script>
 
-<div class="card-container" style:--card-type={cardType}>
+<div class="card-container surface-2" style:--card-type={cardType()}>
   <article class="card">
-    <div class="card-image">
+    <header class="card-image">
       <Cover url={createImgPlaceholder(cardItem.title, 500, 500)} />
-    </div>
+    </header>
     <div class="card-metadata">
       <p>
         <a href={links().trackLink}>
@@ -22,14 +22,17 @@
           by {cardItem.artist.name}
         </span>
       </p>
-      <footer class="muted">
-        <span><i class="fa-solid fa-arrow-up"></i></span>
-        <span><i class="fa-solid fa-share"></i></span>
-        <a href={links().discussLink}>
+      <p class="card-actions">
+        <a href="/" aria-label="share"><i class="fa-solid fa-share"></i></a>
+        <a href="/" aria-label="share"
+          ><i class="fa-solid fa-arrow-up"></i>
+          <span class="muted">(3,523)</span></a
+        >
+        <a href={links().discussLink} aria-label="share">
           <i class="fa-solid fa-comment"></i>
-          <span>(523)</span>
+          <span class="muted">(523)</span>
         </a>
-      </footer>
+      </p>
     </div>
   </article>
 </div>
@@ -37,9 +40,6 @@
 <style>
   .card-container {
     article.card {
-      --bg-color: hsl(from white h s calc(l * 0.3));
-      --bg-color-hover: hsl(from white h s calc(l * 0.2));
-
       display: flex;
       flex-direction: var(--direction, row);
       max-width: 100%;
@@ -65,14 +65,16 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;
-        padding: var(--p-sm) var(--p-md) 0;
-        font-size: var(--fs-sm);
 
-        footer {
+        height: 100%;
+        padding: var(--p-md);
+        padding-bottom: 0;
+
+        .card-actions {
           display: flex;
           align-items: center;
           gap: var(--g-md);
+          font-size: 100px;
         }
       }
     }

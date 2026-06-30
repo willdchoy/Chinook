@@ -1,42 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald&display=swap");
 @import "reset.css";
-@import "colors.css";
-@import "media.css";
-@import "header.css";
-@import "vars.css";
-@import "utils";
+@import "themes.css";
+@import "gap.css";
 @import "layout.css";
+@import "media.css";
+@import "typo.css";
+@import "utils";
 @import "forms.css";
-
-body {
-  line-height: var(--line-height-base);
-}
-
-a,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--white);
-}
-
-a {
-  text-decoration: none;
-
-  &:hover {
-    color: var(--blue-300);
-  }
-}
-
-button {
-  padding: var(--p-md) var(--p-xl);
-  outline: none;
-  border-radius: var(--p-sm);
-  background-color: var(--blue);
-  border: var(--border);
-  color: var(--vinyl);
-  font-weight: 500;
-  cursor: pointer;
-}

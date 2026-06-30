@@ -9,7 +9,7 @@
 
 <div class="home-page" style:--feed-type={feedType()}>
   <FeedOptions bind:isGrid />
-  <h1>Top tracks of the day</h1>
+  <h3>Top tracks of the day</h3>
   <div class="feed">
     {#each data?.newAlbumList?.data as album}
       <Card cardItem={album} cardType={feedType} />

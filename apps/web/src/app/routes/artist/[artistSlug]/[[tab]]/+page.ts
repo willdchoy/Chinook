@@ -4,7 +4,7 @@ import { playlist } from "@/features/playlist/api/api"
 export const load = async ({ params }) => {
   if (browser) {
     return {
-      activeTab: params.tab || "tracks",
+      activeTab: params.tab || "music",
       playlists: await playlist.getAll(),
       playlist: await playlist.getById(1)
     }

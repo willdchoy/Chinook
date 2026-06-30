@@ -1,47 +1,48 @@
 <script lang="ts">
-  import { createImgPlaceholder } from "$lib/utils/"
+  import About from "@/lib/components/about/About.svelte"
+  import Media from "@/lib/components/media/Media.svelte"
   import Banner from "$lib/components/banners/Banner.svelte"
   import Tabs from "@/lib/components/tabs/Tabs.svelte"
   import List from "@/features/list/ui/List.svelte"
-  import Playlist from "@/features/playlist/ui/Playlist.svelte"
   import Comments from "@/features/comments/ui/Comments.svelte"
 
   const { data, activeTabId } = $props()
-
-  const playlist = () => data.playlist
   const playlists = () => data.playlists
   const artistName = () => data?.playlist?.data?.artist.name
-  const bgUrl = createImgPlaceholder(artistName(), 1420, 250)
+  const bgUrl =
+    "https://lh3.googleusercontent.com/vaNshmi_-a1iRdIcOlmwKkeVZXSkWDmEqk2JawbbIUqHYBSzkhlhymdrpDy6rPKM_PP_NXibOgddg4U=w1080-h450-p-l90-rj"
   const banner = {
-    size: "sm",
     title: artistName(),
     bgUrl
   }
   const tabs = [
     {
-      id: "tracks",
-      label: "Tracks",
-      component: Playlist,
-      props: { playlist: playlist() }
-    },
-    {
-      id: "albums",
-      label: "Albums",
+      id: "music",
+      label: "Music",
       component: List,
-      props: { listItems: playlists() }
+      props: { title: "Albums", listItems: playlists() }
     },
     {
       id: "discuss",
       label: "Discuss",
       component: Comments
+    },
+    {
+      id: "media",
+      label: "Media",
+      component: Media
+    },
+    {
+      id: "about",
+      label: "About",
+      component: About
     }
   ]
 </script>
 
-<div class="page artist-profile-page">
+<div class="artist-profile-page">
   <Banner {banner}>
-    <a href="/">OurWebisite.com</a> <br />
-    +Follow (1,245 following)
+    <button class="outline">Follow (62.4k)</button>
   </Banner>
   <div class="artist-details">
     <Tabs {activeTabId} {tabs} />
@@ -51,15 +52,8 @@
 <style>
   .artist-profile-page {
     .artist-details {
-      display: flex;
-      flex-direction: column-reverse;
       width: 100%;
-
-      @media (--cm-md) {
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 50px;
-      }
+      margin-top: 10px;
     }
   }
 </style>

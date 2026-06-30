@@ -20,14 +20,9 @@
 <style>
   .comment {
     display: flex;
-    margin-top: 0;
-
-    * + * {
-      margin-top: 0;
-    }
 
     p.message {
-      font-size: var(--fs-sm);
+      font-size: var(--fs-base);
     }
 
     .actions {

@@ -1,0 +1,28 @@
+:root {
+  --space-base: 0.5rem;
+  --space-sm: calc(var(--space-base) * 0.75);
+  --space-md: var(--space-base);
+  --space-lg: calc((var(--space-base)) * 1.25);
+  --space-xl: calc((var(--space-base)) * 1.5);
+  --space-2xl: calc((var(--space-base)) * 1.75);
+  --space-3xl: calc((var(--space-base)) * 2);
+
+  --g-sm: var(--space-sm);
+  --g-md: var(--space-md);
+  --g-lg: var(--space-lg);
+  --g-xl: var(--space-xl);
+  --g-2xl: var(--space-2xl);
+
+  --m-sm: var(--space-sm);
+  --m-md: var(--space-md);
+  --m-lg: var(--space-lg);
+  --m-xl: var(--space-xl);
+  --m-2xl: var(--space-2xl);
+
+  --p-sm: var(--space-sm);
+  --p-md: var(--space-md);
+  --p-lg: var(--space-lg);
+  --p-xl: var(--space-xl);
+  --p-2xl: var(--space-2xl);
+  --p-3xl: var(--space-3xl);
+}

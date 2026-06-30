@@ -4,8 +4,6 @@
 
   const { title = null, playlist } = $props()
 
-  // console.log(title, playlist)
-
   function trim(text: string): string {
     const numWords = Math.floor(Math.random() * 5 + 1) || 3
     return text.split(" ").slice(1, numWords).join(" ")
@@ -22,8 +20,8 @@
             <th></th>
             <th>Track</th>
             <th>Album</th>
-            <th>Year</th>
-            <th><i class="fa-solid fa-clock"></i></th>
+            <th class="center">Year</th>
+            <th class="center"><i class="fa-solid fa-clock"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +34,8 @@
               </td>
               <td>{trim(track.title)}</td>
               <td>{trim(playlist?.data?.title)}</td>
-              <td>{playlist?.data?.year}</td>
-              <td>{formatDuration(track.duration)}</td>
+              <td class="center">{playlist?.data?.year}</td>
+              <td class="center">{formatDuration(track.duration)}</td>
             </tr>
           {/each}
         </tbody>
@@ -70,7 +68,7 @@
         border-bottom: 1px solid var(--vinyl-100);
 
         &:not(:has(th)):hover {
-          background-color: var(--blue);
+          background-color: var(--brand);
           color: var(--vinyl);
         }
       }
@@ -79,11 +77,21 @@
       td {
         text-align: left;
         cursor: pointer;
+        padding: 0 var(--p-sm);
+      }
+
+      td:first-child {
+        padding: 0;
       }
 
       th {
         color: var(--muted);
         font-size: var(--fs-xs);
+      }
+
+      th.center,
+      td.center {
+        text-align: center;
       }
 
       td {

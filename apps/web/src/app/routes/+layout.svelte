@@ -2,6 +2,7 @@
   import "@/app/styles/base.css"
   import { onNavigate } from "$app/navigation"
   import Header from "@/features/header/ui/Header.svelte"
+  import Player from "@/features/player/Player.svelte"
 
   let { children } = $props()
 
@@ -18,10 +19,11 @@
 </script>
 
 <div class="layout-container">
-  <Header />
   <div class="layout-content">
+    <Header />
     <main>
       {@render children()}
     </main>
   </div>
+  <Player />
 </div>
