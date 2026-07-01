@@ -3,7 +3,7 @@
   import FeedOptions from "@/features/feed-options/FeedOptions.svelte"
 
   const { data } = $props()
-  let isGrid = $state(false)
+  let isGrid = $state(true)
   let feedType = () => (isGrid ? "grid" : "list")
 </script>
 
@@ -23,7 +23,7 @@
     flex-direction: column;
 
     .feed {
-      --min-card-size: 150px;
+      --min-card-size: 190px;
       --max-card-size: 1fr;
 
       display: grid;

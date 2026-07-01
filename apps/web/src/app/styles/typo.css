@@ -8,10 +8,6 @@
   --site-min-vh: 100vh;
 
   /* vertical rhytm */
-  --rhythm: 1.5rem; /* 24px — base line height */
-  --rhythm-half: 0.75rem; /* 12px */
-  --rhythm-quarter: 0.375rem; /* 6px */
-
   --fs-xs: clamp(0.64rem, 0.1vw + 0.61rem, 0.75rem); /* ×0.512  */
   --fs-sm: clamp(0.8rem, 0.15vw + 0.76rem, 0.875rem); /* ×0.640  */
   --fs-base: clamp(1rem, 1rem, 1rem); /* ×1.000  */
@@ -22,6 +18,10 @@
   --fs-3xl: clamp(3.052rem, 2vw + 2.55rem, 4.5rem); /* ×3.052  */
   --fs-4xl: clamp(3.815rem, 2.8vw + 3.11rem, 5.625rem); /* ×3.815  */
   --fs-5xl: clamp(4.768rem, 3.8vw + 3.82rem, 7.031rem); /* ×4.768  */
+
+  --rhythm: 1.5rem; /* 24px — base line height */
+  --rhythm-half: 0.75rem; /* 12px */
+  --rhythm-quarter: 0.375rem; /* 6px */
 
   --line-height-xs: var(--rhythm); /* 1.5rem  */
   --line-height-sm: var(--rhythm); /* 1.5rem  */

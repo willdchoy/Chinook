@@ -1,6 +1,9 @@
 <script lang="ts">
   import Cover from "@/features/playlist/ui/cover/Cover.svelte"
   import { createImgPlaceholder, createSiteLinks } from "@/lib/utils"
+  import bcLogo from "$lib/assets/bandcamp.svg"
+  import scLogo from "$lib/assets/soundcloud.svg"
+  import ytLogo from "$lib/assets/youtube.svg"
 
   let { cardItem, cardType } = $props()
   const links = () => createSiteLinks(cardItem)
@@ -16,23 +19,32 @@
         <a href={links().trackLink}>
           {cardItem.title}
         </a>
-        <a href={links().albumLink}> album </a>
+        <a href={links().albumLink}>album</a>
         <span class="muted">
           {cardItem.year}
           by {cardItem.artist.name}
         </span>
       </p>
-      <p class="card-actions">
-        <a href="/" aria-label="share"><i class="fa-solid fa-share"></i></a>
-        <a href="/" aria-label="share"
-          ><i class="fa-solid fa-arrow-up"></i>
-          <span class="muted">(3,523)</span></a
-        >
-        <a href={links().discussLink} aria-label="share">
-          <i class="fa-solid fa-comment"></i>
-          <span class="muted">(523)</span>
-        </a>
-      </p>
+      <div>
+        <div class="card-actions">
+          <img src={bcLogo} alt="BandCamp" />
+          <img src={ytLogo} alt="YouTube" />
+          <img src={scLogo} alt="SoundCloud" />
+        </div>
+        <div class="card-actions">
+          <a href="/" aria-label="share"
+            ><i class="fa-solid fa-arrow-up"></i>
+            <span class="count muted">3,523</span></a
+          >
+          <a href={links().discussLink} aria-label="share">
+            <i class="fa-solid fa-comment"></i>
+            <span class="count muted">1,523</span>
+          </a>
+          <a href="/" aria-label="share">
+            <i class="fa-solid fa-share"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </article>
 </div>
@@ -65,7 +77,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
         height: 100%;
         padding: var(--p-md);
         padding-bottom: 0;
@@ -73,8 +84,17 @@
         .card-actions {
           display: flex;
           align-items: center;
-          gap: var(--g-md);
-          font-size: 100px;
+          justify-content: flex-start;
+          gap: var(--g-xl);
+
+          img {
+            max-width: 25px;
+          }
+
+          a,
+          .count {
+            font-size: var(--fs-sm);
+          }
         }
       }
     }

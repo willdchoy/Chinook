@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: var(--site-min-vh);
+  height: var(--site-min-vh);
   width: 100%;
   grid-template-areas:
     "header"
@@ -24,13 +24,14 @@ body {
 }
 
 .layout-content {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   margin: 0 auto;
   max-width: var(--site-max-width);
 
   main {
     flex: 1;
+    height: 100%;
     width: 100%;
 
     @media (--cm-sm) {

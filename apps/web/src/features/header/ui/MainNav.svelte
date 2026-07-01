@@ -13,6 +13,9 @@
       <a href="/">Discover</a>
     </li>
     <li>
+      <a href="/style-guide">S</a>
+    </li>
+    <li>
       <a href="/profile/1111/bio" aria-label="account">
         <i class="fa-solid fa-user"></i>
       </a>
