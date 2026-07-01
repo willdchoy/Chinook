@@ -36,7 +36,7 @@
     --mobilePlayerSize: 60px;
     --playerSize: 100px;
 
-    position: sticky;
+    position: fixed;
     bottom: 0;
     border-top: var(--border);
 

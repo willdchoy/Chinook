@@ -3,7 +3,7 @@
   import FeedOptions from "@/features/feed-options/FeedOptions.svelte"
 
   const { data } = $props()
-  let isGrid = $state(true)
+  let isGrid = $state(false)
   let feedType = () => (isGrid ? "grid" : "list")
 </script>
 

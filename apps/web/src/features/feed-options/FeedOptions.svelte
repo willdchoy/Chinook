@@ -28,6 +28,7 @@
         <option value="artist">Artist</option>
       </select>
     </div> -->
+
   <div class="feed-type">
     {#if isGrid}
       <button onclick={handleClick} aria-label="Show as list"
@@ -46,20 +47,20 @@
     padding: 10px;
     text-align: right;
 
-    /* .feed-block {
+    .feed-block {
       display: flex;
     }
 
-    .feed-sort {
+    /* .feed-sort {
       display: flex;
       width: 100%;
 
       @media (--cm-md) {
         width: 160px;
-      }
-    } */
+      } */
+  }
 
-    /* .feed-filter-tags {
+  /* .feed-filter-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.2em;
@@ -84,14 +85,14 @@
       }
     } */
 
-    .feed-type {
-      button {
-        padding: 0;
-        font-size: var(--fs-base);
-        background: none;
-        border: none;
-        color: var(--text1);
-      }
+  .feed-type {
+    button {
+      padding: 0;
+      font-size: var(--fs-lg);
+      background: none;
+      border: none;
+      color: var(--text1);
     }
   }
+  /* } */
 </style>
